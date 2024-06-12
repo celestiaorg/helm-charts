@@ -1,6 +1,6 @@
 # celestia-app
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: v1.9.0](https://img.shields.io/badge/AppVersion-v1.9.0-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: v1.10.1](https://img.shields.io/badge/AppVersion-v1.10.1-informational?style=flat-square)
 
 Celestia App
 
@@ -94,6 +94,7 @@ Celestia App
 | app.config.configtoml.consensus.create_empty_blocks | bool | `true` |  |
 | app.config.configtoml.consensus.create_empty_blocks_interval | string | `"0s"` |  |
 | app.config.configtoml.consensus.double_sign_check_height | int | `0` |  |
+| app.config.configtoml.consensus.only_internal_wal | string | `"true"` |  |
 | app.config.configtoml.consensus.peer_gossip_sleep_duration | string | `"100ms"` |  |
 | app.config.configtoml.consensus.peer_query_maj23_sleep_duration | string | `"2s"` |  |
 | app.config.configtoml.consensus.skip_timeout_commit | bool | `false` |  |
@@ -111,18 +112,6 @@ Celestia App
 | app.config.configtoml.fastsync.version | string | `"v0"` |  |
 | app.config.configtoml.filter_peers | bool | `false` |  |
 | app.config.configtoml.genesis_file | string | `"config/genesis.json"` |  |
-| app.config.configtoml.instrumentation.influx_batch_size | int | `20` |  |
-| app.config.configtoml.instrumentation.influx_bucket | string | `"e2e"` |  |
-| app.config.configtoml.instrumentation.influx_org | string | `"celestia"` |  |
-| app.config.configtoml.instrumentation.influx_tables[0] | string | `"mempool_tx"` |  |
-| app.config.configtoml.instrumentation.influx_tables[1] | string | `"mempool_peer_state"` |  |
-| app.config.configtoml.instrumentation.influx_tables[2] | string | `"mempool_rejected"` |  |
-| app.config.configtoml.instrumentation.influx_tables[3] | string | `"consensus_round_state"` |  |
-| app.config.configtoml.instrumentation.influx_tables[4] | string | `"consensus_block_parts"` |  |
-| app.config.configtoml.instrumentation.influx_tables[5] | string | `"consensus_block"` |  |
-| app.config.configtoml.instrumentation.influx_tables[6] | string | `"consensus_vote"` |  |
-| app.config.configtoml.instrumentation.influx_token | string | `""` |  |
-| app.config.configtoml.instrumentation.influx_url | string | `""` |  |
 | app.config.configtoml.instrumentation.max_open_connections | int | `3` |  |
 | app.config.configtoml.instrumentation.namespace | string | `"cometbft"` |  |
 | app.config.configtoml.instrumentation.prometheus | bool | `false` |  |
@@ -132,11 +121,14 @@ Celestia App
 | app.config.configtoml.instrumentation.pyroscope_profile_types[2] | string | `"inuse_objects"` |  |
 | app.config.configtoml.instrumentation.pyroscope_profile_types[3] | string | `"goroutines"` |  |
 | app.config.configtoml.instrumentation.pyroscope_profile_types[4] | string | `"mutex_count"` |  |
-| app.config.configtoml.instrumentation.pyroscope_profile_types[5] | string | `"mutex_duration"` |  |
-| app.config.configtoml.instrumentation.pyroscope_profile_types[6] | string | `"block_count"` |  |
-| app.config.configtoml.instrumentation.pyroscope_profile_types[7] | string | `"block_duration"` |  |
+| app.config.configtoml.instrumentation.pyroscope_profile_types[5] | string | `"mutex_duration - block_count - block_duration"` |  |
 | app.config.configtoml.instrumentation.pyroscope_trace | bool | `false` |  |
 | app.config.configtoml.instrumentation.pyroscope_url | string | `""` |  |
+| app.config.configtoml.instrumentation.trace_pull_address | string | `""` |  |
+| app.config.configtoml.instrumentation.trace_push_batch_size | int | `1000` |  |
+| app.config.configtoml.instrumentation.trace_push_config | string | `""` |  |
+| app.config.configtoml.instrumentation.trace_type | string | `"noop"` |  |
+| app.config.configtoml.instrumentation.tracing_tables | string | `"mempool_tx,mempool_peer_state,consensus_round_state,consensus_block_parts,consensus_block,consensus_vote"` |  |
 | app.config.configtoml.log_format | string | `"plain"` |  |
 | app.config.configtoml.log_level | string | `"info"` |  |
 | app.config.configtoml.mempool.broadcast | bool | `true` |  |
@@ -246,11 +238,11 @@ Celestia App
 | app.extraVolumeMounts | list | `[]` |  |
 | app.extraVolumes | list | `[]` |  |
 | app.hostAliases | list | `[]` |  |
-| app.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-app","tag":"v1.9.0"}` | image parameters for the image |
+| app.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-app","tag":"v1.10.1"}` | image parameters for the image |
 | app.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | app.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | app.image.repository | string | `"celestiaorg/celestia-app"` | repository for the image, celestiaorg/celestia-app by default |
-| app.image.tag | string | `"v1.9.0"` | tag for the image, v1.9.0 by default |
+| app.image.tag | string | `"v1.10.1"` | tag for the image, v1.9.0 by default |
 | app.initContainers | list | `[]` |  |
 | app.lifecycleHooks | object | `{}` |  |
 | app.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the app |
@@ -270,10 +262,12 @@ Celestia App
 | app.otelAgent.grafanaOtelSecret.name | string | `"SET_IT"` | name of the grafana otel secret, it must be set |
 | app.otelAgent.image | object | `{"digest":"","pullPolicy":"IfNotPresent","registry":"ghcr.io","repository":"open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib","tag":"0.102.0"}` | image for the otel agent, ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:0.102.0 by default |
 | app.otelAgent.resources | object | `{}` |  |
-| app.otelAgent.resourcesPreset | string | `"nano"` |  |
+| app.otelAgent.resourcesPreset | string | `"micro"` |  |
 | app.pdb.create | bool | `false` |  |
 | app.pdb.maxUnavailable | string | `""` |  |
 | app.pdb.minAvailable | int | `1` |  |
+| app.persistentVolumeClaimRetentionPolicy.whenDeleted | string | `"Retain"` |  |
+| app.persistentVolumeClaimRetentionPolicy.whenScaled | string | `"Retain"` |  |
 | app.podAffinityPreset | string | `""` |  |
 | app.podAnnotations | object | `{}` |  |
 | app.podAntiAffinityPreset | string | `"soft"` |  |
@@ -301,9 +295,10 @@ Celestia App
 | app.resources.requests.memory | string | `"8Gi"` | memory requests for the app, 8Gi by default |
 | app.resourcesPreset | string | `"nano"` | more information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15 |
 | app.schedulerName | string | `""` |  |
-| app.settings.genesisURL | string | `"SET_IT"` | genesis URL for the celestia-app, it must be set |
+| app.settings.generateNewKeys | bool | `true` |  |
+| app.settings.genesisURL | string | `""` | genesis URL for the celestia-app, it must be set |
 | app.settings.home | string | `"/home/celestia"` | home directory for the celestia-app, defaults to /home/celestia |
-| app.settings.secret.name | string | `"SET_IT"` | name of the secret, it must be set |
+| app.settings.secret.name | string | `""` | name of the secret, it must be set |
 | app.sidecars | list | `[]` |  |
 | app.startupProbe | object | `{"enabled":false,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | startup probe for the app   |
 | app.startupProbe.enabled | bool | `false` | enable startup probe on app containers, false by default |

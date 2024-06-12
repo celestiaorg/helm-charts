@@ -58,12 +58,13 @@ Celestia Node
 | node.affinity | object | `{}` |  |
 | node.args[0] | string | `"bridge"` |  |
 | node.args[1] | string | `"start"` |  |
-| node.args[2] | string | `"--node.store=\"$(CELESTIA_HOME)\""` |  |
+| node.args[2] | string | `"--node.store=$(CELESTIA_HOME)"` |  |
 | node.args[3] | string | `"--metrics"` |  |
 | node.args[4] | string | `"--metrics.tls=false"` |  |
 | node.args[5] | string | `"--p2p.metrics"` |  |
 | node.automountServiceAccountToken | bool | `false` | mount service account token in node pods |
-| node.command | list | `["/bin/celestia"]` | command for the celestia-node  |
+| node.command | list | `["celestia"]` | command for the celestia-node  |
+| node.command[0] | string | `"celestia"` | celestia |
 | node.config.configtoml.Core.GRPCPort | string | `"9090"` |  |
 | node.config.configtoml.Core.IP | string | `""` |  |
 | node.config.configtoml.Core.RPCPort | string | `"26657"` |  |
@@ -165,11 +166,11 @@ Celestia Node
 | node.extraVolumeMounts | list | `[]` |  |
 | node.extraVolumes | list | `[]` |  |
 | node.hostAliases | list | `[]` |  |
-| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v1.9.0"}` | image parameters for the image |
+| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.13.6"}` | image parameters for the image |
 | node.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | node.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | node.image.repository | string | `"celestiaorg/celestia-node"` | repository for the image, celestiaorg/celestia-node by default |
-| node.image.tag | string | `"v1.9.0"` | tag for the image, v1.9.0 by default |
+| node.image.tag | string | `"v0.13.6"` | tag for the image, v0.13.6 by default |
 | node.initContainers | list | `[]` |  |
 | node.lifecycleHooks | object | `{}` |  |
 | node.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the node |
@@ -183,16 +184,18 @@ Celestia Node
 | node.nodeAffinityPreset.type | string | `""` |  |
 | node.nodeAffinityPreset.values | list | `[]` |  |
 | node.nodeSelector | object | `{}` |  |
-| node.otelAgent.config | object | `{"exporters":{"otlphttp":{"auth":{"authenticator":"basicauth/otlp"},"endpoint":"https://otlp-gateway-prod-us-central-0.grafana.net/otlp"},"prometheus":{"endpoint":"localhost:8889"}},"extensions":{"basicauth/otlp":{"client_auth":{"password":"${GRAFANA_OTEL_TOKEN}","username":"${GRAFANA_OTEL_USERNAME}"}}},"receivers":{"otlp":{"protocols":{"grpc":{"endpoint":"localhost:4317"},"http":{"endpoint":"localhost:4318"}}},"prometheus":{"config":{"scrape_configs":[{"job_name":"${JOB_NAME}","scrape_interval":"10s","static_configs":[{"targets":["localhost:26660"]}]}]}}},"service":{"extensions":["basicauth/otlp"],"pipelines":{"metrics":{"exporters":["otlphttp","prometheus"],"receivers":["otlp","prometheus"]}},"telemetry":{"logs":{"level":"INFO"},"metrics":{"address":"localhost:8888","level":"basic"}}}}` | config for the otel agent (See: https://opentelemetry.io/docs/collector/configuration/) |
+| node.otelAgent.config | object | `{"exporters":{"otlphttp":{"auth":{"authenticator":"basicauth/otlp"},"endpoint":"https://otlp-gateway-prod-us-central-0.grafana.net/otlp"},"prometheus":{"endpoint":"localhost:8889"}},"extensions":{"basicauth/otlp":{"client_auth":{"password":"${GRAFANA_OTEL_TOKEN}","username":"${GRAFANA_OTEL_USERNAME}"}}},"receivers":{"otlp":{"protocols":{"grpc":{"endpoint":"localhost:4317"},"http":{"endpoint":"localhost:4318"}}},"prometheus":{"config":{"scrape_configs":[{"job_name":"${JOB_NAME}","scrape_interval":"10s","static_configs":[{"targets":["localhost:8890"]}]}]}}},"service":{"extensions":["basicauth/otlp"],"pipelines":{"metrics":{"exporters":["otlphttp","prometheus"],"receivers":["otlp","prometheus"]}},"telemetry":{"logs":{"level":"INFO"},"metrics":{"address":"localhost:8888","level":"basic"}}}}` | config for the otel agent (See: https://opentelemetry.io/docs/collector/configuration/) |
 | node.otelAgent.enabled | bool | `false` | enable otel agent for the node, false by default |
 | node.otelAgent.grafanaOtelSecret | object | `{"name":"SET_IT"}` | grafana otel secret for the node |
 | node.otelAgent.grafanaOtelSecret.name | string | `"SET_IT"` | name of the grafana otel secret, it must be set |
 | node.otelAgent.image | object | `{"digest":"","pullPolicy":"IfNotPresent","registry":"ghcr.io","repository":"open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib","tag":"0.102.0"}` | image for the otel agent, ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:0.102.0 by default |
 | node.otelAgent.resources | object | `{}` |  |
-| node.otelAgent.resourcesPreset | string | `"nano"` |  |
+| node.otelAgent.resourcesPreset | string | `"micro"` |  |
 | node.pdb.create | bool | `false` |  |
 | node.pdb.maxUnavailable | string | `""` |  |
 | node.pdb.minAvailable | int | `1` |  |
+| node.persistentVolumeClaimRetentionPolicy.whenDeleted | string | `"Retain"` |  |
+| node.persistentVolumeClaimRetentionPolicy.whenScaled | string | `"Retain"` |  |
 | node.podAffinityPreset | string | `""` |  |
 | node.podAnnotations | object | `{}` |  |
 | node.podAntiAffinityPreset | string | `"soft"` |  |
