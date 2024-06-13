@@ -386,7 +386,7 @@ node:
   ## @param node.startupProbe.failureThreshold Failure threshold for startupProbe
   ## @param node.startupProbe.successThreshold Success threshold for startupProbe
   ##
-  # -- startup probe for the node  
+  # -- startup probe for the node
   startupProbe:
     # -- enable startup probe on node containers, false by default
     enabled: false
@@ -425,7 +425,7 @@ node:
   ##     cpu: 3
   ##     memory: 1024Mi
   ##
-  # -- resources for the node
+  # -- resources for the node
   resources:
     # -- requests for the node
     requests:
@@ -487,7 +487,7 @@ node:
     readOnlyRootFilesystem: true
     # -- privileged in node container, false by default
     privileged: false
-    # -- allowPrivilegeEscalation in node container, false by default  
+    # -- allowPrivilegeEscalation in node container, false by default
     allowPrivilegeEscalation: false
     # -- capabilities to be dropped in node container, ["ALL"] by default
     capabilities:
@@ -501,7 +501,7 @@ node:
   existingConfigmap:
   ## @param node.command Override default node container command (useful when using custom images)
   ##
-  # -- command for the celestia-node 
+  # -- command for the celestia-node
   command:
     # -- celestia
     - celestia
@@ -696,11 +696,11 @@ node:
 
 ## node service parameters
 ##
-# -- service parameters 
+# -- service parameters
 service:
   ## @param service.internal.type node internal service type
   ##
-  # -- service type, ClusterIP by default 
+  # -- service type, ClusterIP by default
   internal:
     # -- service type, ClusterIP by default
     type: ClusterIP
@@ -745,11 +745,11 @@ service:
   ##
   # -- external service parameters
   external:
-    # -- enable external service, true by default 
+    # -- enable external service, true by default
     enabled: true
     ## @param service.external.type node external service type
     ##
-    # -- external service type, LoadBalancer by default 
+    # -- external service type, LoadBalancer by default
     type: LoadBalancer
     ## @param service.external.ports.p2p Node external service P2P port
     ## @param service.external.ports.rest Node external service REST port
@@ -771,17 +771,17 @@ service:
     ## @param service.external.nodePorts.prometheus Node port for Prometheus
     ## NOTE: choose port between <30000-32767>
     ##
-    # -- node ports for the celestia-app
+    # -- node ports for the celestia-app
     nodePorts:
-      # -- p2p port, 2121 by default
+      # -- p2p port, 2121 by default
       p2p: ""
-      # -- rest port, 26659 by default
+      # -- rest port, 26659 by default
       rest: ""
-      # -- rpc port, 26658 by default
+      # -- rpc port, 26658 by default
       rpc: ""
-      # -- profiling port, 6060 by default
+      # -- profiling port, 6060 by default
       profiling: ""
-      # -- prometheus port, 8890 by default
+      # -- prometheus port, 8890 by default
       prometheus: ""
     ## @param service.external.loadBalancerIP node external service Load Balancer IP
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
@@ -886,7 +886,7 @@ networkPolicy:
 persistence:
   ## @param persistence.enabled Enable persistence using Persistent Volume Claims
   ##
-  # -- enable persistence, true by default
+  # -- enable persistence, true by default
   enabled: true
   ## @param persistence.mountPath Path to mount the volume at.
   ## Note: This value is overridden by 'Values.node.settings.home' in the stateful set.
@@ -913,7 +913,7 @@ persistence:
     - ReadWriteOnce
   ## @param persistence.size Size of data volume
   ##
-  # -- size of data volume, 250Gi by default
+  # -- size of data volume, 250Gi by default
   size: 250Gi
   ## @param persistence.existingClaim The name of an existing PVC to use for persistence
   ##
