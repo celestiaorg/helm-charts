@@ -54,6 +54,7 @@ node:
       Core:
         IP: consensus-full-mocha-4.celestia-mocha.com
       RPC:
+        Enabled: true
         Address: 0.0.0.0
       Gateway:
         Enabled: true
