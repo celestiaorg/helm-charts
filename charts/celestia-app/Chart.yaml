@@ -17,7 +17,7 @@ keywords:
   - celestia-app
 maintainers:
   - name: Celestia Labs
-    url: https://github.com/celestiaorg/celestia-helm-charts
+    url: https://github.com/celestiaorg/helm-charts
 name: celestia-app
 sources:
   - https://github.com/celestiaorg/celestia-app
