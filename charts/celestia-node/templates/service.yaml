@@ -44,7 +44,7 @@ spec:
       nodePort: null
       {{- end }}
     {{- end }}
-    {{- if .Values.service.external.ports.rest }}
+    {{- if .Values.service.external.ports.p2p }}
     - name: p2p-udp
       port: {{ .Values.service.external.ports.p2p }}
       {{- if not (eq .Values.service.external.ports.p2p .Values.node.containerPorts.p2p) }}
