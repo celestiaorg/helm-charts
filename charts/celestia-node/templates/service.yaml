@@ -45,6 +45,19 @@ spec:
       {{- end }}
     {{- end }}
     {{- if .Values.service.external.ports.rest }}
+    - name: p2p-udp
+      port: {{ .Values.service.external.ports.p2p }}
+      {{- if not (eq .Values.service.external.ports.p2p .Values.node.containerPorts.p2p) }}
+      targetPort: {{ .Values.node.containerPorts.p2p }}
+      {{- end }}
+      protocol: UDP
+      {{- if and (or (eq .Values.service.external.type "NodePort") (eq .Values.service.external.type "LoadBalancer")) (not (empty .Values.service.external.nodePorts.p2p)) }}
+      nodePort: {{ .Values.service.external.nodePorts.p2p }}
+      {{- else if eq .Values.service.external.type "ClusterIP" }}
+      nodePort: null
+      {{- end }}
+    {{- end }}
+    {{- if .Values.service.external.ports.rest }}
     - name: rest
       port: {{ .Values.service.external.ports.rest }}
       {{- if not (eq .Values.service.external.ports.rest .Values.node.containerPorts.rest) }}
@@ -134,6 +147,10 @@ spec:
       targetPort: {{ .Values.node.containerPorts.p2p }}
       {{- end }}
       protocol: TCP
+    - name: p2p-udp
+      port: {{ .Values.service.internal.ports.p2p }}
+      targetPort: {{ .Values.node.containerPorts.p2p }}
+      protocol: UDP
     - name: rest
       port: {{ .Values.service.internal.ports.rest }}
       {{- if not (eq .Values.service.internal.ports.rest .Values.node.containerPorts.rest) }}
