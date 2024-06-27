@@ -116,7 +116,7 @@ spec:
   selector: {{- include "common.labels.matchLabels" ( dict "customLabels" $podLabels "context" $ ) | nindent 4 }}
     app.kubernetes.io/component: node
 ---
-  {{- end }}
+{{- end }}
 
 apiVersion: v1
 kind: Service
@@ -141,7 +141,7 @@ spec:
   sessionAffinityConfig: {{- include "common.tplvalues.render" (dict "value" .Values.service.internal.sessionAffinityConfig "context" $) | nindent 4 }}
   {{- end }}
   ports:
-    - name: p2p
+    - name: p2p-tcp
       port: {{ .Values.service.internal.ports.p2p }}
       {{- if not (eq .Values.service.internal.ports.p2p .Values.node.containerPorts.p2p) }}
       targetPort: {{ .Values.node.containerPorts.p2p }}

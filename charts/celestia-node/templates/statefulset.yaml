@@ -186,7 +186,7 @@ spec:
           resources: {{- include "common.resources.preset" (dict "type" .Values.node.resourcesPreset) | nindent 12 }}
           {{- end }}
           ports:
-            - name: p2p
+            - name: p2p-tcp
               containerPort: {{ .Values.node.containerPorts.p2p }}
               protocol: TCP
             - name: p2p-udp
