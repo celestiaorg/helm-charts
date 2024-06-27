@@ -4,12 +4,6 @@ commonLabels: &commonLabels
   network: da
   type: &nodeType light # check
   secretName: &secretName keys-da-bridge-1 # check
-persistence:
-  size: 1000Gi
-  dataSource:
-    apiGroup: snapshot.storage.k8s.io
-    kind: VolumeSnapshot
-    name: da-latest
 node:
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete
