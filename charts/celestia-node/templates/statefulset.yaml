@@ -207,7 +207,7 @@ spec:
           {{- if .Values.node.customReadinessProbe }}
           readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.node.customReadinessProbe "context" $) | nindent 12 }}
           {{- else if .Values.node.readinessProbe.enabled }}
-          {{- if or (eq .Values.node.nodeType "bridge") (eq .Values.node.nodeType "full") }}
+          {{- if or (eq .Values.node.settings.nodeType "bridge") (eq .Values.node.settings.nodeType "full") (eq .Values.node.settings.nodeType "light") }}
           readinessProbe:
             exec:
               command:
@@ -215,9 +215,9 @@ spec:
                 - '-c'
                 - >
                   AUTH_TOKEN=$(celestia bridge auth read --node.store=/home/celestia 2>/dev/null);
-                  {{- if eq .Values.node.nodeType "bridge" }}
+                  {{- if eq .Values.node.settings.nodeType "bridge" }}
                   curl --max-time 0.5 -s -X POST -H "Content-type: application/json" -H "Accept: application/json" -H "Authorization: Bearer $AUTH_TOKEN" -d '{"id":1,"jsonrpc":"2.0","method":"header.SyncWait","params":[]}' "http://localhost:26658";
-                  {{- else if eq .Values.node.nodeType "full" }}
+                  {{- else if or (eq .Values.node.settings.nodeType "full") (eq .Values.node.settings.nodeType "light") }}
                   curl --max-time 0.5 -s -X POST -H "Content-type: application/json" -H "Accept: application/json" -H "Authorization: Bearer $AUTH_TOKEN" -d '{"id":1,"jsonrpc":"2.0","method":"das.WaitCatchUp","params":[]}' "http://localhost:26658";
                   {{- end }}
                   if [ "$?" -eq 0 ]; then exit 0; else echo "Catching up"; exit 1; fi

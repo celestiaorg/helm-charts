@@ -74,12 +74,6 @@ diagnosticMode:
 ## %%MAIN_CONTAINER/POD_DESCRIPTION%%
 ##
 node:
-  ## Select from: bridge, full, light
-  ## Valid values:
-  ## - bridge
-  ## - full
-  ## - light:
-  nodeType: bridge
   ## Celestia celestia-node image
   ## ref: https://github.com/celestiaorg/celestia-node/pkgs/container/celestia-node/versions?filters%5Bversion_type%5D=tagged
   ## @param node.image.registry [default: REGISTRY_NAME] celestia-node image registry
@@ -114,6 +108,12 @@ node:
     pullSecrets: []
   ## @param node.settings Settings for the celestia-node
   settings:
+    ## Select from: bridge, full, light
+    ## Valid values:
+    ## - bridge
+    ## - full
+    ## - light:
+    nodeType: bridge
     ## @param node.settings.home Home directory for the celestia-node
     ##
     # -- home directory for the celestia-node, defaults to /home/celestia

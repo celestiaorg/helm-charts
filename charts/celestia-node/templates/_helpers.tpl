@@ -30,7 +30,6 @@ Create the name of the service account to use
 {{- end -}}
 {{- end -}}
 
-
 {{/*
 Return the proper image name for the otel agent
 */}}
@@ -38,19 +37,30 @@ Return the proper image name for the otel agent
 {{- include "common.images.image" (dict "imageRoot" .Values.node.otelAgent.image "global" .Values.global) -}}
 {{- end -}}
 
+{{/*
+Validate the node.settings.nodeType value.
+*/}}
+{{- define "node.validateValues.nodeType" -}}
+{{- if not (hasKey .Values.node.settings "nodeType") -}}
+Node type is not set. Must be one of 'bridge', 'full', or 'light'.
+{{- else if and (ne .Values.node.settings.nodeType "bridge") (ne .Values.node.settings.nodeType "full") (ne .Values.node.settings.nodeType "light") -}}
+Invalid node type: {{ .Values.node.settings.nodeType }}. Must be one of 'bridge', 'full', or 'light'.
+{{- end -}}
+{{- end -}}
+
 # TODO: add validations for values
 # Remember to add the validation message to NOTES.txt at the end ({{- include "node.validateValues" . }})
 {{/*
-Compile all warnings into a single message.
+{{/*
+Compile all warnings into a single message and fail the deployment if there are any.
 */}}
 {{- define "node.validateValues" -}}
 {{- $messages := list -}}
-{{- $messages := append $messages (include "node.validateValues.foo" .) -}}
-{{- $messages := append $messages (include "node.validateValues.bar" .) -}}
+{{- $messages := append $messages (include "node.validateValues.nodeType" .) -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
 
 {{- if $message -}}
-{{-   printf "\nVALUES VALIDATION:\n%s" $message -}}
+{{- fail (printf "\nVALUES VALIDATION:\n%s" $message) -}}
 {{- end -}}
 {{- end -}}
