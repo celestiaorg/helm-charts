@@ -205,7 +205,7 @@ spec:
               port: rpc
           {{- end }}
           {{- if .Values.node.customReadinessProbe }}
-          readinessProbe: { { - include "common.tplvalues.render" (dict "value" .Values.node.customReadinessProbe "context" $) | nindent 12 } }
+          readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.node.customReadinessProbe "context" $) | nindent 12 }}
           {{- else if .Values.node.readinessProbe.enabled }}
           {{- if or (eq .Values.node.nodeType "bridge") (eq .Values.node.nodeType "full") }}
           readinessProbe:
