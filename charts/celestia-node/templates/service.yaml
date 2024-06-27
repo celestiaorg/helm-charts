@@ -103,7 +103,7 @@ spec:
   selector: {{- include "common.labels.matchLabels" ( dict "customLabels" $podLabels "context" $ ) | nindent 4 }}
     app.kubernetes.io/component: node
 ---
-  {{- end }}
+{{- end }}
 
 apiVersion: v1
 kind: Service
