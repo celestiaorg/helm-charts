@@ -74,6 +74,12 @@ diagnosticMode:
 ## %%MAIN_CONTAINER/POD_DESCRIPTION%%
 ##
 node:
+  ## Select from: bridge, full, light
+  ## Valid values:
+  ## - bridge
+  ## - full
+  ## - light:
+  nodeType: bridge
   ## Celestia celestia-node image
   ## ref: https://github.com/celestiaorg/celestia-node/pkgs/container/celestia-node/versions?filters%5Bversion_type%5D=tagged
   ## @param node.image.registry [default: REGISTRY_NAME] celestia-node image registry
@@ -368,7 +374,7 @@ node:
   ##
   readinessProbe:
     # -- enable readiness probe on node containers, false by default
-    enabled: false
+    enabled: true
     # -- initial delay seconds for readinessProbe, 0 by default
     initialDelaySeconds: 0
     # -- period seconds for readinessProbe, 10 by default

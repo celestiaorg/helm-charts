@@ -2,7 +2,7 @@ commonLabels:
   chain_id: arabica-11
   environment: arabica
   network: da
-  type: bridge
+  type: bridge # check
 persistence:
   size: 1000Gi
   dataSource:
@@ -10,6 +10,7 @@ persistence:
     kind: VolumeSnapshot
     name: da-latest
 node:
+  type: bridge # check
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete
     whenScaled: Retain
@@ -37,7 +38,7 @@ node:
     periodSeconds: 10
     failureThreshold: 60
   args:
-    - bridge
+    - bridge  # check
     - start
     - --p2p.network=arabica-11
     - --node.store=$(CELESTIA_HOME)
@@ -52,7 +53,7 @@ node:
   config:
     configtoml:
       Core:
-        IP: consensus-validator
+        IP: consensus-validator-1
       RPC:
         Enabled: true
         Address: 0.0.0.0
