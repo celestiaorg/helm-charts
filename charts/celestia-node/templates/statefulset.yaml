@@ -188,6 +188,10 @@ spec:
           ports:
             - name: p2p
               containerPort: {{ .Values.node.containerPorts.p2p }}
+              protocol: TCP
+            - name: p2p-udp
+              containerPort: {{ .Values.node.containerPorts.p2p }}
+              protocol: UDP
             - name: rest
               containerPort: {{ .Values.node.containerPorts.rest }}
             - name: rpc
