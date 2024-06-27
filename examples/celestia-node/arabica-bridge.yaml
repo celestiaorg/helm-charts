@@ -10,7 +10,7 @@ persistence:
     kind: VolumeSnapshot
     name: da-latest
 node:
-  type: bridge # check
+  nodeType: bridge # check
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete
     whenScaled: Retain
