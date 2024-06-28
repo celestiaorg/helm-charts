@@ -187,6 +187,7 @@ node:
         Address: localhost
         Port: "26658"
         SkipAuth: false
+        Enabled: false
       Gateway:
         Address: localhost
         Port: "26659"
