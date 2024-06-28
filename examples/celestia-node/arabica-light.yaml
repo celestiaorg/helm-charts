@@ -4,6 +4,14 @@ commonLabels: &commonLabels
   network: da
   type: &nodeType light # check
   secretName: &secretName keys-da-bridge-1 # check
+service:
+  external:
+    annotations:
+      external-dns.alpha.kubernetes.io/endpoints-type: "NodeExternalIP"
+      external-dns.alpha.kubernetes.io/hostname: "hc-da-light-1.celestia-arabica-11.com"
+      external-dns.alpha.kubernetes.io/ttl: "60"
+persistence:
+  size: 10Gi
 node:
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete

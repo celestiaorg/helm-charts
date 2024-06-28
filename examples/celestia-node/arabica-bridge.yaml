@@ -4,6 +4,12 @@ commonLabels: &commonLabels
   network: da
   type: &nodeType bridge # check
   secretName: &secretName keys-da-bridge-1 # check
+service:
+  external:
+    annotations:
+      external-dns.alpha.kubernetes.io/endpoints-type: "NodeExternalIP"
+      external-dns.alpha.kubernetes.io/hostname: "hc-da-bridge-1.celestia-arabica-11.com"
+      external-dns.alpha.kubernetes.io/ttl: "60"
 persistence:
   size: 1000Gi
   dataSource:

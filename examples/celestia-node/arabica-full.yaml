@@ -3,6 +3,12 @@ commonLabels:
   environment: arabica
   network: da
   type: &nodeType full # check
+service:
+  external:
+    annotations:
+      external-dns.alpha.kubernetes.io/endpoints-type: "NodeExternalIP"
+      external-dns.alpha.kubernetes.io/hostname: "hc-da-full-1.celestia-arabica-11.com"
+      external-dns.alpha.kubernetes.io/ttl: "60"
 persistence:
   size: 1000Gi
   dataSource:
