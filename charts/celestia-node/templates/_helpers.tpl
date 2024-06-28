@@ -45,6 +45,8 @@ Validate the node.settings.nodeType value against the first argument in node.arg
 Node type is not set. Must be one of 'bridge', 'full', or 'light'.
 {{- else if and (ne .Values.node.settings.nodeType "bridge") (ne .Values.node.settings.nodeType "full") (ne .Values.node.settings.nodeType "light") -}}
 Invalid node type: {{ .Values.node.settings.nodeType }}. Must be one of 'bridge', 'full', or 'light'.
+{{- else if not (hasKey .Values.node "args") -}}
+Node args are not set.
 {{- else if not (eq .Values.node.settings.nodeType (first .Values.node.args)) -}}
 The nodeType value ({{ .Values.node.settings.nodeType }}) does not match the first argument in args ({{ first .Values.node.args }}).
 {{- end -}}
