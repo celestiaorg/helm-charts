@@ -3,6 +3,7 @@ commonLabels:
   environment: arabica
   network: da
   type: &nodeType full # check
+  pool: &pool pool-da-0 # check
 service:
   external:
     annotations:
@@ -16,6 +17,8 @@ persistence:
     kind: VolumeSnapshot
     name: da-latest
 node:
+  nodeSelector:
+    k8s.scaleway.com/pool-name: *pool
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete
     whenScaled: Retain
@@ -43,7 +46,7 @@ node:
     periodSeconds: 10
     failureThreshold: 60
   args:
-    - full  # check
+    - *nodeType  # check
     - start
     - --p2p.network=arabica-11
     - --node.store=$(CELESTIA_HOME)

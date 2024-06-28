@@ -4,6 +4,7 @@ commonLabels: &commonLabels
   network: da
   type: &nodeType light # check
   secretName: &secretName keys-da-bridge-1 # check
+  pool: &pool pool-da-0 # check
 service:
   external:
     annotations:
@@ -13,6 +14,8 @@ service:
 persistence:
   size: 10Gi
 node:
+  nodeSelector:
+    k8s.scaleway.com/pool-name: *pool
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete
     whenScaled: Retain

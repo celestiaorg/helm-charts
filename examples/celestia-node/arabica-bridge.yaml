@@ -4,11 +4,12 @@ commonLabels: &commonLabels
   network: da
   type: &nodeType bridge # check
   secretName: &secretName keys-da-bridge-1 # check
+  pool: &pool pool-da-0 # check pool instance type to validate requests & limits
 service:
   external:
     annotations:
       external-dns.alpha.kubernetes.io/endpoints-type: "NodeExternalIP"
-      external-dns.alpha.kubernetes.io/hostname: "hc-da-bridge-1.celestia-arabica-11.com"
+      external-dns.alpha.kubernetes.io/hostname: "hct-da-bridge-1.celestia-arabica-11.com"
       external-dns.alpha.kubernetes.io/ttl: "60"
 persistence:
   size: 1000Gi
@@ -17,6 +18,8 @@ persistence:
     kind: VolumeSnapshot
     name: da-latest
 node:
+  nodeSelector:
+    k8s.scaleway.com/pool-name: *pool
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete
     whenScaled: Retain
@@ -26,11 +29,11 @@ node:
       name: grafana-otel-token
   resources:
     requests:
-      cpu: 3
-      memory: 15Gi
+      cpu: 2
+      memory: 4Gi
     limits:
-      cpu: 6
-      memory: 24Gi
+      #cpu: 4 # not required since this pod should run on it's own dedicated node
+      memory: 10Gi
   livenessProbe:
     enabled: true
     periodSeconds: 10
