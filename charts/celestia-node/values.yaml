@@ -729,9 +729,9 @@ service:
       prometheus: 8890
     ## @param service.internal.clusterIP node internal service Cluster IP
     ## e.g.:
-    ## clusterIP: None
+    ## clusterIP: None # We use headless mode by default for stateful workloads.
     ##
-    clusterIP: ""
+    clusterIP: "None"
     ## @param service.internal.annotations Additional custom annotations for node internal service
     ##
     annotations: {}
@@ -755,8 +755,8 @@ service:
     enabled: true
     ## @param service.external.type node external service type
     ##
-    # -- external service type, LoadBalancer by default
-    type: LoadBalancer
+    # -- external service type, ClusterIP by default
+    type: ClusterIP
     ## @param service.external.ports.p2p Node external service P2P port
     ## @param service.external.ports.rest Node external service REST port
     ## @param service.external.ports.rpc Node external service RPC port
