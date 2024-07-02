@@ -9,10 +9,10 @@ service:
   external:
     annotations:
       external-dns.alpha.kubernetes.io/endpoints-type: "NodeExternalIP"
-      external-dns.alpha.kubernetes.io/hostname: "hct-da-bridge-1.celestia-arabica-11.com"
+      external-dns.alpha.kubernetes.io/hostname: "hc-bridge.celestia-arabica-11.com"
       external-dns.alpha.kubernetes.io/ttl: "60"
 persistence:
-  size: 1000Gi
+  size: 750Gi
   dataSource:
     apiGroup: snapshot.storage.k8s.io
     kind: VolumeSnapshot
@@ -73,4 +73,6 @@ node:
       Node:
         StartupTimeout: 2m
 diagnosticMode:
+  enabled: false
+networkPolicy:
   enabled: false

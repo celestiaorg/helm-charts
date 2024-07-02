@@ -188,10 +188,13 @@ spec:
           ports:
             - name: p2p
               containerPort: {{ .Values.node.containerPorts.p2p }}
+              hostPort: {{ .Values.node.containerPorts.p2p }}
             - name: rest
               containerPort: {{ .Values.node.containerPorts.rest }}
+              hostPort: {{ .Values.node.containerPorts.rest }}
             - name: rpc
               containerPort: {{ .Values.node.containerPorts.rpc }}
+              hostPort: {{ .Values.node.containerPorts.rpc }}
             - name: profiling
               containerPort: {{ .Values.node.containerPorts.profiling }}
             - name: prometheus
