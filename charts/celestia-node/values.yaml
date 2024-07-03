@@ -443,7 +443,7 @@ node:
     # -- limits for the node
     limits:
       # -- cpu limits for the node, 2 by default
-      cpu: 6
+      #cpu: 6
       # -- memory limits for the node, 8Gi by default
       memory: 16Gi
   ## Configure Pods Security Context
