@@ -188,14 +188,18 @@ spec:
           ports:
             - name: p2p-tcp
               containerPort: {{ .Values.node.containerPorts.p2p }}
+              hostPort: {{ .Values.node.containerPorts.p2p }}
               protocol: TCP
             - name: p2p-udp
               containerPort: {{ .Values.node.containerPorts.p2p }}
+              hostPort: {{ .Values.node.containerPorts.p2p }}
               protocol: UDP
             - name: rest
               containerPort: {{ .Values.node.containerPorts.rest }}
+              hostPort: {{ .Values.node.containerPorts.rest }}
             - name: rpc
               containerPort: {{ .Values.node.containerPorts.rpc }}
+              hostPort: {{ .Values.node.containerPorts.rpc }}
             - name: profiling
               containerPort: {{ .Values.node.containerPorts.profiling }}
             - name: prometheus
@@ -211,15 +215,21 @@ spec:
           {{- if .Values.node.customReadinessProbe }}
           readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.node.customReadinessProbe "context" $) | nindent 12 }}
           {{- else if .Values.node.readinessProbe.enabled }}
-          readinessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.node.readinessProbe "enabled") "context" $) | nindent 12 }}
+          {{- if or (eq .Values.node.settings.nodeType "bridge") (eq .Values.node.settings.nodeType "full") (eq .Values.node.settings.nodeType "light") }}
+          readinessProbe:
             exec:
               command:
                 - sh
                 - '-c'
                 - >
                   AUTH_TOKEN=$(celestia bridge auth read --node.store=/home/celestia 2>/dev/null);
+                  {{- if eq .Values.node.settings.nodeType "bridge" }}
+                  curl --max-time 0.5 -s -X POST -H "Content-type: application/json" -H "Accept: application/json" -H "Authorization: Bearer $AUTH_TOKEN" -d '{"id":1,"jsonrpc":"2.0","method":"header.SyncWait","params":[]}' "http://localhost:26658";
+                  {{- else if or (eq .Values.node.settings.nodeType "full") (eq .Values.node.settings.nodeType "light") }}
                   curl --max-time 0.5 -s -X POST -H "Content-type: application/json" -H "Accept: application/json" -H "Authorization: Bearer $AUTH_TOKEN" -d '{"id":1,"jsonrpc":"2.0","method":"das.WaitCatchUp","params":[]}' "http://localhost:26658";
+                  {{- end }}
                   if [ "$?" -eq 0 ]; then exit 0; else echo "Catching up"; exit 1; fi
+          {{- end }}
           {{- end }}
           {{- if .Values.node.customStartupProbe }}
           startupProbe: {{- include "common.tplvalues.render" (dict "value" .Values.node.customStartupProbe "context" $) | nindent 12 }}

@@ -1,0 +1,75 @@
+commonLabels:
+  chain_id: arabica-11
+  environment: arabica
+  network: da
+  type: &nodeType full # check
+  pool: &pool pool-da-0 # check
+service:
+  external:
+    annotations:
+      external-dns.alpha.kubernetes.io/endpoints-type: "NodeExternalIP"
+      external-dns.alpha.kubernetes.io/hostname: "hc-da-full-1.celestia-arabica-11.com"
+      external-dns.alpha.kubernetes.io/ttl: "60"
+persistence:
+  size: 1000Gi
+  dataSource:
+    apiGroup: snapshot.storage.k8s.io
+    kind: VolumeSnapshot
+    name: da-latest
+node:
+  nodeSelector:
+    k8s.scaleway.com/pool-name: *pool
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Delete
+    whenScaled: Retain
+  otelAgent:
+    enabled: true
+    grafanaOtelSecret:
+      name: grafana-otel-token
+  resources:
+    requests:
+      cpu: 3
+      memory: 15Gi
+    limits:
+      cpu: 6
+      memory: 24Gi
+  livenessProbe:
+    enabled: true
+    periodSeconds: 10
+    failureThreshold: 3
+  readinessProbe:
+    enabled: true
+    periodSeconds: 10
+    failureThreshold: 30
+  startupProbe:
+    enabled: true
+    periodSeconds: 10
+    failureThreshold: 60
+  args:
+    - *nodeType  # check
+    - start
+    - --p2p.network=arabica-11
+    - --node.store=$(CELESTIA_HOME)
+    - --metrics
+    - --metrics.tls=false
+    - --p2p.metrics
+  settings:
+    nodeType: full # check
+    address: "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjcmVhdGVkIjoiMjAyNC0wMS0wMiAxMjo1NzoyMC4yNjk1Mjg2NTQgKzAwMDAgVVRDIG09KzAuMDQwNDkyNDk0IiwiZW5jIjoiQTI1NkdDTSIsInAyYyI6ODE5MiwicDJzIjoibHBUb0pLUkFvS3NPbmRhaCJ9.SFen5RaM_7JverpZQN6VxtJ06XePE5VKjyzMyIPgqURSge-XbiLHqA.vZ4fuVFbrLODe8RM.EGKwO3uGEifnPanziF-AD4i6q_92IetSVAEz-7Grg75AJyFLV3Flt4CmfLxrJ2JHWJEKUQBNyIU81u7pd01iNzEECDy9b0jO3DYZ_5PRET8zrVPv6SKKZ_U7MLWmAe_eUajipnbqZ6NzG8UcG4qAt278ttZB1KQsKqocKlE39fSvo3iaZEzOKxS0N3tU1Xw2C3w6HgHJFk0QiP36NIHuKoP_4QJkeAomhJX-cNOYwvTd8qTFTk2-1TzLJ5DasLXsVXTUSUzCzYQhEfL8F0qFoGvuY1dWRD5BESw2Gg2oLH1w957Xd2UhRbo5ORz9POR7goEv9AZ_rWrjSV8HozUmgFwDQyM89M7oiNedEfGQoDjypzcUBcVkZLEMIdrFRpshjcpNEzy6-PZ9rSxouKb7wemG_sueX3V3gIPCTfFr6hB8_b2mV-kKeIXQRS5pJz_wXxeFHFKOHDjt3L8n5eqh.fy-zygX7rjTUqgX02sZKKg"
+    node_id: "92a499fc2ce7cabd2de89416aa0d0d07838f625d"
+    secret:
+      name: keys-da-bridge-1
+  config:
+    configtoml:
+      Core:
+        IP: consensus-validator
+      RPC:
+        Enabled: true
+        Address: 0.0.0.0
+      Gateway:
+        Enabled: true
+        Address: 0.0.0.0
+      Node:
+        StartupTimeout: 2m
+diagnosticMode:
+  enabled: false

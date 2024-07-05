@@ -29,3 +29,4 @@ In order to replicate the container startup scripts execute this command:
 {{- end }}
 
 {{- include "common.warnings.rollingTag" .Values.node.image }}
+{{- include "node.validateValues" . }}

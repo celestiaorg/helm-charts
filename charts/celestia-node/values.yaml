@@ -108,6 +108,12 @@ node:
     pullSecrets: []
   ## @param node.settings Settings for the celestia-node
   settings:
+    ## Select from: bridge, full, light
+    ## Valid values:
+    ## - bridge
+    ## - full
+    ## - light:
+    nodeType: bridge
     ## @param node.settings.home Home directory for the celestia-node
     ##
     # -- home directory for the celestia-node, defaults to /home/celestia
@@ -252,17 +258,16 @@ node:
     ## @param volumePermissions.resourcesPreset Set init container resources according to one common preset (allowed values: none, nano, small, medium, large, xlarge, 2xlarge). This is ignored if volumePermissions.resources is set (volumePermissions.resources is recommended for production).
     ## More information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15
     ##
-    resourcesPreset: "micro"
+    #resourcesPreset: "micro"
     ## @param volumePermissions.resources Set init container resources for the otel agent (essential for production workloads)
     ## Example:
-    ## resources:
-    ##   requests:
-    ##     cpu: 100m
-    ##     memory: 100Mi
-    ##   limits:
-    ##     cpu: 200m
-    ##     memory: 200Mi
-    resources: {}
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      #limits:
+        #cpu: 200m
+        #memory: 200Mi
     ## A secret must be available in the cluster with the following format:
     ## - name: <secret-name>
     ## - items:
@@ -368,7 +373,7 @@ node:
   ##
   readinessProbe:
     # -- enable readiness probe on node containers, false by default
-    enabled: false
+    enabled: true
     # -- initial delay seconds for readinessProbe, 0 by default
     initialDelaySeconds: 0
     # -- period seconds for readinessProbe, 10 by default
@@ -436,7 +441,7 @@ node:
     # -- limits for the node
     limits:
       # -- cpu limits for the node, 2 by default
-      cpu: 6
+      #cpu: 6
       # -- memory limits for the node, 8Gi by default
       memory: 16Gi
   ## Configure Pods Security Context
@@ -723,9 +728,9 @@ service:
       prometheus: 8890
     ## @param service.internal.clusterIP node internal service Cluster IP
     ## e.g.:
-    ## clusterIP: None
+    ## clusterIP: None # We use headless mode by default for stateful workloads.
     ##
-    clusterIP: ""
+    clusterIP: "None"
     ## @param service.internal.annotations Additional custom annotations for node internal service
     ##
     annotations: {}
@@ -749,8 +754,8 @@ service:
     enabled: true
     ## @param service.external.type node external service type
     ##
-    # -- external service type, LoadBalancer by default
-    type: LoadBalancer
+    # -- external service type, ClusterIP by default
+    type: ClusterIP
     ## @param service.external.ports.p2p Node external service P2P port
     ## @param service.external.ports.rest Node external service REST port
     ## @param service.external.ports.rpc Node external service RPC port
@@ -787,6 +792,13 @@ service:
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
     ##
     loadBalancerIP: ""
+    ## @param service.internal.clusterIP node internal service Cluster IP
+    ## e.g.:
+    ## clusterIP: None # We use headless mode by default for stateful workloads.
+    ##
+    clusterIP: "None"
+    ## @param service.internal.annotations Additional custom annotations for node internal service
+    ##
     ## @param service.external.loadBalancerSourceRanges node external service Load Balancer sources
     ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
     ## e.g:
