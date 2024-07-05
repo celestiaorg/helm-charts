@@ -10,7 +10,7 @@ Celestia Node
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Celestia Labs |  | <https://github.com/celestiaorg/celestia-helm-charts> |
+| Celestia Labs |  | <https://github.com/celestiaorg/helm-charts> |
 
 ## Source Code
 
@@ -63,17 +63,11 @@ Celestia Node
 | node.args[4] | string | `"--metrics.tls=false"` |  |
 | node.args[5] | string | `"--p2p.metrics"` |  |
 | node.automountServiceAccountToken | bool | `false` | mount service account token in node pods |
-| node.command | list | `["celestia"]` | command for the celestia-node  |
+| node.command | list | `["celestia"]` | command for the celestia-node |
 | node.command[0] | string | `"celestia"` | celestia |
 | node.config.configtoml.Core.GRPCPort | string | `"9090"` |  |
 | node.config.configtoml.Core.IP | string | `""` |  |
 | node.config.configtoml.Core.RPCPort | string | `"26657"` |  |
-| node.config.configtoml.DASer.BackgroundStoreInterval | string | `"10m0s"` |  |
-| node.config.configtoml.DASer.ConcurrencyLimit | int | `16` |  |
-| node.config.configtoml.DASer.SampleFrom | int | `1` |  |
-| node.config.configtoml.DASer.SampleTimeout | string | `"2m40s"` |  |
-| node.config.configtoml.DASer.SamplingRange | int | `100` |  |
-| node.config.configtoml.DASer.SamplingWindow | string | `"0s"` |  |
 | node.config.configtoml.Gateway.Address | string | `"localhost"` |  |
 | node.config.configtoml.Gateway.Enabled | bool | `false` |  |
 | node.config.configtoml.Gateway.Port | string | `"26659"` |  |
@@ -82,18 +76,18 @@ Celestia Node
 | node.config.configtoml.Header.Server.RangeRequestTimeout | string | `"10s"` |  |
 | node.config.configtoml.Header.Server.ReadDeadline | string | `"1m0s"` |  |
 | node.config.configtoml.Header.Server.WriteDeadline | string | `"8s"` |  |
-| node.config.configtoml.Header.Store.IndexCacheSize | int | `2048` |  |
-| node.config.configtoml.Header.Store.StoreCacheSize | int | `512` |  |
-| node.config.configtoml.Header.Store.WriteBatchSize | int | `512` |  |
+| node.config.configtoml.Header.Store.IndexCacheSize | int | `16384` |  |
+| node.config.configtoml.Header.Store.StoreCacheSize | int | `4096` |  |
+| node.config.configtoml.Header.Store.WriteBatchSize | int | `2048` |  |
 | node.config.configtoml.Header.Syncer.TrustingPeriod | string | `"336h0m0s"` |  |
 | node.config.configtoml.Header.TrustedHash | string | `""` |  |
 | node.config.configtoml.Header.TrustedPeers | list | `[]` |  |
-| node.config.configtoml.Node.ShutdownTimeout | string | `"20s"` |  |
-| node.config.configtoml.Node.StartupTimeout | string | `"20s"` |  |
+| node.config.configtoml.Node.ShutdownTimeout | string | `"2m0s"` |  |
+| node.config.configtoml.Node.StartupTimeout | string | `"2m0s"` |  |
 | node.config.configtoml.P2P.AnnounceAddresses | list | `[]` |  |
 | node.config.configtoml.P2P.ConnManager.GracePeriod | string | `"1m0s"` |  |
-| node.config.configtoml.P2P.ConnManager.High | int | `100` |  |
-| node.config.configtoml.P2P.ConnManager.Low | int | `50` |  |
+| node.config.configtoml.P2P.ConnManager.High | int | `1000` |  |
+| node.config.configtoml.P2P.ConnManager.Low | int | `800` |  |
 | node.config.configtoml.P2P.ListenAddresses[0] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1/webtransport"` |  |
 | node.config.configtoml.P2P.ListenAddresses[1] | string | `"/ip6/::/udp/2121/quic-v1/webtransport"` |  |
 | node.config.configtoml.P2P.ListenAddresses[2] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1"` |  |
@@ -110,8 +104,9 @@ Celestia Node
 | node.config.configtoml.P2P.NoAnnounceAddresses[6] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
 | node.config.configtoml.P2P.NoAnnounceAddresses[7] | string | `"/ip4/127.0.0.1/tcp/2121"` |  |
 | node.config.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/tcp/2121"` |  |
-| node.config.configtoml.P2P.PeerExchange | bool | `false` |  |
+| node.config.configtoml.P2P.PeerExchange | bool | `true` |  |
 | node.config.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
+| node.config.configtoml.Pruner.EnableService | bool | `false` |  |
 | node.config.configtoml.RPC.Address | string | `"localhost"` |  |
 | node.config.configtoml.RPC.Port | string | `"26658"` |  |
 | node.config.configtoml.RPC.SkipAuth | bool | `false` |  |
@@ -120,7 +115,6 @@ Celestia Node
 | node.config.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
 | node.config.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
 | node.config.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
-| node.config.configtoml.Share.LightAvailability.SampleAmount | int | `16` |  |
 | node.config.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
 | node.config.configtoml.Share.PeerManagerParams.GcInterval | string | `"30s"` |  |
 | node.config.configtoml.Share.PeerManagerParams.PeerCooldown | string | `"3s"` |  |
@@ -135,6 +129,7 @@ Celestia Node
 | node.config.configtoml.Share.ShrExNDParams.ServerReadTimeout | string | `"5s"` |  |
 | node.config.configtoml.Share.ShrExNDParams.ServerWriteTimeout | string | `"1m0s"` |  |
 | node.config.configtoml.Share.UseShareExchange | bool | `true` |  |
+| node.config.configtoml.State.GranterAddress | list | `[]` |  |
 | node.config.configtoml.State.KeyringAccName | string | `""` |  |
 | node.config.configtoml.State.KeyringBackend | string | `"test"` |  |
 | node.containerPorts | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658}` | Container ports for the node |
@@ -144,7 +139,7 @@ Celestia Node
 | node.containerPorts.rest | int | `26659` | REST container port, 26659 by default |
 | node.containerPorts.rpc | int | `26658` | RPC container port, 26658 by default |
 | node.containerSecurityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"enabled":true,"privileged":false,"readOnlyRootFilesystem":true,"runAsGroup":10001,"runAsNonRoot":true,"runAsUser":10001,"seLinuxOptions":{},"seccompProfile":{"type":"RuntimeDefault"}}` | container security context for the node |
-| node.containerSecurityContext.allowPrivilegeEscalation | bool | `false` | allowPrivilegeEscalation in node container, false by default   |
+| node.containerSecurityContext.allowPrivilegeEscalation | bool | `false` | allowPrivilegeEscalation in node container, false by default |
 | node.containerSecurityContext.capabilities | object | `{"drop":["ALL"]}` | capabilities to be dropped in node container, ["ALL"] by default |
 | node.containerSecurityContext.enabled | bool | `true` | enable container security context for the node, true by default |
 | node.containerSecurityContext.privileged | bool | `false` | privileged in node container, false by default |
@@ -215,6 +210,7 @@ Celestia Node
 | node.readinessProbe.successThreshold | int | `1` | success threshold for readinessProbe, 1 by default |
 | node.readinessProbe.timeoutSeconds | int | `1` | timeout seconds for readinessProbe, 1 by default |
 | node.replicaCount | int | `1` | number of node replicas to deploy, 1 by default |
+| node.resources | object | `{"limits":{"cpu":6,"memory":"16Gi"},"requests":{"cpu":6,"memory":"16Gi"}}` | resources for the node |
 | node.resources.limits | object | `{"cpu":6,"memory":"16Gi"}` | limits for the node |
 | node.resources.limits.cpu | int | `6` | cpu limits for the node, 2 by default |
 | node.resources.limits.memory | string | `"16Gi"` | memory limits for the node, 8Gi by default |
@@ -228,7 +224,7 @@ Celestia Node
 | node.settings.node_id | string | `"SET_IT"` | node ID for the celestia-node, it must be set |
 | node.settings.secret.name | string | `"SET_IT"` | name of the secret, it must be set |
 | node.sidecars | list | `[]` |  |
-| node.startupProbe | object | `{"enabled":false,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | startup probe for the node   |
+| node.startupProbe | object | `{"enabled":false,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | startup probe for the node |
 | node.startupProbe.enabled | bool | `false` | enable startup probe on node containers, false by default |
 | node.startupProbe.initialDelaySeconds | int | `0` | initial delay seconds for startupProbe, 0 by default |
 | node.startupProbe.periodSeconds | int | `10` | period seconds for startupProbe, 10 by default |
@@ -240,24 +236,30 @@ Celestia Node
 | node.topologySpreadConstraints | list | `[]` |  |
 | node.updateStrategy.type | string | `"RollingUpdate"` |  |
 | persistence | object | `{"accessModes":["ReadWriteOnce"],"annotations":{},"dataSource":{},"enabled":true,"existingClaim":"","mountPath":"/bitnami/app/data","selector":{},"size":"250Gi","storageClass":"","subPath":""}` | persistence parameters |
+| persistence.enabled | bool | `true` | enable persistence, true by default |
+| persistence.size | string | `"250Gi"` | size of data volume, 250Gi by default |
 | rbac.create | bool | `false` |  |
 | rbac.rules | list | `[]` |  |
+| service | object | `{"external":{"annotations":{},"enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"LoadBalancer"},"internal":{"annotations":{},"clusterIP":"","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}}` | service parameters |
 | service.external | object | `{"annotations":{},"enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"LoadBalancer"}` | external service parameters |
-| service.external.enabled | bool | `true` | enable external service, true by default  |
+| service.external.enabled | bool | `true` | enable external service, true by default |
+| service.external.nodePorts | object | `{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""}` | node ports for the celestia-app |
+| service.external.nodePorts.p2p | string | `""` | p2p port, 2121 by default |
+| service.external.nodePorts.profiling | string | `""` | profiling port, 6060 by default |
+| service.external.nodePorts.prometheus | string | `""` | prometheus port, 8890 by default |
+| service.external.nodePorts.rest | string | `""` | rest port, 26659 by default |
+| service.external.nodePorts.rpc | string | `""` | rpc port, 26658 by default |
 | service.external.ports.p2p | int | `2121` | P2P container port, 2121 by default |
 | service.external.ports.rest | int | `26659` | REST container port, 26659 by default |
 | service.external.ports.rpc | int | `26658` | RPC container port, 26658 by default |
-| service.external.type | string | `"LoadBalancer"` | external service type, LoadBalancer by default  |
-| service.internal.annotations | object | `{}` |  |
-| service.internal.clusterIP | string | `""` |  |
+| service.external.type | string | `"LoadBalancer"` | external service type, LoadBalancer by default |
+| service.internal | object | `{"annotations":{},"clusterIP":"","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}` | service type, ClusterIP by default |
 | service.internal.ports | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658}` | Ports for the celestia-node |
 | service.internal.ports.p2p | int | `2121` | P2P container port, 2121 by default |
 | service.internal.ports.profiling | int | `6060` | Profiling container port, 6060 by default |
 | service.internal.ports.prometheus | int | `8890` | Prometheus container port, 8890 by default |
 | service.internal.ports.rest | int | `26659` | REST container port, 26659 by default |
 | service.internal.ports.rpc | int | `26658` | RPC container port, 26658 by default |
-| service.internal.sessionAffinity | string | `"None"` |  |
-| service.internal.sessionAffinityConfig | object | `{}` |  |
 | service.internal.type | string | `"ClusterIP"` | service type, ClusterIP by default |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |

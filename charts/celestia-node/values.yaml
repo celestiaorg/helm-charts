@@ -142,8 +142,8 @@ node:
   config:
     configtoml:
       Node:
-        StartupTimeout: 20s
-        ShutdownTimeout: 20s
+        StartupTimeout: 2m0s
+        ShutdownTimeout: 2m0s
       Core:
         IP: ""
         RPCPort: "26657"
@@ -151,6 +151,7 @@ node:
       State:
         KeyringAccName: ""
         KeyringBackend: test
+        GranterAddress: []
       P2P:
         ListenAddresses:
           - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
@@ -171,11 +172,11 @@ node:
           - /ip4/127.0.0.1/tcp/2121
           - /ip6/::/tcp/2121
         MutualPeers: []
-        PeerExchange: false
+        PeerExchange: true
         RoutingTableRefreshPeriod: 1m0s
         ConnManager:
-          Low: 50
-          High: 100
+          Low: 800
+          High: 1000
           GracePeriod: 1m0s
       RPC:
         Address: localhost
@@ -207,8 +208,6 @@ node:
           PeerCooldown: 3s
           GcInterval: 30s
           EnableBlackListing: false
-        LightAvailability:
-          SampleAmount: 16
         Discovery:
           PeersLimit: 5
           AdvertiseInterval: 1h0m0s
@@ -216,9 +215,9 @@ node:
         TrustedHash: ""
         TrustedPeers: []
         Store:
-          StoreCacheSize: 512
-          IndexCacheSize: 2048
-          WriteBatchSize: 512
+          StoreCacheSize: 4096
+          IndexCacheSize: 16384
+          WriteBatchSize: 2048
         Syncer:
           TrustingPeriod: 336h0m0s
         Server:
@@ -228,13 +227,8 @@ node:
         Client:
           MaxHeadersPerRangeRequest: 64
           RangeRequestTimeout: 8s
-      DASer:
-        SamplingRange: 100
-        ConcurrencyLimit: 16
-        BackgroundStoreInterval: 10m0s
-        SampleFrom: 1
-        SampleTimeout: 2m40s
-        SamplingWindow: 0s
+      Pruner:
+        EnableService: false
   ## @param node.otelAgent OTel agent configuration for the node
   ##
   otelAgent:
