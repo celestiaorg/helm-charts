@@ -21,4 +21,4 @@ maintainers:
 name: celestia-app
 sources:
   - https://github.com/celestiaorg/celestia-app
-version: 0.1.0
+version: 0.1.1
