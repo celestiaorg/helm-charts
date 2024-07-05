@@ -20,6 +20,7 @@ data:
     [State]
       KeyringAccName = "{{ .Values.node.config.configtoml.State.KeyringAccName }}"
       KeyringBackend = "{{ .Values.node.config.configtoml.State.KeyringBackend }}"
+      GranterAddress = {{ .Values.node.config.configtoml.State.GranterAddress }}
     [P2P]
       ListenAddresses = [{{ range $index, $element := .Values.node.config.configtoml.P2P.ListenAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
       AnnounceAddresses = {{ .Values.node.config.configtoml.P2P.AnnounceAddresses }}
@@ -61,8 +62,6 @@ data:
         PeerCooldown = "{{ .Values.node.config.configtoml.Share.PeerManagerParams.PeerCooldown }}"
         GcInterval = "{{ .Values.node.config.configtoml.Share.PeerManagerParams.GcInterval }}"
         EnableBlackListing = {{ .Values.node.config.configtoml.Share.PeerManagerParams.EnableBlackListing }}
-      [Share.LightAvailability]
-        SampleAmount = {{ printf "%.0f" .Values.node.config.configtoml.Share.LightAvailability.SampleAmount }}
       [Share.Discovery]
         PeersLimit = {{ printf "%.0f" .Values.node.config.configtoml.Share.Discovery.PeersLimit }}
         AdvertiseInterval = "{{ .Values.node.config.configtoml.Share.Discovery.AdvertiseInterval }}"
@@ -82,13 +81,8 @@ data:
       [Header.Client]
         MaxHeadersPerRangeRequest = {{ printf "%.0f" .Values.node.config.configtoml.Header.Client.MaxHeadersPerRangeRequest }}
         RangeRequestTimeout = "{{ .Values.node.config.configtoml.Header.Client.RangeRequestTimeout }}"
-    [DASer]
-      SamplingRange = {{ printf "%.0f" .Values.node.config.configtoml.DASer.SamplingRange }}
-      ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.configtoml.DASer.ConcurrencyLimit }}
-      BackgroundStoreInterval = "{{ .Values.node.config.configtoml.DASer.BackgroundStoreInterval }}"
-      SampleFrom = {{ printf "%.0f" .Values.node.config.configtoml.DASer.SampleFrom }}
-      SampleTimeout = "{{ .Values.node.config.configtoml.DASer.SampleTimeout }}"
-      SamplingWindow = "{{ .Values.node.config.configtoml.DASer.SamplingWindow }}"
+    [Pruner]
+      EnableService = {{ .Values.node.config.configtoml.Pruner.EnableService }}
 ---
 apiVersion: v1
 kind: ConfigMap

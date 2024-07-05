@@ -90,7 +90,7 @@ app:
     # -- repository for the image, celestiaorg/celestia-app by default
     repository: celestiaorg/celestia-app
     # -- tag for the image, v1.9.0 by default
-    tag: v1.10.1
+    tag: v1.11.0
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
