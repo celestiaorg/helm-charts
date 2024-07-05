@@ -90,7 +90,7 @@ node:
     # -- repository for the image, celestiaorg/celestia-node by default
     repository: celestiaorg/celestia-node
     # -- tag for the image, v0.13.6 by default
-    tag: v0.13.6
+    tag: v0.14.0
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
