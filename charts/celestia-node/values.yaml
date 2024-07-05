@@ -265,7 +265,7 @@ node:
       requests:
         cpu: 100m
         memory: 100Mi
-      limits:
+      #limits:
         #cpu: 200m
         #memory: 200Mi
     ## A secret must be available in the cluster with the following format:
