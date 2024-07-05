@@ -21,4 +21,4 @@ maintainers:
 name: celestia-node
 sources:
   - https://github.com/celestiaorg/celestia-node
-version: 0.3.0
+version: 0.1.0
