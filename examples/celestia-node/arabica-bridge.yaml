@@ -76,3 +76,4 @@ diagnosticMode:
   enabled: false
 networkPolicy:
   enabled: false
+  
