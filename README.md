@@ -5,7 +5,7 @@ Celestia Helm Charts
 ## Add the celestiaorg helm repository
 
 ```bash
-helm repo add celestiaorg https://celestiaorg.github.io/celestia-helm-charts/
+helm repo add celestiaorg https://celestiaorg.github.io/helm-charts/
 ```
 
 ## Versions
