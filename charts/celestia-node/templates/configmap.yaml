@@ -35,7 +35,6 @@ data:
       Address = "{{ .Values.node.config.configtoml.RPC.Address }}"
       Port = "{{ .Values.node.config.configtoml.RPC.Port }}"
       SkipAuth = {{ .Values.node.config.configtoml.RPC.SkipAuth }}
-      Enabled = {{ .Values.node.config.configtoml.RPC.Enabled }}
     [Gateway]
       Address = "{{ .Values.node.config.configtoml.Gateway.Address }}"
       Port = "{{ .Values.node.config.configtoml.Gateway.Port }}"
