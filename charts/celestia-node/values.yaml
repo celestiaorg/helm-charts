@@ -327,7 +327,7 @@ node:
   ##
   # -- Container ports for the node
   containerPorts:
-    # -- P2P/WebTransport container port, 2122 by default
+    # -- WebSocket container port, 2122 by default
     ws: 2122
     # -- P2P container port, 2121 by default
     p2p: 2121
@@ -714,7 +714,7 @@ service:
     ## @param service.internal.ports.prometheus Node internal service Prometheus port
     # -- Ports for the celestia-node
     ports:
-      # -- P2P container port, 2122 by default
+      # -- WebSocket container port, 2122 by default
       ws: 2122
       # -- P2P container port, 2121 by default
       p2p: 2121
