@@ -37,7 +37,7 @@ spec:
       {{- if not (eq .Values.service.external.ports.ws .Values.node.containerPorts.ws) }}
       targetPort: {{ .Values.node.containerPorts.ws }}
       {{- end }}
-      protocol: TCP
+      protocol: UDP
       {{- if and (or (eq .Values.service.external.type "NodePort") (eq .Values.service.external.type "LoadBalancer")) (not (empty .Values.service.external.nodePorts.ws)) }}
       nodePort: {{ .Values.service.external.nodePorts.ws }}
       {{- else if eq .Values.service.external.type "ClusterIP" }}
@@ -159,7 +159,7 @@ spec:
       {{- if not (eq .Values.service.internal.ports.ws .Values.node.containerPorts.ws) }}
       targetPort: {{ .Values.node.containerPorts.ws }}
       {{- end }}
-      protocol: TCP
+      protocol: UDP
     - name: p2p-tcp
       port: {{ .Values.service.internal.ports.p2p }}
       {{- if not (eq .Values.service.internal.ports.p2p .Values.node.containerPorts.p2p) }}
