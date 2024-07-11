@@ -20,8 +20,8 @@ persistence:
 node:
   image:
     registry: ttl.sh
-    repository: b74805db-5d9e-40ef-8622-e8734169b617
-    tag: 1h
+    repository: b757629c-c54c-4b7c-af30-68a1155356ae
+    tag: 24h
   nodeSelector:
     k8s.scaleway.com/pool-name: *pool
   persistentVolumeClaimRetentionPolicy:
