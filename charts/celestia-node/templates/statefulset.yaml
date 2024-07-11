@@ -276,6 +276,14 @@ spec:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: {{ .Values.node.settings.home }}
               readOnly: false
+            - name: tls-certs
+              mountPath: /home/celestia/tls/cert.pem
+              subPath: fullchain.pem
+              readOnly: true
+            - name: tls-certs
+              mountPath: /home/celestia/tls/key.pem
+              subPath: privkey.pem
+              readOnly: true
           {{- if .Values.node.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.node.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
@@ -330,6 +338,14 @@ spec:
                 path: OAZHALLLMV4Q
               - key: my_celes_key_info
                 path: my_celes_key.info
+        - name: tls-certs
+          secret:
+            secretName: tls-da-wss
+            items:
+              - key: fullchain.pem
+                path: fullchain.pem
+              - key: privkey.pem
+                path: privkey.pem
         - name: address
           configMap:
             name: {{ template "common.names.fullname" . }}-address

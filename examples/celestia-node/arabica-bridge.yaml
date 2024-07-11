@@ -9,7 +9,7 @@ service:
   external:
     annotations:
       external-dns.alpha.kubernetes.io/endpoints-type: "NodeExternalIP"
-      external-dns.alpha.kubernetes.io/hostname: "hc-bridge.celestia-arabica-11.com"
+      external-dns.alpha.kubernetes.io/hostname: "test-hc-bridge.celestia-arabica-11.com"
       external-dns.alpha.kubernetes.io/ttl: "60"
 persistence:
   size: 750Gi
@@ -18,6 +18,10 @@ persistence:
     kind: VolumeSnapshot
     name: da-latest
 node:
+  image:
+    registry: ttl.sh
+    repository: b74805db-5d9e-40ef-8622-e8734169b617
+    tag: 1h
   nodeSelector:
     k8s.scaleway.com/pool-name: *pool
   persistentVolumeClaimRetentionPolicy:
