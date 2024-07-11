@@ -166,6 +166,8 @@ node:
           - /ip6/::/udp/2121/quic-v1
           - /ip4/0.0.0.0/tcp/2121
           - /ip6/::/tcp/2121
+          - /ip4/0.0.0.0/tcp/2122/ws
+          - /ip6/::/tcp/2122/ws
         AnnounceAddresses: []
         NoAnnounceAddresses:
           - /ip4/127.0.0.1/udp/2121/quic-v1/webtransport
@@ -325,6 +327,8 @@ node:
   ##
   # -- Container ports for the node
   containerPorts:
+    # -- P2P/WebTransport container port, 2122 by default
+    ws: 2122
     # -- P2P container port, 2121 by default
     p2p: 2121
     # -- REST container port, 26659 by default
@@ -710,6 +714,8 @@ service:
     ## @param service.internal.ports.prometheus Node internal service Prometheus port
     # -- Ports for the celestia-node
     ports:
+      # -- P2P container port, 2122 by default
+      ws: 2122
       # -- P2P container port, 2121 by default
       p2p: 2121
       # -- REST container port, 26659 by default
@@ -756,6 +762,8 @@ service:
     ## @param service.external.ports.profiling Node external service Profiling port
     ## @param service.external.ports.prometheus Node external service Prometheus port
     ports:
+      # -- P2P container port, 2122 by default
+      ws: 2122
       # -- P2P container port, 2121 by default
       p2p: 2121
       # -- REST container port, 26659 by default
@@ -772,6 +780,8 @@ service:
     ##
     # -- node ports for the celestia-app
     nodePorts:
+      # -- p2p port, 2122 by default
+      ws: ""
       # -- p2p port, 2121 by default
       p2p: ""
       # -- rest port, 26659 by default
