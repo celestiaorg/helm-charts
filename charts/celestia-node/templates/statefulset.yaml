@@ -189,7 +189,7 @@ spec:
             - name: p2p-ws
               containerPort: {{ .Values.node.containerPorts.ws }}
               hostPort: {{ .Values.node.containerPorts.ws }}
-              protocol: UDP
+              protocol: TCP
             - name: p2p-tcp
               containerPort: {{ .Values.node.containerPorts.p2p }}
               hostPort: {{ .Values.node.containerPorts.p2p }}
