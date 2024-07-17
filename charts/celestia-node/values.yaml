@@ -160,23 +160,28 @@ node:
         GranterAddress: []
       P2P:
         ListenAddresses:
+          # IPv4
           - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
-          - /ip6/::/udp/2121/quic-v1/webtransport
           - /ip4/0.0.0.0/udp/2121/quic-v1
-          - /ip6/::/udp/2121/quic-v1
+          #- /ip4/0.0.0.0/tcp/2122/wss
           - /ip4/0.0.0.0/tcp/2121
+          # IPv6
+          - /ip6/::/udp/2121/quic-v1/webtransport
+          - /ip6/::/udp/2121/quic-v1
+          #- /ip6/::/tcp/2122/wss
           - /ip6/::/tcp/2121
         AnnounceAddresses: []
         NoAnnounceAddresses:
+          # IPv4
           - /ip4/127.0.0.1/udp/2121/quic-v1/webtransport
-          - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
-          - /ip6/::/udp/2121/quic-v1/webtransport
-          - /ip4/0.0.0.0/udp/2121/quic-v1
           - /ip4/127.0.0.1/udp/2121/quic-v1
-          - /ip6/::/udp/2121/quic-v1
-          - /ip4/0.0.0.0/tcp/2121
+          - /ip4/127.0.0.1/tcp/2122/wss
           - /ip4/127.0.0.1/tcp/2121
-          - /ip6/::/tcp/2121
+          # IPv6
+          - /ip6/::1/udp/2121/quic-v1/webtransport
+          - /ip6/::1/udp/2121/quic-v1
+          - /ip6/::1/tcp/2122/wss
+          - /ip6/::1/tcp/2121
         MutualPeers: []
         PeerExchange: true
         RoutingTableRefreshPeriod: 1m0s

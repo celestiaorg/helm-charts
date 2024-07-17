@@ -20,13 +20,13 @@ persistence:
 node:
   image:
     registry: ttl.sh
-    repository: b757629c-c54c-4b7c-af30-68a1155356ae
+    repository: 6d4ea755-c9d9-4130-9383-280aa32ca046
     tag: 24h
   nodeSelector:
     k8s.scaleway.com/pool-name: *pool
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete
-    whenScaled: Retain
+    whenScaled: Delete
   otelAgent:
     enabled: true
     grafanaOtelSecret:
@@ -69,7 +69,6 @@ node:
       Core:
         IP: consensus-validator
       RPC:
-        Enabled: true
         Address: 0.0.0.0
       Gateway:
         Enabled: true
