@@ -10,6 +10,7 @@
 [State]
   KeyringAccName = ""
   KeyringBackend = "test"
+  GranterAddress = []
 
 [P2P]
   ListenAddresses = ["/ip4/0.0.0.0/udp/2121/quic-v1/webtransport", "/ip6/::/udp/2121/quic-v1/webtransport", "/ip4/0.0.0.0/udp/2121/quic-v1", "/ip6/::/udp/2121/quic-v1", "/ip4/0.0.0.0/tcp/2121", "/ip6/::/tcp/2121"]
@@ -75,3 +76,13 @@
   [Header.Client]
     MaxHeadersPerRangeRequest = 64
     RangeRequestTimeout = "8s"
+
+[DASer]
+  SamplingRange = 100
+  ConcurrencyLimit = 6
+  BackgroundStoreInterval = "10m0s"
+  SampleFrom = 1
+  SampleTimeout = "2m0s"
+
+[Pruner]
+  EnableService = false
