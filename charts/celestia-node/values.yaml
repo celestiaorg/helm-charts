@@ -235,6 +235,13 @@ node:
           RangeRequestTimeout: 8s
       Pruner:
         EnableService: false
+      DASer:
+        SamplingRange: 100
+        ConcurrencyLimit: 10
+        BackgroundStoreInterval: "1h0m0s"
+        SampleFrom: 10
+        SampleTimeout: "1m0s"
+        SamplingWindow: "10m0s"
   ## @param node.otelAgent OTel agent configuration for the node
   ##
   otelAgent:

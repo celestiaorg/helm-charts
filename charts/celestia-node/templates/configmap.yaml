@@ -83,6 +83,17 @@ data:
         RangeRequestTimeout = "{{ .Values.node.config.configtoml.Header.Client.RangeRequestTimeout }}"
     [Pruner]
       EnableService = {{ .Values.node.config.configtoml.Pruner.EnableService }}
+    {{- if or (eq .Values.node.settings.nodeType "full") (eq .Values.node.settings.nodeType "light") }}
+    [DASer]
+      SamplingRange = {{ .Values.node.config.configtoml.DASer.SamplingRange }}
+      ConcurrencyLimit = {{ .Values.node.config.configtoml.DASer.ConcurrencyLimit }}
+      BackgroundStoreInterval = "{{ .Values.node.config.configtoml.DASer.BackgroundStoreInterval }}"
+      SampleFrom = {{ .Values.node.config.configtoml.DASer.SampleFrom }}
+      SampleTimeout = "{{ .Values.node.config.configtoml.DASer.SampleTimeout }}"
+      SamplingWindow = "{{ .Values.node.config.configtoml.DASer.SamplingWindow }}"
+    {{- else }}
+    # DASer configuration is not included because node type is not full or light (Node type: {{ .Values.node.type }})
+    {{- end }}
 ---
 apiVersion: v1
 kind: ConfigMap
