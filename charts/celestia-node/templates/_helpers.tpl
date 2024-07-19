@@ -42,7 +42,7 @@ Generate the args for the node container based on the nodeType setting
 */}}
 {{- define "node.containerArgs" -}}
 {{- if .Values.node.args -}}
-  {{- .Values.node.args | join " " -}}
+  {{- .Values.node.args -}}
 {{- else -}}
   {{- $nodeType := .Values.node.settings.nodeType | default "bridge" -}}
   {{- $args := list $nodeType -}}
@@ -51,7 +51,7 @@ Generate the args for the node container based on the nodeType setting
   {{- if .Values.node.extraArgs -}}
     {{- $args := append $args .Values.node.extraArgs -}}
   {{- end -}}
-  {{- $args | join " " -}}
+  {{- $args -}}
 {{- end -}}
 {{- end -}}
 
