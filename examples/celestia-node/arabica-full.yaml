@@ -60,16 +60,17 @@ node:
     secret:
       name: keys-da-bridge-1
   config:
-    configtoml:
-      Core:
-        IP: consensus-validator
-      RPC:
-        Enabled: true
-        Address: 0.0.0.0
-      Gateway:
-        Enabled: true
-        Address: 0.0.0.0
-      Node:
-        StartupTimeout: 2m
+    full:
+      configtoml:
+        Core:
+          IP: consensus-validator
+        RPC:
+          Enabled: true
+          Address: 0.0.0.0
+        Gateway:
+          Enabled: true
+          Address: 0.0.0.0
+        Node:
+          StartupTimeout: 2m
 diagnosticMode:
   enabled: false

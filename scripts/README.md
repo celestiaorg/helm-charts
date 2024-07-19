@@ -22,7 +22,7 @@ Steps with example
 
 1. Get the template for the `configmap.yaml`
 ```bash
-./scripts/convert_toml_to_yaml.sh scripts/config/app/<celestia-app-version>/config.toml app
+./scripts/convert_toml_to_template.sh scripts/config/app/<celestia-app-version>/config.toml app [node_subtype]
 ```
 
 2. Get the values for the `values.yaml`

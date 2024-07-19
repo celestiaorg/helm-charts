@@ -1,0 +1,12 @@
+{{- if .Values.node.otelAgent.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "common.names.fullname" . }}-otel-agent
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: otel-agent
+data:
+  config.yaml: |
+{{ toYaml .Values.node.otelAgent.config | indent 4 }}
+{{- end }}
