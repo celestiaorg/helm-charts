@@ -165,6 +165,7 @@ spec:
           {{- else if .Values.node.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.node.args "context" $) | nindent 12 }}
           {{- end }}
+          args: {{- include "node.containerArgs" . | nindent 12 }}
           env:
             - name: CELESTIA_HOME
               value: {{ .Values.node.settings.home }}

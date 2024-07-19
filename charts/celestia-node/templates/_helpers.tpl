@@ -38,6 +38,24 @@ Return the proper image name for the otel agent
 {{- end -}}
 
 {{/*
+Generate the args for the node container based on the nodeType setting
+*/}}
+{{- define "node.containerArgs" -}}
+{{- if .Values.node.args -}}
+  {{- .Values.node.args | join " " -}}
+{{- else -}}
+  {{- $nodeType := .Values.node.settings.nodeType | default "bridge" -}}
+  {{- $args := list $nodeType -}}
+  {{- $args := append $args "start" -}}
+  {{- $args := append $args (printf "--node.store=$(CELESTIA_HOME)") -}}
+  {{- if .Values.node.extraArgs -}}
+    {{- $args := append $args .Values.node.extraArgs -}}
+  {{- end -}}
+  {{- $args | join " " -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Validate the node.settings.nodeType value against the first argument in node.args.
 */}}
 {{- define "node.validateValues.nodeType" -}}
@@ -45,10 +63,11 @@ Validate the node.settings.nodeType value against the first argument in node.arg
 Node type is not set. Must be one of 'bridge', 'full', or 'light'.
 {{- else if and (ne .Values.node.settings.nodeType "bridge") (ne .Values.node.settings.nodeType "full") (ne .Values.node.settings.nodeType "light") -}}
 Invalid node type: {{ .Values.node.settings.nodeType }}. Must be one of 'bridge', 'full', or 'light'.
-{{- else if not (hasKey .Values.node "args") -}}
-Node args are not set.
-{{- else if not (eq .Values.node.settings.nodeType (first .Values.node.args)) -}}
-The nodeType value ({{ .Values.node.settings.nodeType }}) does not match the first argument in args ({{ first .Values.node.args }}).
+{{- else if (hasKey .Values.node "args") -}}
+DEPRECATION WARNING: The use of node.args is deprecated. Please configure container args using node.settings.nodeType and node.extraArgs.
+  {{- if not (eq .Values.node.settings.nodeType (first .Values.node.args)) -}}
+  The nodeType value ({{ .Values.node.settings.nodeType }}) does not match the first argument in args ({{ first .Values.node.args }}).
+  {{- end -}}
 {{- end -}}
 {{- end -}}
 
