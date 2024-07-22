@@ -1,4 +1,4 @@
-{{- if eq .Values.node.settings.nodeType "bridge" }}
+{{- if eq .Values.node.settings.nodeType "light" }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
