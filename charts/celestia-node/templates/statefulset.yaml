@@ -276,6 +276,7 @@ spec:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: {{ .Values.node.settings.home }}
               readOnly: false
+            {{- if .Values.node.settings.wssTLS.enabled }}
             - name: tls-certs
               mountPath: /home/celestia/tls/cert.pem
               subPath: fullchain.pem
@@ -284,6 +285,7 @@ spec:
               mountPath: /home/celestia/tls/key.pem
               subPath: privkey.pem
               readOnly: true
+            {{- end }}
           {{- if .Values.node.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.node.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
@@ -340,7 +342,7 @@ spec:
                 path: my_celes_key.info
         - name: tls-certs
           secret:
-            secretName: tls-da-wss
+            secretName: {{ .Values.node.settings.wssTLS.name }}
             items:
               - key: fullchain.pem
                 path: fullchain.pem

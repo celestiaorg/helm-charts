@@ -137,6 +137,9 @@ node:
     secret:
       # -- name of the secret, it must be set
       name: SET_IT
+    wssTLS:
+      enabled: false
+      name: SET_IT
   ## @param node.config Configuration for the celestia-node
   ##
   ## @param node.config.apptoml Configuration for the celestia-node node.toml

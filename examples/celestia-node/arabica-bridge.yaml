@@ -3,25 +3,27 @@ commonLabels: &commonLabels
   environment: arabica
   network: da
   type: &nodeType bridge # check
-  secretName: &secretName keys-da-bridge-1 # check
+  bootstrapper: &bootstrapper "true"
+  secretName: &secretName keys-da-bridge-4 # check
   pool: &pool pool-da-0 # check pool instance type to validate requests & limits
+  release: &release v0.14.1
+  wssTLS: &wssTLS da-b4-wss-tls
 service:
   external:
     annotations:
       external-dns.alpha.kubernetes.io/endpoints-type: "NodeExternalIP"
-      external-dns.alpha.kubernetes.io/hostname: "test-hc-bridge.celestia-arabica-11.com"
+      external-dns.alpha.kubernetes.io/hostname: "test-da-bridge-4.celestia-arabica-11.com"
       external-dns.alpha.kubernetes.io/ttl: "60"
 persistence:
-  size: 750Gi
+  storageClass: sbs-15k
+  size: 1.5Ti
   dataSource:
     apiGroup: snapshot.storage.k8s.io
     kind: VolumeSnapshot
     name: da-latest
 node:
   image:
-    registry: ttl.sh
-    repository: 6d4ea755-c9d9-4130-9383-280aa32ca046
-    tag: 24h
+    tag: *release
   nodeSelector:
     k8s.scaleway.com/pool-name: *pool
   persistentVolumeClaimRetentionPolicy:
@@ -50,6 +52,9 @@ node:
     enabled: true
     periodSeconds: 10
     failureThreshold: 60
+  extraEnvVars:
+    - name: CELESTIA_BOOTSTRAPPER
+      value: *bootstrapper
   args:
     - *nodeType
     - start
@@ -60,10 +65,13 @@ node:
     - --p2p.metrics
   settings:
     nodeType: *nodeType
-    address: "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjcmVhdGVkIjoiMjAyNC0wMS0wMiAxMjo1NzoyMC4yNjk1Mjg2NTQgKzAwMDAgVVRDIG09KzAuMDQwNDkyNDk0IiwiZW5jIjoiQTI1NkdDTSIsInAyYyI6ODE5MiwicDJzIjoibHBUb0pLUkFvS3NPbmRhaCJ9.SFen5RaM_7JverpZQN6VxtJ06XePE5VKjyzMyIPgqURSge-XbiLHqA.vZ4fuVFbrLODe8RM.EGKwO3uGEifnPanziF-AD4i6q_92IetSVAEz-7Grg75AJyFLV3Flt4CmfLxrJ2JHWJEKUQBNyIU81u7pd01iNzEECDy9b0jO3DYZ_5PRET8zrVPv6SKKZ_U7MLWmAe_eUajipnbqZ6NzG8UcG4qAt278ttZB1KQsKqocKlE39fSvo3iaZEzOKxS0N3tU1Xw2C3w6HgHJFk0QiP36NIHuKoP_4QJkeAomhJX-cNOYwvTd8qTFTk2-1TzLJ5DasLXsVXTUSUzCzYQhEfL8F0qFoGvuY1dWRD5BESw2Gg2oLH1w957Xd2UhRbo5ORz9POR7goEv9AZ_rWrjSV8HozUmgFwDQyM89M7oiNedEfGQoDjypzcUBcVkZLEMIdrFRpshjcpNEzy6-PZ9rSxouKb7wemG_sueX3V3gIPCTfFr6hB8_b2mV-kKeIXQRS5pJz_wXxeFHFKOHDjt3L8n5eqh.fy-zygX7rjTUqgX02sZKKg"
-    node_id: "92a499fc2ce7cabd2de89416aa0d0d07838f625d"
+    address: "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjcmVhdGVkIjoiMjAyNC0wMS0wMiAxMzowMDo1Mi4wMDMzMzM3MTkgKzAwMDAgVVRDIG09KzAuMDQwMjQxMDk3IiwiZW5jIjoiQTI1NkdDTSIsInAyYyI6ODE5MiwicDJzIjoiSUpfUVNZeHFaUi1zUHJ5RyJ9.3elqIhhaOROoBGP9sKBGZa1qd6XY9quGPbChZv5zPbamFnCuByXXZw.sAbNfJO-m8v_LWPk.W-ejd0cYJonLh9BpizjTYMSWeNjboKYGIw2VInDagoDJja_TR_eSQXZVL0LZb9M-YAoMWDySoI3QlTu2fS8cGtFGQ5QpKYix6ndXhtFLb-vlyvMK-eXxOl9Zhjwt7BDb5rOQGOKGCKSGFrouASsuAWhcgULaKsv_BhTnK0EboprKgF9HHN2OMBr1QyXESg2fhpzn3n5WD0W1YUqCpQCn-zMVzwYOJXwL_b04qiWCfHNDn85iQOs9Tbepecyhjcy0bt7nRDDZ7ZgqGlp_h63slZ5fKDGAI_jTFL06ygXgJmre88vr6nGVxeIIKtGcSOaGLySTUjyo_iiHGHFtUdnzNWBbKKh_x9NS8qYqWASTt8bRIisdbQzCLFN5pMLEvhMtnDq6aSUkB-p9ZAGpJXljZJjGMi14K4XfRWAh0RQeAVk_81h2tTXRSzfql-qgfA7DmUrO0VYBTPL78dXqLcJd.YdHoxUmfRqPJfOz-lbybGA"
+    node_id: "db1e0ee216b0dd73068b6460926701ff40ce8f1a"
     secret:
       name: *secretName
+    wssTLS:
+      enabled: false
+      name: *wssTLS
   config:
     configtoml:
       Core:
@@ -79,4 +87,3 @@ diagnosticMode:
   enabled: false
 networkPolicy:
   enabled: false
-  
