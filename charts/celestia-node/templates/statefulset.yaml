@@ -278,11 +278,11 @@ spec:
               readOnly: false
             {{- if .Values.node.settings.wssTLS.enabled }}
             - name: tls-certs
-              mountPath: /home/celestia/tls/cert.pem
+              mountPath: {{ .Values.node.settings.home }}/tls/cert.pem
               subPath: fullchain.pem
               readOnly: true
             - name: tls-certs
-              mountPath: /home/celestia/tls/key.pem
+              mountPath: {{ .Values.node.settings.home }}/tls/key.pem
               subPath: privkey.pem
               readOnly: true
             {{- end }}
