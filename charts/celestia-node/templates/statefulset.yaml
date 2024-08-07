@@ -186,7 +186,7 @@ spec:
           resources: {{- include "common.resources.preset" (dict "type" .Values.node.resourcesPreset) | nindent 12 }}
           {{- end }}
           ports:
-            - name: p2p-ws
+            - name: p2p-wss
               containerPort: {{ .Values.node.containerPorts.wss }}
               hostPort: {{ .Values.node.containerPorts.wss }}
               protocol: TCP
@@ -340,7 +340,7 @@ spec:
                 path: OAZHALLLMV4Q
               - key: my_celes_key_info
                 path: my_celes_key.info
-        {{ - if .Values.node.settings.wssTLS.enabled }}
+        {{- if .Values.node.settings.wssTLS.enabled }}
         - name: tls-certs
           secret:
             secretName: {{ .Values.node.settings.wssTLS.name }}

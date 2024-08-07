@@ -34,8 +34,8 @@ spec:
     {{- if .Values.service.external.ports.wss }}
     - name: p2p-ws
       port: {{ .Values.service.external.ports.wsss }}
-      {{- if not (eq .Values.service.external.ports.wss .Values.node.containerPorts.wss) }}
-      targetPort: {{ .Values.node.containerPorts.wss }}
+      {{- if not (eq .Values.service.external.ports.wss .Values.node.containerPorts.wsss) }}
+      targetPort: {{ .Values.node.containerPorts.wsss }}
       {{- end }}
       protocol: TCP
       {{- if and (or (eq .Values.service.external.type "NodePort") (eq .Values.service.external.type "LoadBalancer")) (not (empty .Values.service.external.nodePorts.ws)) }}
@@ -154,10 +154,10 @@ spec:
   sessionAffinityConfig: {{- include "common.tplvalues.render" (dict "value" .Values.service.internal.sessionAffinityConfig "context" $) | nindent 4 }}
   {{- end }}
   ports:
-    - name: p2p-ws
+    - name: p2p-wss
       port: {{ .Values.service.internal.ports.wss }}
-      {{- if not (eq .Values.service.internal.ports.wss .Values.node.containerPorts.ws) }}
-      targetPort: {{ .Values.node.containerPorts.ws }}
+      {{- if not (eq .Values.service.internal.ports.wss .Values.node.containerPorts.wss) }}
+      targetPort: {{ .Values.node.containerPorts.wss }}
       {{- end }}
       protocol: TCP
     - name: p2p-tcp
