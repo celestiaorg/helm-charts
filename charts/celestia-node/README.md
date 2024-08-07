@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: v0.14.0](https://img.shields.io/badge/AppVersion-v0.14.0-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![AppVersion: v0.15.0](https://img.shields.io/badge/AppVersion-v0.15.0-informational?style=flat-square)
 
 Celestia Node
 
@@ -56,88 +56,241 @@ Celestia Node
 | networkPolicy | with the correct destination port | `{"allowExternal":true,"allowExternalEgress":true,"enabled":true,"extraEgress":[],"extraIngress":[],"ingressNSMatchLabels":{},"ingressNSPodMatchLabels":{}}` | . |
 | networkPolicy.enabled | bool | `true` | enable network policy, true by default |
 | node.affinity | object | `{}` |  |
-| node.args[0] | string | `"bridge"` |  |
-| node.args[1] | string | `"start"` |  |
-| node.args[2] | string | `"--node.store=$(CELESTIA_HOME)"` |  |
-| node.args[3] | string | `"--metrics"` |  |
-| node.args[4] | string | `"--metrics.tls=false"` |  |
-| node.args[5] | string | `"--p2p.metrics"` |  |
+| node.args | string | `nil` |  |
 | node.automountServiceAccountToken | bool | `false` | mount service account token in node pods |
 | node.command | list | `["celestia"]` | command for the celestia-node |
 | node.command[0] | string | `"celestia"` | celestia |
-| node.config.configtoml.Core.GRPCPort | string | `"9090"` |  |
-| node.config.configtoml.Core.IP | string | `""` |  |
-| node.config.configtoml.Core.RPCPort | string | `"26657"` |  |
-| node.config.configtoml.Gateway.Address | string | `"localhost"` |  |
-| node.config.configtoml.Gateway.Enabled | bool | `false` |  |
-| node.config.configtoml.Gateway.Port | string | `"26659"` |  |
-| node.config.configtoml.Header.Client.MaxHeadersPerRangeRequest | int | `64` |  |
-| node.config.configtoml.Header.Client.RangeRequestTimeout | string | `"8s"` |  |
-| node.config.configtoml.Header.Server.RangeRequestTimeout | string | `"10s"` |  |
-| node.config.configtoml.Header.Server.ReadDeadline | string | `"1m0s"` |  |
-| node.config.configtoml.Header.Server.WriteDeadline | string | `"8s"` |  |
-| node.config.configtoml.Header.Store.IndexCacheSize | int | `16384` |  |
-| node.config.configtoml.Header.Store.StoreCacheSize | int | `4096` |  |
-| node.config.configtoml.Header.Store.WriteBatchSize | int | `2048` |  |
-| node.config.configtoml.Header.Syncer.TrustingPeriod | string | `"336h0m0s"` |  |
-| node.config.configtoml.Header.TrustedHash | string | `""` |  |
-| node.config.configtoml.Header.TrustedPeers | list | `[]` |  |
-| node.config.configtoml.Node.ShutdownTimeout | string | `"2m0s"` |  |
-| node.config.configtoml.Node.StartupTimeout | string | `"2m0s"` |  |
-| node.config.configtoml.P2P.AnnounceAddresses | list | `[]` |  |
-| node.config.configtoml.P2P.ConnManager.GracePeriod | string | `"1m0s"` |  |
-| node.config.configtoml.P2P.ConnManager.High | int | `1000` |  |
-| node.config.configtoml.P2P.ConnManager.Low | int | `800` |  |
-| node.config.configtoml.P2P.ListenAddresses[0] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1/webtransport"` |  |
-| node.config.configtoml.P2P.ListenAddresses[1] | string | `"/ip6/::/udp/2121/quic-v1/webtransport"` |  |
-| node.config.configtoml.P2P.ListenAddresses[2] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1"` |  |
-| node.config.configtoml.P2P.ListenAddresses[3] | string | `"/ip6/::/udp/2121/quic-v1"` |  |
-| node.config.configtoml.P2P.ListenAddresses[4] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
-| node.config.configtoml.P2P.ListenAddresses[5] | string | `"/ip6/::/tcp/2121"` |  |
-| node.config.configtoml.P2P.MutualPeers | list | `[]` |  |
-| node.config.configtoml.P2P.NoAnnounceAddresses[0] | string | `"/ip4/127.0.0.1/udp/2121/quic-v1/webtransport"` |  |
-| node.config.configtoml.P2P.NoAnnounceAddresses[1] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1/webtransport"` |  |
-| node.config.configtoml.P2P.NoAnnounceAddresses[2] | string | `"/ip6/::/udp/2121/quic-v1/webtransport"` |  |
-| node.config.configtoml.P2P.NoAnnounceAddresses[3] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1"` |  |
-| node.config.configtoml.P2P.NoAnnounceAddresses[4] | string | `"/ip4/127.0.0.1/udp/2121/quic-v1"` |  |
-| node.config.configtoml.P2P.NoAnnounceAddresses[5] | string | `"/ip6/::/udp/2121/quic-v1"` |  |
-| node.config.configtoml.P2P.NoAnnounceAddresses[6] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
-| node.config.configtoml.P2P.NoAnnounceAddresses[7] | string | `"/ip4/127.0.0.1/tcp/2121"` |  |
-| node.config.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/tcp/2121"` |  |
-| node.config.configtoml.P2P.PeerExchange | bool | `true` |  |
-| node.config.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
-| node.config.configtoml.Pruner.EnableService | bool | `false` |  |
-| node.config.configtoml.RPC.Address | string | `"localhost"` |  |
-| node.config.configtoml.RPC.Port | string | `"26658"` |  |
-| node.config.configtoml.RPC.SkipAuth | bool | `false` |  |
-| node.config.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
-| node.config.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
-| node.config.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
-| node.config.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
-| node.config.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
-| node.config.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
-| node.config.configtoml.Share.PeerManagerParams.GcInterval | string | `"30s"` |  |
-| node.config.configtoml.Share.PeerManagerParams.PeerCooldown | string | `"3s"` |  |
-| node.config.configtoml.Share.PeerManagerParams.PoolValidationTimeout | string | `"2m0s"` |  |
-| node.config.configtoml.Share.ShrExEDSParams.BufferSize | int | `32768` |  |
-| node.config.configtoml.Share.ShrExEDSParams.ConcurrencyLimit | int | `10` |  |
-| node.config.configtoml.Share.ShrExEDSParams.HandleRequestTimeout | string | `"1m0s"` |  |
-| node.config.configtoml.Share.ShrExEDSParams.ServerReadTimeout | string | `"5s"` |  |
-| node.config.configtoml.Share.ShrExEDSParams.ServerWriteTimeout | string | `"1m0s"` |  |
-| node.config.configtoml.Share.ShrExNDParams.ConcurrencyLimit | int | `10` |  |
-| node.config.configtoml.Share.ShrExNDParams.HandleRequestTimeout | string | `"1m0s"` |  |
-| node.config.configtoml.Share.ShrExNDParams.ServerReadTimeout | string | `"5s"` |  |
-| node.config.configtoml.Share.ShrExNDParams.ServerWriteTimeout | string | `"1m0s"` |  |
-| node.config.configtoml.Share.UseShareExchange | bool | `true` |  |
-| node.config.configtoml.State.GranterAddress | list | `[]` |  |
-| node.config.configtoml.State.KeyringAccName | string | `""` |  |
-| node.config.configtoml.State.KeyringBackend | string | `"test"` |  |
-| node.containerPorts | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658}` | Container ports for the node |
+| node.config.bridge.configtoml.Core.GRPCPort | string | `"9090"` |  |
+| node.config.bridge.configtoml.Core.IP | string | `""` |  |
+| node.config.bridge.configtoml.Core.RPCPort | string | `"26657"` |  |
+| node.config.bridge.configtoml.Gateway.Address | string | `"localhost"` |  |
+| node.config.bridge.configtoml.Gateway.Enabled | bool | `false` |  |
+| node.config.bridge.configtoml.Gateway.Port | string | `"26659"` |  |
+| node.config.bridge.configtoml.Header.Client.MaxHeadersPerRangeRequest | int | `64` |  |
+| node.config.bridge.configtoml.Header.Client.RangeRequestTimeout | string | `"8s"` |  |
+| node.config.bridge.configtoml.Header.Server.RangeRequestTimeout | string | `"10s"` |  |
+| node.config.bridge.configtoml.Header.Server.ReadDeadline | string | `"1m0s"` |  |
+| node.config.bridge.configtoml.Header.Server.WriteDeadline | string | `"8s"` |  |
+| node.config.bridge.configtoml.Header.Store.IndexCacheSize | int | `16384` |  |
+| node.config.bridge.configtoml.Header.Store.StoreCacheSize | int | `4096` |  |
+| node.config.bridge.configtoml.Header.Store.WriteBatchSize | int | `2048` |  |
+| node.config.bridge.configtoml.Header.Syncer.TrustingPeriod | string | `"336h0m0s"` |  |
+| node.config.bridge.configtoml.Header.TrustedHash | string | `""` |  |
+| node.config.bridge.configtoml.Header.TrustedPeers | list | `[]` |  |
+| node.config.bridge.configtoml.Node.ShutdownTimeout | string | `"2m0s"` |  |
+| node.config.bridge.configtoml.Node.StartupTimeout | string | `"2m0s"` |  |
+| node.config.bridge.configtoml.P2P.AnnounceAddresses | list | `[]` |  |
+| node.config.bridge.configtoml.P2P.ConnManager.GracePeriod | string | `"1m0s"` |  |
+| node.config.bridge.configtoml.P2P.ConnManager.High | int | `1000` |  |
+| node.config.bridge.configtoml.P2P.ConnManager.Low | int | `800` |  |
+| node.config.bridge.configtoml.P2P.ListenAddresses[0] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1/webtransport"` |  |
+| node.config.bridge.configtoml.P2P.ListenAddresses[1] | string | `"/ip6/::/udp/2121/quic-v1/webtransport"` |  |
+| node.config.bridge.configtoml.P2P.ListenAddresses[2] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1"` |  |
+| node.config.bridge.configtoml.P2P.ListenAddresses[3] | string | `"/ip6/::/udp/2121/quic-v1"` |  |
+| node.config.bridge.configtoml.P2P.ListenAddresses[4] | string | `"/ip4/0.0.0.0/udp/2121/webrtc-direct"` |  |
+| node.config.bridge.configtoml.P2P.ListenAddresses[5] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
+| node.config.bridge.configtoml.P2P.ListenAddresses[6] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
+| node.config.bridge.configtoml.P2P.ListenAddresses[7] | string | `"/ip6/::/tcp/2121"` |  |
+| node.config.bridge.configtoml.P2P.MutualPeers | list | `[]` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[0] | string | `"/ip4/127.0.0.1/udp/2121/quic-v1/webtransport"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[10] | string | `"/ip4/127.0.0.1/tcp/2121"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[11] | string | `"/ip6/::/tcp/2121"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[1] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1/webtransport"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[2] | string | `"/ip6/::/udp/2121/quic-v1/webtransport"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[3] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[4] | string | `"/ip4/127.0.0.1/udp/2121/quic-v1"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[5] | string | `"/ip6/::/udp/2121/quic-v1"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[6] | string | `"/ip4/0.0.0.0/udp/2121/webrtc-direct"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[7] | string | `"/ip4/127.0.0.1/udp/2121/webrtc-direct"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
+| node.config.bridge.configtoml.P2P.NoAnnounceAddresses[9] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
+| node.config.bridge.configtoml.P2P.PeerExchange | bool | `true` |  |
+| node.config.bridge.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
+| node.config.bridge.configtoml.Pruner.EnableService | bool | `false` |  |
+| node.config.bridge.configtoml.RPC.Address | string | `"localhost"` |  |
+| node.config.bridge.configtoml.RPC.Port | string | `"26658"` |  |
+| node.config.bridge.configtoml.RPC.SkipAuth | bool | `false` |  |
+| node.config.bridge.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
+| node.config.bridge.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
+| node.config.bridge.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
+| node.config.bridge.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
+| node.config.bridge.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
+| node.config.bridge.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
+| node.config.bridge.configtoml.Share.PeerManagerParams.GcInterval | string | `"30s"` |  |
+| node.config.bridge.configtoml.Share.PeerManagerParams.PeerCooldown | string | `"3s"` |  |
+| node.config.bridge.configtoml.Share.PeerManagerParams.PoolValidationTimeout | string | `"2m0s"` |  |
+| node.config.bridge.configtoml.Share.ShrExEDSParams.BufferSize | int | `32768` |  |
+| node.config.bridge.configtoml.Share.ShrExEDSParams.ConcurrencyLimit | int | `10` |  |
+| node.config.bridge.configtoml.Share.ShrExEDSParams.HandleRequestTimeout | string | `"1m0s"` |  |
+| node.config.bridge.configtoml.Share.ShrExEDSParams.ServerReadTimeout | string | `"5s"` |  |
+| node.config.bridge.configtoml.Share.ShrExEDSParams.ServerWriteTimeout | string | `"1m0s"` |  |
+| node.config.bridge.configtoml.Share.ShrExNDParams.ConcurrencyLimit | int | `10` |  |
+| node.config.bridge.configtoml.Share.ShrExNDParams.HandleRequestTimeout | string | `"1m0s"` |  |
+| node.config.bridge.configtoml.Share.ShrExNDParams.ServerReadTimeout | string | `"5s"` |  |
+| node.config.bridge.configtoml.Share.ShrExNDParams.ServerWriteTimeout | string | `"1m0s"` |  |
+| node.config.bridge.configtoml.Share.UseShareExchange | bool | `true` |  |
+| node.config.bridge.configtoml.State.DefaultBackendName | string | `"test"` |  |
+| node.config.bridge.configtoml.State.DefaultKeyName | string | `"my_celes_key"` |  |
+| node.config.full.configtoml.Core.GRPCPort | string | `"9090"` |  |
+| node.config.full.configtoml.Core.IP | string | `""` |  |
+| node.config.full.configtoml.Core.RPCPort | string | `"26657"` |  |
+| node.config.full.configtoml.DASer.BackgroundStoreInterval | string | `"10m0s"` |  |
+| node.config.full.configtoml.DASer.ConcurrencyLimit | int | `6` |  |
+| node.config.full.configtoml.DASer.SampleFrom | int | `1` |  |
+| node.config.full.configtoml.DASer.SampleTimeout | string | `"2m0s"` |  |
+| node.config.full.configtoml.DASer.SamplingRange | int | `100` |  |
+| node.config.full.configtoml.Gateway.Address | string | `"localhost"` |  |
+| node.config.full.configtoml.Gateway.Enabled | bool | `false` |  |
+| node.config.full.configtoml.Gateway.Port | string | `"26659"` |  |
+| node.config.full.configtoml.Header.Client.MaxHeadersPerRangeRequest | int | `64` |  |
+| node.config.full.configtoml.Header.Client.RangeRequestTimeout | string | `"8s"` |  |
+| node.config.full.configtoml.Header.Server.RangeRequestTimeout | string | `"10s"` |  |
+| node.config.full.configtoml.Header.Server.ReadDeadline | string | `"1m0s"` |  |
+| node.config.full.configtoml.Header.Server.WriteDeadline | string | `"8s"` |  |
+| node.config.full.configtoml.Header.Store.IndexCacheSize | int | `16384` |  |
+| node.config.full.configtoml.Header.Store.StoreCacheSize | int | `4096` |  |
+| node.config.full.configtoml.Header.Store.WriteBatchSize | int | `2048` |  |
+| node.config.full.configtoml.Header.Syncer.TrustingPeriod | string | `"336h0m0s"` |  |
+| node.config.full.configtoml.Header.TrustedHash | string | `""` |  |
+| node.config.full.configtoml.Header.TrustedPeers | list | `[]` |  |
+| node.config.full.configtoml.Node.ShutdownTimeout | string | `"2m0s"` |  |
+| node.config.full.configtoml.Node.StartupTimeout | string | `"2m0s"` |  |
+| node.config.full.configtoml.P2P.AnnounceAddresses | list | `[]` |  |
+| node.config.full.configtoml.P2P.ConnManager.GracePeriod | string | `"1m0s"` |  |
+| node.config.full.configtoml.P2P.ConnManager.High | int | `1000` |  |
+| node.config.full.configtoml.P2P.ConnManager.Low | int | `800` |  |
+| node.config.full.configtoml.P2P.ListenAddresses[0] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1/webtransport"` |  |
+| node.config.full.configtoml.P2P.ListenAddresses[1] | string | `"/ip6/::/udp/2121/quic-v1/webtransport"` |  |
+| node.config.full.configtoml.P2P.ListenAddresses[2] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1"` |  |
+| node.config.full.configtoml.P2P.ListenAddresses[3] | string | `"/ip6/::/udp/2121/quic-v1"` |  |
+| node.config.full.configtoml.P2P.ListenAddresses[4] | string | `"/ip4/0.0.0.0/udp/2121/webrtc-direct"` |  |
+| node.config.full.configtoml.P2P.ListenAddresses[5] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
+| node.config.full.configtoml.P2P.ListenAddresses[6] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
+| node.config.full.configtoml.P2P.ListenAddresses[7] | string | `"/ip6/::/tcp/2121"` |  |
+| node.config.full.configtoml.P2P.MutualPeers | list | `[]` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[0] | string | `"/ip4/127.0.0.1/udp/2121/quic-v1/webtransport"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[10] | string | `"/ip4/127.0.0.1/tcp/2121"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[11] | string | `"/ip6/::/tcp/2121"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[1] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1/webtransport"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[2] | string | `"/ip6/::/udp/2121/quic-v1/webtransport"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[3] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[4] | string | `"/ip4/127.0.0.1/udp/2121/quic-v1"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[5] | string | `"/ip6/::/udp/2121/quic-v1"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[6] | string | `"/ip4/0.0.0.0/udp/2121/webrtc-direct"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[7] | string | `"/ip4/127.0.0.1/udp/2121/webrtc-direct"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
+| node.config.full.configtoml.P2P.NoAnnounceAddresses[9] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
+| node.config.full.configtoml.P2P.PeerExchange | bool | `true` |  |
+| node.config.full.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
+| node.config.full.configtoml.Pruner.EnableService | bool | `false` |  |
+| node.config.full.configtoml.RPC.Address | string | `"localhost"` |  |
+| node.config.full.configtoml.RPC.Port | string | `"26658"` |  |
+| node.config.full.configtoml.RPC.SkipAuth | bool | `false` |  |
+| node.config.full.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
+| node.config.full.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
+| node.config.full.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
+| node.config.full.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
+| node.config.full.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
+| node.config.full.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
+| node.config.full.configtoml.Share.PeerManagerParams.GcInterval | string | `"30s"` |  |
+| node.config.full.configtoml.Share.PeerManagerParams.PeerCooldown | string | `"3s"` |  |
+| node.config.full.configtoml.Share.PeerManagerParams.PoolValidationTimeout | string | `"2m0s"` |  |
+| node.config.full.configtoml.Share.ShrExEDSParams.BufferSize | int | `32768` |  |
+| node.config.full.configtoml.Share.ShrExEDSParams.ConcurrencyLimit | int | `10` |  |
+| node.config.full.configtoml.Share.ShrExEDSParams.HandleRequestTimeout | string | `"1m0s"` |  |
+| node.config.full.configtoml.Share.ShrExEDSParams.ServerReadTimeout | string | `"5s"` |  |
+| node.config.full.configtoml.Share.ShrExEDSParams.ServerWriteTimeout | string | `"1m0s"` |  |
+| node.config.full.configtoml.Share.ShrExNDParams.ConcurrencyLimit | int | `10` |  |
+| node.config.full.configtoml.Share.ShrExNDParams.HandleRequestTimeout | string | `"1m0s"` |  |
+| node.config.full.configtoml.Share.ShrExNDParams.ServerReadTimeout | string | `"5s"` |  |
+| node.config.full.configtoml.Share.ShrExNDParams.ServerWriteTimeout | string | `"1m0s"` |  |
+| node.config.full.configtoml.Share.UseShareExchange | bool | `true` |  |
+| node.config.full.configtoml.State.DefaultBackendName | string | `"test"` |  |
+| node.config.full.configtoml.State.DefaultKeyName | string | `"my_celes_key"` |  |
+| node.config.light.configtoml.Core.GRPCPort | string | `"9090"` |  |
+| node.config.light.configtoml.Core.IP | string | `""` |  |
+| node.config.light.configtoml.Core.RPCPort | string | `"26657"` |  |
+| node.config.light.configtoml.DASer.BackgroundStoreInterval | string | `"10m0s"` |  |
+| node.config.light.configtoml.DASer.ConcurrencyLimit | int | `16` |  |
+| node.config.light.configtoml.DASer.SampleFrom | int | `1` |  |
+| node.config.light.configtoml.DASer.SampleTimeout | string | `"2m40s"` |  |
+| node.config.light.configtoml.DASer.SamplingRange | int | `100` |  |
+| node.config.light.configtoml.Gateway.Address | string | `"localhost"` |  |
+| node.config.light.configtoml.Gateway.Enabled | bool | `false` |  |
+| node.config.light.configtoml.Gateway.Port | string | `"26659"` |  |
+| node.config.light.configtoml.Header.Client.MaxHeadersPerRangeRequest | int | `64` |  |
+| node.config.light.configtoml.Header.Client.RangeRequestTimeout | string | `"8s"` |  |
+| node.config.light.configtoml.Header.Server.RangeRequestTimeout | string | `"10s"` |  |
+| node.config.light.configtoml.Header.Server.ReadDeadline | string | `"1m0s"` |  |
+| node.config.light.configtoml.Header.Server.WriteDeadline | string | `"8s"` |  |
+| node.config.light.configtoml.Header.Store.IndexCacheSize | int | `2048` |  |
+| node.config.light.configtoml.Header.Store.StoreCacheSize | int | `512` |  |
+| node.config.light.configtoml.Header.Store.WriteBatchSize | int | `512` |  |
+| node.config.light.configtoml.Header.Syncer.TrustingPeriod | string | `"336h0m0s"` |  |
+| node.config.light.configtoml.Header.TrustedHash | string | `""` |  |
+| node.config.light.configtoml.Header.TrustedPeers | list | `[]` |  |
+| node.config.light.configtoml.Node.ShutdownTimeout | string | `"20s"` |  |
+| node.config.light.configtoml.Node.StartupTimeout | string | `"20s"` |  |
+| node.config.light.configtoml.P2P.AnnounceAddresses | list | `[]` |  |
+| node.config.light.configtoml.P2P.ConnManager.GracePeriod | string | `"1m0s"` |  |
+| node.config.light.configtoml.P2P.ConnManager.High | int | `100` |  |
+| node.config.light.configtoml.P2P.ConnManager.Low | int | `50` |  |
+| node.config.light.configtoml.P2P.ListenAddresses[0] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1/webtransport"` |  |
+| node.config.light.configtoml.P2P.ListenAddresses[1] | string | `"/ip6/::/udp/2121/quic-v1/webtransport"` |  |
+| node.config.light.configtoml.P2P.ListenAddresses[2] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1"` |  |
+| node.config.light.configtoml.P2P.ListenAddresses[3] | string | `"/ip6/::/udp/2121/quic-v1"` |  |
+| node.config.light.configtoml.P2P.ListenAddresses[4] | string | `"/ip4/0.0.0.0/udp/2121/webrtc-direct"` |  |
+| node.config.light.configtoml.P2P.ListenAddresses[5] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
+| node.config.light.configtoml.P2P.ListenAddresses[6] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
+| node.config.light.configtoml.P2P.ListenAddresses[7] | string | `"/ip6/::/tcp/2121"` |  |
+| node.config.light.configtoml.P2P.MutualPeers | list | `[]` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[0] | string | `"/ip4/127.0.0.1/udp/2121/quic-v1/webtransport"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[10] | string | `"/ip4/127.0.0.1/tcp/2121"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[11] | string | `"/ip6/::/tcp/2121"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[1] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1/webtransport"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[2] | string | `"/ip6/::/udp/2121/quic-v1/webtransport"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[3] | string | `"/ip4/0.0.0.0/udp/2121/quic-v1"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[4] | string | `"/ip4/127.0.0.1/udp/2121/quic-v1"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[5] | string | `"/ip6/::/udp/2121/quic-v1"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[6] | string | `"/ip4/0.0.0.0/udp/2121/webrtc-direct"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[7] | string | `"/ip4/127.0.0.1/udp/2121/webrtc-direct"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
+| node.config.light.configtoml.P2P.NoAnnounceAddresses[9] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
+| node.config.light.configtoml.P2P.PeerExchange | bool | `false` |  |
+| node.config.light.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
+| node.config.light.configtoml.Pruner.EnableService | bool | `false` |  |
+| node.config.light.configtoml.RPC.Address | string | `"localhost"` |  |
+| node.config.light.configtoml.RPC.Port | string | `"26658"` |  |
+| node.config.light.configtoml.RPC.SkipAuth | bool | `false` |  |
+| node.config.light.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
+| node.config.light.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
+| node.config.light.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
+| node.config.light.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
+| node.config.light.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
+| node.config.light.configtoml.Share.LightAvailability.SampleAmount | int | `16` |  |
+| node.config.light.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
+| node.config.light.configtoml.Share.PeerManagerParams.GcInterval | string | `"30s"` |  |
+| node.config.light.configtoml.Share.PeerManagerParams.PeerCooldown | string | `"3s"` |  |
+| node.config.light.configtoml.Share.PeerManagerParams.PoolValidationTimeout | string | `"2m0s"` |  |
+| node.config.light.configtoml.Share.ShrExEDSParams.BufferSize | int | `32768` |  |
+| node.config.light.configtoml.Share.ShrExEDSParams.ConcurrencyLimit | int | `10` |  |
+| node.config.light.configtoml.Share.ShrExEDSParams.HandleRequestTimeout | string | `"1m0s"` |  |
+| node.config.light.configtoml.Share.ShrExEDSParams.ServerReadTimeout | string | `"5s"` |  |
+| node.config.light.configtoml.Share.ShrExEDSParams.ServerWriteTimeout | string | `"1m0s"` |  |
+| node.config.light.configtoml.Share.ShrExNDParams.ConcurrencyLimit | int | `10` |  |
+| node.config.light.configtoml.Share.ShrExNDParams.HandleRequestTimeout | string | `"1m0s"` |  |
+| node.config.light.configtoml.Share.ShrExNDParams.ServerReadTimeout | string | `"5s"` |  |
+| node.config.light.configtoml.Share.ShrExNDParams.ServerWriteTimeout | string | `"1m0s"` |  |
+| node.config.light.configtoml.Share.UseShareExchange | bool | `true` |  |
+| node.config.light.configtoml.State.DefaultBackendName | string | `"test"` |  |
+| node.config.light.configtoml.State.DefaultKeyName | string | `"my_celes_key"` |  |
+| node.containerPorts | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"wss":2122}` | Container ports for the node |
 | node.containerPorts.p2p | int | `2121` | P2P container port, 2121 by default |
 | node.containerPorts.profiling | int | `6060` | Profiling container port, 6060 by default |
 | node.containerPorts.prometheus | int | `8890` | Prometheus container port, 8890 by default |
 | node.containerPorts.rest | int | `26659` | REST container port, 26659 by default |
 | node.containerPorts.rpc | int | `26658` | RPC container port, 26658 by default |
+| node.containerPorts.wss | int | `2122` | WebSocket container port, 2122 by default |
 | node.containerSecurityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"enabled":true,"privileged":false,"readOnlyRootFilesystem":true,"runAsGroup":10001,"runAsNonRoot":true,"runAsUser":10001,"seLinuxOptions":{},"seccompProfile":{"type":"RuntimeDefault"}}` | container security context for the node |
 | node.containerSecurityContext.allowPrivilegeEscalation | bool | `false` | allowPrivilegeEscalation in node container, false by default |
 | node.containerSecurityContext.capabilities | object | `{"drop":["ALL"]}` | capabilities to be dropped in node container, ["ALL"] by default |
@@ -155,17 +308,20 @@ Celestia Node
 | node.daemonsetAnnotations | object | `{}` |  |
 | node.deploymentAnnotations | object | `{}` |  |
 | node.existingConfigmap | string | `nil` |  |
+| node.extraArgs[0] | string | `"--metrics"` |  |
+| node.extraArgs[1] | string | `"--metrics.tls=false"` |  |
+| node.extraArgs[2] | string | `"--p2p.metrics"` |  |
 | node.extraEnvVars | list | `[]` |  |
 | node.extraEnvVarsCM | string | `""` |  |
 | node.extraEnvVarsSecret | string | `""` |  |
 | node.extraVolumeMounts | list | `[]` |  |
 | node.extraVolumes | list | `[]` |  |
 | node.hostAliases | list | `[]` |  |
-| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.14.0"}` | image parameters for the image |
+| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.15.0"}` | image parameters for the image |
 | node.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | node.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | node.image.repository | string | `"celestiaorg/celestia-node"` | repository for the image, celestiaorg/celestia-node by default |
-| node.image.tag | string | `"v0.14.0"` | tag for the image, v0.13.6 by default |
+| node.image.tag | string | `"v0.15.0"` | tag for the image, v0.13.6 by default |
 | node.initContainers | list | `[]` |  |
 | node.lifecycleHooks | object | `{}` |  |
 | node.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the node |
@@ -184,8 +340,8 @@ Celestia Node
 | node.otelAgent.grafanaOtelSecret | object | `{"name":"SET_IT"}` | grafana otel secret for the node |
 | node.otelAgent.grafanaOtelSecret.name | string | `"SET_IT"` | name of the grafana otel secret, it must be set |
 | node.otelAgent.image | object | `{"digest":"","pullPolicy":"IfNotPresent","registry":"ghcr.io","repository":"open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib","tag":"0.102.0"}` | image for the otel agent, ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:0.102.0 by default |
-| node.otelAgent.resources | object | `{}` |  |
-| node.otelAgent.resourcesPreset | string | `"micro"` |  |
+| node.otelAgent.resources.requests.cpu | string | `"100m"` |  |
+| node.otelAgent.resources.requests.memory | string | `"100Mi"` |  |
 | node.pdb.create | bool | `false` |  |
 | node.pdb.maxUnavailable | string | `""` |  |
 | node.pdb.minAvailable | int | `1` |  |
@@ -203,16 +359,15 @@ Celestia Node
 | node.podSecurityContext.supplementalGroups | list | `[]` | filesystem extra groups for node pods, [] by default |
 | node.podSecurityContext.sysctls | list | `[]` | kernel settings using the sysctl interface for node pods, [] by default |
 | node.priorityClassName | string | `""` |  |
-| node.readinessProbe.enabled | bool | `false` | enable readiness probe on node containers, false by default |
+| node.readinessProbe.enabled | bool | `true` | enable readiness probe on node containers, false by default |
 | node.readinessProbe.failureThreshold | int | `3` | failure threshold for readinessProbe, 3 by default |
 | node.readinessProbe.initialDelaySeconds | int | `0` | initial delay seconds for readinessProbe, 0 by default |
 | node.readinessProbe.periodSeconds | int | `10` | period seconds for readinessProbe, 10 by default |
 | node.readinessProbe.successThreshold | int | `1` | success threshold for readinessProbe, 1 by default |
 | node.readinessProbe.timeoutSeconds | int | `1` | timeout seconds for readinessProbe, 1 by default |
 | node.replicaCount | int | `1` | number of node replicas to deploy, 1 by default |
-| node.resources | object | `{"limits":{"cpu":6,"memory":"16Gi"},"requests":{"cpu":6,"memory":"16Gi"}}` | resources for the node |
-| node.resources.limits | object | `{"cpu":6,"memory":"16Gi"}` | limits for the node |
-| node.resources.limits.cpu | int | `6` | cpu limits for the node, 2 by default |
+| node.resources | object | `{"limits":{"memory":"16Gi"},"requests":{"cpu":6,"memory":"16Gi"}}` | resources for the node |
+| node.resources.limits | object | `{"memory":"16Gi"}` | limits for the node |
 | node.resources.limits.memory | string | `"16Gi"` | memory limits for the node, 8Gi by default |
 | node.resources.requests | object | `{"cpu":6,"memory":"16Gi"}` | requests for the node |
 | node.resources.requests.cpu | int | `6` | cpu requests for the node, 2 by default |
@@ -221,8 +376,11 @@ Celestia Node
 | node.schedulerName | string | `""` |  |
 | node.settings.address | string | `"SET_IT"` | address for the celestia-node, it must be set |
 | node.settings.home | string | `"/home/celestia"` | home directory for the celestia-node, defaults to /home/celestia |
+| node.settings.nodeType | string | `"bridge"` |  |
 | node.settings.node_id | string | `"SET_IT"` | node ID for the celestia-node, it must be set |
 | node.settings.secret.name | string | `"SET_IT"` | name of the secret, it must be set |
+| node.settings.wssTLS.enabled | bool | `false` |  |
+| node.settings.wssTLS.name | string | `"SET_IT"` |  |
 | node.sidecars | list | `[]` |  |
 | node.startupProbe | object | `{"enabled":false,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | startup probe for the node |
 | node.startupProbe.enabled | bool | `false` | enable startup probe on node containers, false by default |
@@ -240,8 +398,8 @@ Celestia Node
 | persistence.size | string | `"250Gi"` | size of data volume, 250Gi by default |
 | rbac.create | bool | `false` |  |
 | rbac.rules | list | `[]` |  |
-| service | object | `{"external":{"annotations":{},"enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"LoadBalancer"},"internal":{"annotations":{},"clusterIP":"","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}}` | service parameters |
-| service.external | object | `{"annotations":{},"enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"LoadBalancer"}` | external service parameters |
+| service | object | `{"external":{"annotations":{},"clusterIP":"None","enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658,"wss":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"},"internal":{"annotations":{},"clusterIP":"None","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"wss":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}}` | service parameters |
+| service.external | object | `{"annotations":{},"clusterIP":"None","enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658,"wss":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}` | external service parameters |
 | service.external.enabled | bool | `true` | enable external service, true by default |
 | service.external.nodePorts | object | `{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""}` | node ports for the celestia-app |
 | service.external.nodePorts.p2p | string | `""` | p2p port, 2121 by default |
@@ -252,14 +410,16 @@ Celestia Node
 | service.external.ports.p2p | int | `2121` | P2P container port, 2121 by default |
 | service.external.ports.rest | int | `26659` | REST container port, 26659 by default |
 | service.external.ports.rpc | int | `26658` | RPC container port, 26658 by default |
-| service.external.type | string | `"LoadBalancer"` | external service type, LoadBalancer by default |
-| service.internal | object | `{"annotations":{},"clusterIP":"","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}` | service type, ClusterIP by default |
-| service.internal.ports | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658}` | Ports for the celestia-node |
+| service.external.ports.wss | int | `2122` | P2P container port, 2122 by default |
+| service.external.type | string | `"ClusterIP"` | external service type, ClusterIP by default |
+| service.internal | object | `{"annotations":{},"clusterIP":"None","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"wss":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}` | service type, ClusterIP by default |
+| service.internal.ports | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"wss":2122}` | Ports for the celestia-node |
 | service.internal.ports.p2p | int | `2121` | P2P container port, 2121 by default |
 | service.internal.ports.profiling | int | `6060` | Profiling container port, 6060 by default |
 | service.internal.ports.prometheus | int | `8890` | Prometheus container port, 8890 by default |
 | service.internal.ports.rest | int | `26659` | REST container port, 26659 by default |
 | service.internal.ports.rpc | int | `26658` | RPC container port, 26658 by default |
+| service.internal.ports.wss | int | `2122` | WebSocket container port, 2122 by default |
 | service.internal.type | string | `"ClusterIP"` | service type, ClusterIP by default |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |
@@ -278,4 +438,4 @@ Celestia Node
 | volumePermissions.resourcesPreset | string | `"nano"` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.13.1](https://github.com/norwoodj/helm-docs/releases/v1.13.1)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
