@@ -340,6 +340,7 @@ spec:
                 path: OAZHALLLMV4Q
               - key: my_celes_key_info
                 path: my_celes_key.info
+        {{ - if .Values.node.settings.wssTLS.enabled }}
         - name: tls-certs
           secret:
             secretName: {{ .Values.node.settings.wssTLS.name }}
@@ -348,6 +349,7 @@ spec:
                 path: fullchain.pem
               - key: privkey.pem
                 path: privkey.pem
+        {{- end }}
         - name: address
           configMap:
             name: {{ template "common.names.fullname" . }}-address
