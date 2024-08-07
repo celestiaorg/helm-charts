@@ -139,102 +139,300 @@ node:
       name: SET_IT
   ## @param node.config Configuration for the celestia-node
   ##
-  ## @param node.config.apptoml Configuration for the celestia-node node.toml
-  ##
-  ## @param node.config.clienttoml Configuration for the celestia-node client.toml
-  ##
-  ## @param node.config.configtoml Configuration for the celestia-node config.toml
-  ##
+  ## @param node.config.bridge Configuration for the celestia-node bridge
+  ## @param node.config.full Configuration for the celestia-node full
+  ## @param node.config.light Configuration for the celestia-node light
   config:
-    configtoml:
-      Node:
-        StartupTimeout: 2m0s
-        ShutdownTimeout: 2m0s
-      Core:
-        IP: ""
-        RPCPort: "26657"
-        GRPCPort: "9090"
-      State:
-        KeyringAccName: ""
-        KeyringBackend: test
-        GranterAddress: []
-      P2P:
-        ListenAddresses:
-          - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
-          - /ip6/::/udp/2121/quic-v1/webtransport
-          - /ip4/0.0.0.0/udp/2121/quic-v1
-          - /ip6/::/udp/2121/quic-v1
-          - /ip4/0.0.0.0/tcp/2121
-          - /ip6/::/tcp/2121
-        AnnounceAddresses: []
-        NoAnnounceAddresses:
-          - /ip4/127.0.0.1/udp/2121/quic-v1/webtransport
-          - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
-          - /ip6/::/udp/2121/quic-v1/webtransport
-          - /ip4/0.0.0.0/udp/2121/quic-v1
-          - /ip4/127.0.0.1/udp/2121/quic-v1
-          - /ip6/::/udp/2121/quic-v1
-          - /ip4/0.0.0.0/tcp/2121
-          - /ip4/127.0.0.1/tcp/2121
-          - /ip6/::/tcp/2121
-        MutualPeers: []
-        PeerExchange: true
-        RoutingTableRefreshPeriod: 1m0s
-        ConnManager:
-          Low: 800
-          High: 1000
-          GracePeriod: 1m0s
-      RPC:
-        Address: localhost
-        Port: "26658"
-        SkipAuth: false
-      Gateway:
-        Address: localhost
-        Port: "26659"
-        Enabled: false
-      Share:
-        UseShareExchange: true
-        EDSStoreParams:
-          GCInterval: 0s
-          RecentBlocksCacheSize: 10
-          BlockstoreCacheSize: 128
-        ShrExEDSParams:
-          ServerReadTimeout: 5s
-          ServerWriteTimeout: 1m0s
-          HandleRequestTimeout: 1m0s
-          ConcurrencyLimit: 10
-          BufferSize: 32768
-        ShrExNDParams:
-          ServerReadTimeout: 5s
-          ServerWriteTimeout: 1m0s
-          HandleRequestTimeout: 1m0s
-          ConcurrencyLimit: 10
-        PeerManagerParams:
-          PoolValidationTimeout: 2m0s
-          PeerCooldown: 3s
-          GcInterval: 30s
-          EnableBlackListing: false
-        Discovery:
-          PeersLimit: 5
-          AdvertiseInterval: 1h0m0s
-      Header:
-        TrustedHash: ""
-        TrustedPeers: []
-        Store:
-          StoreCacheSize: 4096
-          IndexCacheSize: 16384
-          WriteBatchSize: 2048
-        Syncer:
-          TrustingPeriod: 336h0m0s
-        Server:
-          WriteDeadline: 8s
-          ReadDeadline: 1m0s
-          RangeRequestTimeout: 10s
-        Client:
-          MaxHeadersPerRangeRequest: 64
-          RangeRequestTimeout: 8s
-      Pruner:
-        EnableService: false
+    ## @param node.config.bridge Configuration for the celestia-node bridge
+    ##
+    bridge:
+      configtoml:
+        Node:
+          StartupTimeout: 2m0s
+          ShutdownTimeout: 2m0s
+        Core:
+          IP: ""
+          RPCPort: "26657"
+          GRPCPort: "9090"
+        State:
+          KeyringAccName: ""
+          KeyringBackend: test
+          GranterAddress: []
+        P2P:
+          ListenAddresses:
+            - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
+            - /ip6/::/udp/2121/quic-v1/webtransport
+            - /ip4/0.0.0.0/udp/2121/quic-v1
+            - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/tcp/2121
+            - /ip6/::/tcp/2121
+          AnnounceAddresses: []
+          NoAnnounceAddresses:
+            - /ip4/127.0.0.1/udp/2121/quic-v1/webtransport
+            - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
+            - /ip6/::/udp/2121/quic-v1/webtransport
+            - /ip4/0.0.0.0/udp/2121/quic-v1
+            - /ip4/127.0.0.1/udp/2121/quic-v1
+            - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/tcp/2121
+            - /ip4/127.0.0.1/tcp/2121
+            - /ip6/::/tcp/2121
+          MutualPeers: []
+          PeerExchange: true
+          RoutingTableRefreshPeriod: 1m0s
+          ConnManager:
+            Low: 800
+            High: 1000
+            GracePeriod: 1m0s
+        RPC:
+          Address: localhost
+          Port: "26658"
+          SkipAuth: false
+        Gateway:
+          Address: localhost
+          Port: "26659"
+          Enabled: false
+        Share:
+          UseShareExchange: true
+          EDSStoreParams:
+            GCInterval: 0s
+            RecentBlocksCacheSize: 10
+            BlockstoreCacheSize: 128
+          ShrExEDSParams:
+            ServerReadTimeout: 5s
+            ServerWriteTimeout: 1m0s
+            HandleRequestTimeout: 1m0s
+            ConcurrencyLimit: 10
+            BufferSize: 32768
+          ShrExNDParams:
+            ServerReadTimeout: 5s
+            ServerWriteTimeout: 1m0s
+            HandleRequestTimeout: 1m0s
+            ConcurrencyLimit: 10
+          PeerManagerParams:
+            PoolValidationTimeout: 2m0s
+            PeerCooldown: 3s
+            GcInterval: 30s
+            EnableBlackListing: false
+          Discovery:
+            PeersLimit: 5
+            AdvertiseInterval: 1h0m0s
+        Header:
+          TrustedHash: ""
+          TrustedPeers: []
+          Store:
+            StoreCacheSize: 4096
+            IndexCacheSize: 16384
+            WriteBatchSize: 2048
+          Syncer:
+            TrustingPeriod: 336h0m0s
+          Server:
+            WriteDeadline: 8s
+            ReadDeadline: 1m0s
+            RangeRequestTimeout: 10s
+          Client:
+            MaxHeadersPerRangeRequest: 64
+            RangeRequestTimeout: 8s
+        Pruner:
+          EnableService: false
+    ## @param node.config.full Configuration for the celestia-node full
+    ##
+    full:
+      configtoml:
+        Node:
+          StartupTimeout: 2m0s
+          ShutdownTimeout: 2m0s
+        Core:
+          IP: ""
+          RPCPort: "26657"
+          GRPCPort: "9090"
+        State:
+          KeyringAccName: ""
+          KeyringBackend: test
+          GranterAddress: []
+        P2P:
+          ListenAddresses:
+            - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
+            - /ip6/::/udp/2121/quic-v1/webtransport
+            - /ip4/0.0.0.0/udp/2121/quic-v1
+            - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/tcp/2121
+            - /ip6/::/tcp/2121
+          AnnounceAddresses: []
+          NoAnnounceAddresses:
+            - /ip4/127.0.0.1/udp/2121/quic-v1/webtransport
+            - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
+            - /ip6/::/udp/2121/quic-v1/webtransport
+            - /ip4/0.0.0.0/udp/2121/quic-v1
+            - /ip4/127.0.0.1/udp/2121/quic-v1
+            - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/tcp/2121
+            - /ip4/127.0.0.1/tcp/2121
+            - /ip6/::/tcp/2121
+          MutualPeers: []
+          PeerExchange: true
+          RoutingTableRefreshPeriod: 1m0s
+          ConnManager:
+            Low: 800
+            High: 1000
+            GracePeriod: 1m0s
+        RPC:
+          Address: localhost
+          Port: "26658"
+          SkipAuth: false
+        Gateway:
+          Address: localhost
+          Port: "26659"
+          Enabled: false
+        Share:
+          UseShareExchange: true
+          EDSStoreParams:
+            GCInterval: 0s
+            RecentBlocksCacheSize: 10
+            BlockstoreCacheSize: 128
+          ShrExEDSParams:
+            ServerReadTimeout: 5s
+            ServerWriteTimeout: 1m0s
+            HandleRequestTimeout: 1m0s
+            ConcurrencyLimit: 10
+            BufferSize: 32768
+          ShrExNDParams:
+            ServerReadTimeout: 5s
+            ServerWriteTimeout: 1m0s
+            HandleRequestTimeout: 1m0s
+            ConcurrencyLimit: 10
+          PeerManagerParams:
+            PoolValidationTimeout: 2m0s
+            PeerCooldown: 3s
+            GcInterval: 30s
+            EnableBlackListing: false
+          Discovery:
+            PeersLimit: 5
+            AdvertiseInterval: 1h0m0s
+        Header:
+          TrustedHash: ""
+          TrustedPeers: []
+          Store:
+            StoreCacheSize: 4096
+            IndexCacheSize: 16384
+            WriteBatchSize: 2048
+          Syncer:
+            TrustingPeriod: 336h0m0s
+          Server:
+            WriteDeadline: 8s
+            ReadDeadline: 1m0s
+            RangeRequestTimeout: 10s
+          Client:
+            MaxHeadersPerRangeRequest: 64
+            RangeRequestTimeout: 8s
+        DASer:
+          SamplingRange: 100
+          ConcurrencyLimit: 6
+          BackgroundStoreInterval: 10m0s
+          SampleFrom: 1
+          SampleTimeout: 2m0s
+        Pruner:
+          EnableService: false
+    ## @param node.config.light Configuration for the celestia-node light
+    ##
+    light:
+      configtoml:
+        Node:
+          StartupTimeout: 20s
+          ShutdownTimeout: 20s
+        Core:
+          IP: ""
+          RPCPort: "26657"
+          GRPCPort: "9090"
+        State:
+          KeyringAccName: ""
+          KeyringBackend: test
+          GranterAddress: []
+        P2P:
+          ListenAddresses:
+            - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
+            - /ip6/::/udp/2121/quic-v1/webtransport
+            - /ip4/0.0.0.0/udp/2121/quic-v1
+            - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/tcp/2121
+            - /ip6/::/tcp/2121
+          AnnounceAddresses: []
+          NoAnnounceAddresses:
+            - /ip4/127.0.0.1/udp/2121/quic-v1/webtransport
+            - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
+            - /ip6/::/udp/2121/quic-v1/webtransport
+            - /ip4/0.0.0.0/udp/2121/quic-v1
+            - /ip4/127.0.0.1/udp/2121/quic-v1
+            - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/tcp/2121
+            - /ip4/127.0.0.1/tcp/2121
+            - /ip6/::/tcp/2121
+          MutualPeers: []
+          PeerExchange: false
+          RoutingTableRefreshPeriod: 1m0s
+          ConnManager:
+            Low: 50
+            High: 100
+            GracePeriod: 1m0s
+        RPC:
+          Address: localhost
+          Port: "26658"
+          SkipAuth: false
+        Gateway:
+          Address: localhost
+          Port: "26659"
+          Enabled: false
+        Share:
+          UseShareExchange: true
+          EDSStoreParams:
+            GCInterval: 0s
+            RecentBlocksCacheSize: 10
+            BlockstoreCacheSize: 128
+          ShrExEDSParams:
+            ServerReadTimeout: 5s
+            ServerWriteTimeout: 1m0s
+            HandleRequestTimeout: 1m0s
+            ConcurrencyLimit: 10
+            BufferSize: 32768
+          ShrExNDParams:
+            ServerReadTimeout: 5s
+            ServerWriteTimeout: 1m0s
+            HandleRequestTimeout: 1m0s
+            ConcurrencyLimit: 10
+          PeerManagerParams:
+            PoolValidationTimeout: 2m0s
+            PeerCooldown: 3s
+            GcInterval: 30s
+            EnableBlackListing: false
+          LightAvailability:
+            SampleAmount: 16
+          Discovery:
+            PeersLimit: 5
+            AdvertiseInterval: 1h0m0s
+        Header:
+          TrustedHash: ""
+          TrustedPeers: []
+          Store:
+            StoreCacheSize: 512
+            IndexCacheSize: 2048
+            WriteBatchSize: 512
+          Syncer:
+            TrustingPeriod: 336h0m0s
+          Server:
+            WriteDeadline: 8s
+            ReadDeadline: 1m0s
+            RangeRequestTimeout: 10s
+          Client:
+            MaxHeadersPerRangeRequest: 64
+            RangeRequestTimeout: 8s
+        DASer:
+          SamplingRange: 100
+          ConcurrencyLimit: 16
+          BackgroundStoreInterval: 10m0s
+          SampleFrom: 1
+          SampleTimeout: 2m40s
+        Pruner:
+          EnableService: false
   ## @param node.otelAgent OTel agent configuration for the node
   ##
   otelAgent:

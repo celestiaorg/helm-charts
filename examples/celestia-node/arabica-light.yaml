@@ -57,16 +57,17 @@ node:
     secret:
       name: *secretName
   config:
-    configtoml:
-      Core:
-        IP: consensus-validator
-      RPC:
-        Enabled: true
-        Address: 0.0.0.0
-      Gateway:
-        Enabled: true
-        Address: 0.0.0.0
-      Node:
-        StartupTimeout: 2m
+    light:
+      configtoml:
+        Core:
+          IP: consensus-validator
+        RPC:
+          Enabled: true
+          Address: 0.0.0.0
+        Gateway:
+          Enabled: true
+          Address: 0.0.0.0
+        Node:
+          StartupTimeout: 2m
 diagnosticMode:
   enabled: false

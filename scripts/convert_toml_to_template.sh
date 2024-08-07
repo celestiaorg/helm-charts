@@ -4,6 +4,7 @@
 convert_toml_to_template() {
   local toml_file=$1
   local node_type=$2
+  local node_subtype=$3
   local toml_output
   local template_output
 
@@ -35,18 +36,34 @@ convert_toml_to_template() {
       key_replaced="${key//-/_}"
       current_section_replaced="${current_section//-/_}"
       if [ -n "$current_section" ]; then
-        template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\"\n"
+        if [ "$node_type" == "node" ]; then
+          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${node_subtype}.${file_base_name}.${current_section_replaced}.$key_replaced }}\"\n"
+        else
+          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\"\n"
+        fi
       else
-        template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.$key_replaced }}\"\n"
+        if [ "$node_type" == "node" ]; then
+          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${node_subtype}.${file_base_name}.$key_replaced }}\"\n"
+        else
+          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.$key_replaced }}\"\n"
+        fi
       fi
     elif [[ $line =~ ^[[:space:]]*([a-zA-Z0-9_-]+)\ =\ \[(.+)\]$ ]]; then
       key="${BASH_REMATCH[1]}"
       key_replaced="${key//-/_}"
       current_section_replaced="${current_section//-/_}"
       if [ -n "$current_section" ]; then
-        template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
+        if [ "$node_type" == "node" ]; then
+          template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${node_subtype}.${file_base_name}.${current_section_replaced}.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
+        else
+          template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
+        fi
       else
-        template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${file_base_name}.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
+        if [ "$node_type" == "node" ]; then
+          template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${node_subtype}.${file_base_name}.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
+        else
+          template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${file_base_name}.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
+        fi
       fi
     elif [[ $line =~ ^[[:space:]]*([a-zA-Z0-9_-]+)\ =\ (.+)$ ]]; then
       key="${BASH_REMATCH[1]}"
@@ -55,22 +72,46 @@ convert_toml_to_template() {
       current_section_replaced="${current_section//-/_}"
       if [[ $value =~ ^\".*\"$ ]]; then
         if [ -n "$current_section" ]; then
-          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\"\n"
+          if [ "$node_type" == "node" ]; then
+            template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${node_subtype}.${file_base_name}.${current_section_replaced}.$key_replaced }}\"\n"
+          else
+            template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\"\n"
+          fi
         else
-          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.$key_replaced }}\"\n"
+          if [ "$node_type" == "node" ]; then
+            template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${node_subtype}.${file_base_name}.$key_replaced }}\"\n"
+          else
+            template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.$key_replaced }}\"\n"
+          fi
         fi
       else
         if [[ $value =~ ^[0-9]+$ ]]; then
           if [ -n "$current_section" ]; then
-            template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\n"
+            if [ "$node_type" == "node" ]; then
+              template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${node_subtype}.${file_base_name}.${current_section_replaced}.$key_replaced }}\n"
+            else
+              template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\n"
+            fi
           else
-            template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${file_base_name}.$key_replaced }}\n"
+            if [ "$node_type" == "node" ]; then
+              template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${node_subtype}.${file_base_name}.$key_replaced }}\n"
+            else
+              template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${file_base_name}.$key_replaced }}\n"
+            fi
           fi
         else
           if [ -n "$current_section" ]; then
-            template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\n"
+            if [ "$node_type" == "node" ]; then
+              template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${node_subtype}.${file_base_name}.${current_section_replaced}.$key_replaced }}\n"
+            else
+              template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\n"
+            fi
           else
-            template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${file_base_name}.$key_replaced }}\n"
+            if [ "$node_type" == "node" ]; then
+              template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${node_subtype}.${file_base_name}.$key_replaced }}\n"
+            else
+              template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${file_base_name}.$key_replaced }}\n"
+            fi
           fi
         fi
       fi
@@ -88,10 +129,10 @@ convert_toml_to_template() {
 }
 
 # Check if the correct number of arguments is provided
-if [ "$#" -ne 2 ]; then
-  echo "Usage: $0 <path_to_toml_file> <node_type>" 
+if [ "$#" -lt 2 ] || { [ "$1" == "node" ] && [ "$#" -ne 3 ]; }; then
+  echo "Usage: $0 <path_to_toml_file> <node_type> [<node_subtype>]" 
   exit 1
 fi
 
 # Call the function with the provided TOML file
-convert_toml_to_template "$1" "$2"
+convert_toml_to_template "$1" "$2" "$3"
