@@ -158,15 +158,16 @@ node:
           RPCPort: "26657"
           GRPCPort: "9090"
         State:
-          KeyringAccName: ""
-          KeyringBackend: test
-          GranterAddress: []
+          DefaultKeyName: my_celes_key
+          DefaultBackendName: test
         P2P:
           ListenAddresses:
             - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
             - /ip6/::/udp/2121/quic-v1/webtransport
             - /ip4/0.0.0.0/udp/2121/quic-v1
             - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/udp/2121/webrtc-direct
+            - /ip6/::/udp/2121/webrtc-direct
             - /ip4/0.0.0.0/tcp/2121
             - /ip6/::/tcp/2121
           AnnounceAddresses: []
@@ -177,6 +178,9 @@ node:
             - /ip4/0.0.0.0/udp/2121/quic-v1
             - /ip4/127.0.0.1/udp/2121/quic-v1
             - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/udp/2121/webrtc-direct
+            - /ip4/127.0.0.1/udp/2121/webrtc-direct
+            - /ip6/::/udp/2121/webrtc-direct
             - /ip4/0.0.0.0/tcp/2121
             - /ip4/127.0.0.1/tcp/2121
             - /ip6/::/tcp/2121
@@ -250,15 +254,16 @@ node:
           RPCPort: "26657"
           GRPCPort: "9090"
         State:
-          KeyringAccName: ""
-          KeyringBackend: test
-          GranterAddress: []
+          DefaultKeyName: my_celes_key
+          DefaultBackendName: test
         P2P:
           ListenAddresses:
             - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
             - /ip6/::/udp/2121/quic-v1/webtransport
             - /ip4/0.0.0.0/udp/2121/quic-v1
             - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/udp/2121/webrtc-direct
+            - /ip6/::/udp/2121/webrtc-direct
             - /ip4/0.0.0.0/tcp/2121
             - /ip6/::/tcp/2121
           AnnounceAddresses: []
@@ -269,6 +274,9 @@ node:
             - /ip4/0.0.0.0/udp/2121/quic-v1
             - /ip4/127.0.0.1/udp/2121/quic-v1
             - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/udp/2121/webrtc-direct
+            - /ip4/127.0.0.1/udp/2121/webrtc-direct
+            - /ip6/::/udp/2121/webrtc-direct
             - /ip4/0.0.0.0/tcp/2121
             - /ip4/127.0.0.1/tcp/2121
             - /ip6/::/tcp/2121
@@ -348,15 +356,16 @@ node:
           RPCPort: "26657"
           GRPCPort: "9090"
         State:
-          KeyringAccName: ""
-          KeyringBackend: test
-          GranterAddress: []
+          DefaultKeyName: my_celes_key
+          DefaultBackendName: test
         P2P:
           ListenAddresses:
             - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
             - /ip6/::/udp/2121/quic-v1/webtransport
             - /ip4/0.0.0.0/udp/2121/quic-v1
             - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/udp/2121/webrtc-direct
+            - /ip6/::/udp/2121/webrtc-direct
             - /ip4/0.0.0.0/tcp/2121
             - /ip6/::/tcp/2121
           AnnounceAddresses: []
@@ -367,6 +376,9 @@ node:
             - /ip4/0.0.0.0/udp/2121/quic-v1
             - /ip4/127.0.0.1/udp/2121/quic-v1
             - /ip6/::/udp/2121/quic-v1
+            - /ip4/0.0.0.0/udp/2121/webrtc-direct
+            - /ip4/127.0.0.1/udp/2121/webrtc-direct
+            - /ip6/::/udp/2121/webrtc-direct
             - /ip4/0.0.0.0/tcp/2121
             - /ip4/127.0.0.1/tcp/2121
             - /ip6/::/tcp/2121
