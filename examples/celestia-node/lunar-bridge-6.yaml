@@ -5,7 +5,7 @@ commonLabels: &commonLabels
   type: &nodeType bridge # check
   secretName: &secretName keys-da-bridge-6 # check
   pool: &pool pool-da-1 # check pool instance type to validate requests & limits
-  release: &release v0.14.0
+  release: &release v0.14.1
 service:
   external:
     annotations:
