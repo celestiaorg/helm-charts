@@ -186,6 +186,10 @@ spec:
           resources: {{- include "common.resources.preset" (dict "type" .Values.node.resourcesPreset) | nindent 12 }}
           {{- end }}
           ports:
+            - name: p2p-ws
+              containerPort: {{ .Values.node.containerPorts.wss }}
+              hostPort: {{ .Values.node.containerPorts.wss }}
+              protocol: TCP
             - name: p2p-tcp
               containerPort: {{ .Values.node.containerPorts.p2p }}
               hostPort: {{ .Values.node.containerPorts.p2p }}
@@ -272,6 +276,16 @@ spec:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: {{ .Values.node.settings.home }}
               readOnly: false
+            {{- if .Values.node.settings.wssTLS.enabled }}
+            - name: tls-certs
+              mountPath: {{ .Values.node.settings.home }}/tls/cert.pem
+              subPath: fullchain.pem
+              readOnly: true
+            - name: tls-certs
+              mountPath: {{ .Values.node.settings.home }}/tls/key.pem
+              subPath: privkey.pem
+              readOnly: true
+            {{- end }}
           {{- if .Values.node.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.node.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
@@ -326,6 +340,16 @@ spec:
                 path: OAZHALLLMV4Q
               - key: my_celes_key_info
                 path: my_celes_key.info
+        {{ - if .Values.node.settings.wssTLS.enabled }}
+        - name: tls-certs
+          secret:
+            secretName: {{ .Values.node.settings.wssTLS.name }}
+            items:
+              - key: fullchain.pem
+                path: fullchain.pem
+              - key: privkey.pem
+                path: privkey.pem
+        {{- end }}
         - name: address
           configMap:
             name: {{ template "common.names.fullname" . }}-address

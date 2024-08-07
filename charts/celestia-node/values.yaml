@@ -90,7 +90,7 @@ node:
     # -- repository for the image, celestiaorg/celestia-node by default
     repository: celestiaorg/celestia-node
     # -- tag for the image, v0.13.6 by default
-    tag: v0.14.1
+    tag: v0.15.0
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -136,6 +136,9 @@ node:
     ##     - key: my_celes_key_info
     secret:
       # -- name of the secret, it must be set
+      name: SET_IT
+    wssTLS:
+      enabled: false
       name: SET_IT
   ## @param node.config Configuration for the celestia-node
   ##
@@ -523,6 +526,8 @@ node:
   ##
   # -- Container ports for the node
   containerPorts:
+    # -- WebSocket container port, 2122 by default
+    wss: 2122
     # -- P2P container port, 2121 by default
     p2p: 2121
     # -- REST container port, 26659 by default
@@ -909,6 +914,8 @@ service:
     ## @param service.internal.ports.prometheus Node internal service Prometheus port
     # -- Ports for the celestia-node
     ports:
+      # -- WebSocket container port, 2122 by default
+      wss: 2122
       # -- P2P container port, 2121 by default
       p2p: 2121
       # -- REST container port, 26659 by default
@@ -955,6 +962,8 @@ service:
     ## @param service.external.ports.profiling Node external service Profiling port
     ## @param service.external.ports.prometheus Node external service Prometheus port
     ports:
+      # -- P2P container port, 2122 by default
+      wss: 2122
       # -- P2P container port, 2121 by default
       p2p: 2121
       # -- REST container port, 26659 by default
