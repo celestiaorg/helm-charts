@@ -163,7 +163,7 @@ spec:
           {{- if .Values.diagnosticMode.enabled }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 12 }}
           {{- else }}
-          args: {{ include "node.containerArgs" . | toYaml | nindent 12 }}
+          args: {{ include "node.containerArgs" . | nindent 12 }}
           {{- end }}
           env:
             - name: CELESTIA_HOME
