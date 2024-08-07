@@ -505,11 +505,12 @@ node:
     # -- celestia
     - celestia
   ## @param node.args Override default node container args (useful when using custom images)
+  ## DEPRECATION WARNING: The use of node.args is deprecated. Please configure container args using node.settings.nodeType and node.extraArgs.
   ##
-  args:
-    - bridge
-    - start
-    - --node.store=$(CELESTIA_HOME)
+  args: null
+  ## @param node.extraArgs Extra arguments to pass to the node container
+  ##
+  extraArgs:
     - --metrics
     - --metrics.tls=false
     - --p2p.metrics
