@@ -116,7 +116,10 @@ spec:
           command:
             - "sh"
             - "-c"
-            - "chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /home"
+            - |
+              set -ex
+              chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /home
+              ls -ltra /home
           volumeMounts:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: /home
@@ -127,18 +130,22 @@ spec:
             - "sh"
             - "-c"
             - |
-              mkdir -p /keys-volume/keyring-test && \
-              cp /keys/* /keys-volume/ && \
-              cp /address/* /keys-volume/keyring-test/ && \
-              cp /celes-key/* /keys-volume/keyring-test/ && \
-              chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /keys-volume/* /keys-volume/keyring-test/ && \
-              find /keys-volume/ -type f -exec chmod 0600 {} \;
+              set -ex
+              mkdir -p /keys-volume/keyring-test
+              cp /keys/* /keys-volume/
+              cp /address/* /keys-volume/keyring-test/
+              cp /celes-key/* /keys-volume/keyring-test/
+              printf "%s" "$(cat /celes-key/my_celes_key.info)" > /keys-volume/keyring-test/my_celes_key.info
+              rm /keys-volume/my_celes_key.info
+              chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /keys-volume/* /keys-volume/keyring-test/
+              find /keys-volume/ -type f -exec chmod 0400 {} \;
           volumeMounts:
             - name: keys
               mountPath: /keys
               readOnly: true
             - name: address
-              mountPath: /address
+              mountPath: /address/{{ .Values.node.settings.node_id }}.address
+              subPath: {{ .Values.node.settings.node_id }}.address
               readOnly: true
             - name: celes-key
               mountPath: /celes-key
@@ -348,8 +355,8 @@ spec:
           configMap:
             name: {{ template "common.names.fullname" . }}-address
             items:
-              - key: address
-                path: address
+              - key: {{ .Values.node.settings.node_id }}.address
+                path: {{ .Values.node.settings.node_id }}.address
         - name: celes-key
           secret:
             secretName: {{ .Values.node.settings.secret.name }}
