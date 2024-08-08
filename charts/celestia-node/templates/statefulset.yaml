@@ -276,7 +276,7 @@ spec:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: {{ .Values.node.settings.home }}
               readOnly: false
-            {{- if .Values.node.ws.tls.enabled }}
+            {{- if .Values.node.settings.ws.tls.enabled }}
             - name: tls-certs
               mountPath: {{ .Values.node.settings.home }}/tls/cert.pem
               subPath: tls.cert
@@ -359,10 +359,10 @@ spec:
         - name: configtoml
           configMap:
             name: {{ template "common.names.fullname" . }}-configtoml
-        {{- if .Values.node.ws.tls.enabled }}
+        {{- if .Values.node.settings.ws.tls.enabled }}
         - name: tls-certs
           secret:
-            secretName: {{ .Values.node.ws.tls.secret.name }}
+            secretName: {{ .Values.node.settings.secret.name }}
             items:
               - key: tls.cert
                 path: tls.cert
