@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![AppVersion: v0.15.0](https://img.shields.io/badge/AppVersion-v0.15.0-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![AppVersion: v0.15.0](https://img.shields.io/badge/AppVersion-v0.15.0-informational?style=flat-square)
 
 Celestia Node
 
@@ -284,13 +284,13 @@ Celestia Node
 | node.config.light.configtoml.Share.UseShareExchange | bool | `true` |  |
 | node.config.light.configtoml.State.DefaultBackendName | string | `"test"` |  |
 | node.config.light.configtoml.State.DefaultKeyName | string | `"my_celes_key"` |  |
-| node.containerPorts | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"wss":2122}` | Container ports for the node |
+| node.containerPorts | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"ws":2122}` | Container ports for the node |
 | node.containerPorts.p2p | int | `2121` | P2P container port, 2121 by default |
 | node.containerPorts.profiling | int | `6060` | Profiling container port, 6060 by default |
 | node.containerPorts.prometheus | int | `8890` | Prometheus container port, 8890 by default |
 | node.containerPorts.rest | int | `26659` | REST container port, 26659 by default |
 | node.containerPorts.rpc | int | `26658` | RPC container port, 26658 by default |
-| node.containerPorts.wss | int | `2122` | WebSocket container port, 2122 by default |
+| node.containerPorts.ws | int | `2122` | WebSocket container port, 2122 by default |
 | node.containerSecurityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"enabled":true,"privileged":false,"readOnlyRootFilesystem":true,"runAsGroup":10001,"runAsNonRoot":true,"runAsUser":10001,"seLinuxOptions":{},"seccompProfile":{"type":"RuntimeDefault"}}` | container security context for the node |
 | node.containerSecurityContext.allowPrivilegeEscalation | bool | `false` | allowPrivilegeEscalation in node container, false by default |
 | node.containerSecurityContext.capabilities | object | `{"drop":["ALL"]}` | capabilities to be dropped in node container, ["ALL"] by default |
@@ -379,8 +379,8 @@ Celestia Node
 | node.settings.nodeType | string | `"bridge"` |  |
 | node.settings.node_id | string | `"SET_IT"` | node ID for the celestia-node, it must be set |
 | node.settings.secret.name | string | `"SET_IT"` | name of the secret, it must be set |
-| node.settings.wssTLS.enabled | bool | `false` |  |
-| node.settings.wssTLS.name | string | `"SET_IT"` |  |
+| node.settings.ws.tls.enabled | bool | `false` |  |
+| node.settings.ws.tls.secret.name | string | `"SET_IT"` |  |
 | node.sidecars | list | `[]` |  |
 | node.startupProbe | object | `{"enabled":false,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | startup probe for the node |
 | node.startupProbe.enabled | bool | `false` | enable startup probe on node containers, false by default |
@@ -398,8 +398,8 @@ Celestia Node
 | persistence.size | string | `"250Gi"` | size of data volume, 250Gi by default |
 | rbac.create | bool | `false` |  |
 | rbac.rules | list | `[]` |  |
-| service | object | `{"external":{"annotations":{},"clusterIP":"None","enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658,"wss":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"},"internal":{"annotations":{},"clusterIP":"None","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"wss":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}}` | service parameters |
-| service.external | object | `{"annotations":{},"clusterIP":"None","enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658,"wss":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}` | external service parameters |
+| service | object | `{"external":{"annotations":{},"clusterIP":"None","enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658,"ws":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"},"internal":{"annotations":{},"clusterIP":"None","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"ws":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}}` | service parameters |
+| service.external | object | `{"annotations":{},"clusterIP":"None","enabled":true,"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""},"ports":{"p2p":2121,"rest":26659,"rpc":26658,"ws":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}` | external service parameters |
 | service.external.enabled | bool | `true` | enable external service, true by default |
 | service.external.nodePorts | object | `{"p2p":"","profiling":"","prometheus":"","rest":"","rpc":""}` | node ports for the celestia-app |
 | service.external.nodePorts.p2p | string | `""` | p2p port, 2121 by default |
@@ -410,16 +410,16 @@ Celestia Node
 | service.external.ports.p2p | int | `2121` | P2P container port, 2121 by default |
 | service.external.ports.rest | int | `26659` | REST container port, 26659 by default |
 | service.external.ports.rpc | int | `26658` | RPC container port, 26658 by default |
-| service.external.ports.wss | int | `2122` | P2P container port, 2122 by default |
+| service.external.ports.ws | int | `2122` | WebSocket container port, 2122 by default |
 | service.external.type | string | `"ClusterIP"` | external service type, ClusterIP by default |
-| service.internal | object | `{"annotations":{},"clusterIP":"None","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"wss":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}` | service type, ClusterIP by default |
-| service.internal.ports | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"wss":2122}` | Ports for the celestia-node |
+| service.internal | object | `{"annotations":{},"clusterIP":"None","ports":{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"ws":2122},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}` | service type, ClusterIP by default |
+| service.internal.ports | object | `{"p2p":2121,"profiling":6060,"prometheus":8890,"rest":26659,"rpc":26658,"ws":2122}` | Ports for the celestia-node |
 | service.internal.ports.p2p | int | `2121` | P2P container port, 2121 by default |
 | service.internal.ports.profiling | int | `6060` | Profiling container port, 6060 by default |
 | service.internal.ports.prometheus | int | `8890` | Prometheus container port, 8890 by default |
 | service.internal.ports.rest | int | `26659` | REST container port, 26659 by default |
 | service.internal.ports.rpc | int | `26658` | RPC container port, 26658 by default |
-| service.internal.ports.wss | int | `2122` | WebSocket container port, 2122 by default |
+| service.internal.ports.ws | int | `2122` | WebSocket container port, 2122 by default |
 | service.internal.type | string | `"ClusterIP"` | service type, ClusterIP by default |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |
@@ -438,4 +438,4 @@ Celestia Node
 | volumePermissions.resourcesPreset | string | `"nano"` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
+Autogenerated from chart metadata using [helm-docs v1.13.1](https://github.com/norwoodj/helm-docs/releases/v1.13.1)

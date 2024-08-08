@@ -186,10 +186,6 @@ spec:
           resources: {{- include "common.resources.preset" (dict "type" .Values.node.resourcesPreset) | nindent 12 }}
           {{- end }}
           ports:
-            - name: p2p-wss
-              containerPort: {{ .Values.node.containerPorts.wss }}
-              hostPort: {{ .Values.node.containerPorts.wss }}
-              protocol: TCP
             - name: p2p-tcp
               containerPort: {{ .Values.node.containerPorts.p2p }}
               hostPort: {{ .Values.node.containerPorts.p2p }}
@@ -198,6 +194,10 @@ spec:
               containerPort: {{ .Values.node.containerPorts.p2p }}
               hostPort: {{ .Values.node.containerPorts.p2p }}
               protocol: UDP
+            - name: ws
+              containerPort: {{ .Values.node.containerPorts.ws }}
+              hostPort: {{ .Values.node.containerPorts.ws }}
+              protocol: TCP
             - name: rest
               containerPort: {{ .Values.node.containerPorts.rest }}
               hostPort: {{ .Values.node.containerPorts.rest }}
@@ -276,14 +276,14 @@ spec:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: {{ .Values.node.settings.home }}
               readOnly: false
-            {{- if .Values.node.settings.wssTLS.enabled }}
+            {{- if .Values.node.ws.tls.enabled }}
             - name: tls-certs
               mountPath: {{ .Values.node.settings.home }}/tls/cert.pem
-              subPath: fullchain.pem
+              subPath: tls.cert
               readOnly: true
             - name: tls-certs
               mountPath: {{ .Values.node.settings.home }}/tls/key.pem
-              subPath: privkey.pem
+              subPath: tls.key
               readOnly: true
             {{- end }}
           {{- if .Values.node.extraVolumeMounts }}
@@ -340,16 +340,6 @@ spec:
                 path: OAZHALLLMV4Q
               - key: my_celes_key_info
                 path: my_celes_key.info
-        {{- if .Values.node.settings.wssTLS.enabled }}
-        - name: tls-certs
-          secret:
-            secretName: {{ .Values.node.settings.wssTLS.name }}
-            items:
-              - key: fullchain.pem
-                path: fullchain.pem
-              - key: privkey.pem
-                path: privkey.pem
-        {{- end }}
         - name: address
           configMap:
             name: {{ template "common.names.fullname" . }}-address
@@ -369,6 +359,16 @@ spec:
         - name: configtoml
           configMap:
             name: {{ template "common.names.fullname" . }}-configtoml
+        {{- if .Values.node.ws.tls.enabled }}
+        - name: tls-certs
+          secret:
+            secretName: {{ .Values.node.ws.tls.secret.name }}
+            items:
+              - key: tls.cert
+                path: tls.cert
+              - key: tls.key
+                path: tls.key
+        {{- end }}
         - name: otel-agent-config
           configMap:
             name: {{ template "common.names.fullname" . }}-otel-agent

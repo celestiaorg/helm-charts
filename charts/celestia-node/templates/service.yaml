@@ -31,19 +31,6 @@ spec:
   loadBalancerIP: {{ .Values.service.external.loadBalancerIP }}
   {{- end }}
   ports:
-    {{- if .Values.service.external.ports.wss }}
-    - name: p2p-wss
-      port: {{ .Values.service.external.ports.wss }}
-      {{- if not (eq .Values.service.external.ports.wss .Values.node.containerPorts.wss) }}
-      targetPort: {{ .Values.node.containerPorts.wss }}
-      {{- end }}
-      protocol: TCP
-      {{- if and (or (eq .Values.service.external.type "NodePort") (eq .Values.service.external.type "LoadBalancer")) (not (empty .Values.service.external.nodePorts.wss)) }}
-      nodePort: {{ .Values.service.external.nodePorts.wss }}
-      {{- else if eq .Values.service.external.type "ClusterIP" }}
-      nodePort: null
-      {{- end }}
-    {{- end }}
     {{- if .Values.service.external.ports.p2p }}
     - name: p2p-tcp
       port: {{ .Values.service.external.ports.p2p }}
@@ -66,6 +53,19 @@ spec:
       protocol: UDP
       {{- if and (or (eq .Values.service.external.type "NodePort") (eq .Values.service.external.type "LoadBalancer")) (not (empty .Values.service.external.nodePorts.p2p)) }}
       nodePort: {{ .Values.service.external.nodePorts.p2p }}
+      {{- else if eq .Values.service.external.type "ClusterIP" }}
+      nodePort: null
+      {{- end }}
+    {{- end }}
+    {{- if .Values.service.external.ports.ws }}
+    - name: ws
+      port: {{ .Values.service.external.ports.ws }}
+      {{- if not (eq .Values.service.external.ports.ws .Values.node.containerPorts.ws) }}
+      targetPort: {{ .Values.node.containerPorts.ws }}
+      {{- end }}
+      protocol: TCP
+      {{- if and (or (eq .Values.service.external.type "NodePort") (eq .Values.service.external.type "LoadBalancer")) (not (empty .Values.service.external.nodePorts.ws)) }}
+      nodePort: {{ .Values.service.external.nodePorts.ws }}
       {{- else if eq .Values.service.external.type "ClusterIP" }}
       nodePort: null
       {{- end }}
@@ -154,12 +154,6 @@ spec:
   sessionAffinityConfig: {{- include "common.tplvalues.render" (dict "value" .Values.service.internal.sessionAffinityConfig "context" $) | nindent 4 }}
   {{- end }}
   ports:
-    - name: p2p-wss
-      port: {{ .Values.service.internal.ports.wss }}
-      {{- if not (eq .Values.service.internal.ports.wss .Values.node.containerPorts.wss) }}
-      targetPort: {{ .Values.node.containerPorts.wss }}
-      {{- end }}
-      protocol: TCP
     - name: p2p-tcp
       port: {{ .Values.service.internal.ports.p2p }}
       {{- if not (eq .Values.service.internal.ports.p2p .Values.node.containerPorts.p2p) }}
@@ -170,6 +164,12 @@ spec:
       port: {{ .Values.service.internal.ports.p2p }}
       targetPort: {{ .Values.node.containerPorts.p2p }}
       protocol: UDP
+    - name: ws
+      port: {{ .Values.service.internal.ports.ws }}
+      {{- if not (eq .Values.service.internal.ports.ws .Values.node.containerPorts.ws) }}
+      targetPort: {{ .Values.node.containerPorts.ws }}
+      {{- end }}
+      protocol: TCP
     - name: rest
       port: {{ .Values.service.internal.ports.rest }}
       {{- if not (eq .Values.service.internal.ports.rest .Values.node.containerPorts.rest) }}

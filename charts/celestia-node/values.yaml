@@ -137,9 +137,16 @@ node:
     secret:
       # -- name of the secret, it must be set
       name: SET_IT
-    wssTLS:
-      enabled: false
-      name: SET_IT
+    ws:
+      tls:
+        enabled: false
+        ## A secret must be available in the cluster with the following format:
+        ## - name: <secret-name>
+        ## - items:
+        ##     - key: tls.cert
+        ##     - key: tls.key
+        secret:
+          name: SET_IT
   ## @param node.config Configuration for the celestia-node
   ##
   ## @param node.config.bridge Configuration for the celestia-node bridge
@@ -538,10 +545,10 @@ node:
   ##
   # -- Container ports for the node
   containerPorts:
-    # -- WebSocket container port, 2122 by default
-    wss: 2122
     # -- P2P container port, 2121 by default
     p2p: 2121
+    # -- WebSocket container port, 2122 by default
+    ws: 2122
     # -- REST container port, 26659 by default
     rest: 26659
     # -- RPC container port, 26658 by default
@@ -926,10 +933,10 @@ service:
     ## @param service.internal.ports.prometheus Node internal service Prometheus port
     # -- Ports for the celestia-node
     ports:
-      # -- WebSocket container port, 2122 by default
-      wss: 2122
       # -- P2P container port, 2121 by default
       p2p: 2121
+      # -- WebSocket container port, 2122 by default
+      ws: 2122
       # -- REST container port, 26659 by default
       rest: 26659
       # -- RPC container port, 26658 by default
@@ -974,10 +981,10 @@ service:
     ## @param service.external.ports.profiling Node external service Profiling port
     ## @param service.external.ports.prometheus Node external service Prometheus port
     ports:
-      # -- P2P container port, 2122 by default
-      wss: 2122
       # -- P2P container port, 2121 by default
       p2p: 2121
+      # -- WebSocket container port, 2122 by default
+      ws: 2122
       # -- REST container port, 26659 by default
       rest: 26659
       # -- RPC container port, 26658 by default
