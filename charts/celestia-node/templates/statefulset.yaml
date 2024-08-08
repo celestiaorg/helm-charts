@@ -168,6 +168,10 @@ spec:
           env:
             - name: CELESTIA_HOME
               value: {{ .Values.node.settings.home }}
+            {{- if .Values.node.settings.ws.tls.enabled }}
+            - name: CELESTIA_TLS_PATH
+              value: /etc/celestia/tls
+            {{- end }}
             {{- if .Values.node.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.node.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
