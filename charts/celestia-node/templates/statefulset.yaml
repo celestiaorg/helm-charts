@@ -290,7 +290,7 @@ spec:
             {{- if .Values.node.settings.ws.tls.enabled }}
             - name: tls-certs
               mountPath: {{ .Values.node.settings.home }}/tls/cert.pem
-              subPath: tls.cert
+              subPath: tls.crt
               readOnly: true
             - name: tls-certs
               mountPath: {{ .Values.node.settings.home }}/tls/key.pem
@@ -373,10 +373,10 @@ spec:
         {{- if .Values.node.settings.ws.tls.enabled }}
         - name: tls-certs
           secret:
-            secretName: {{ .Values.node.settings.secret.name }}
+            secretName: {{ .Values.node.settings.ws.tls.secret.name }}
             items:
-              - key: tls.cert
-                path: tls.cert
+              - key: tls.crt
+                path: tls.crt
               - key: tls.key
                 path: tls.key
         {{- end }}
