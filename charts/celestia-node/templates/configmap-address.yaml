@@ -9,4 +9,4 @@ metadata:
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 data:
-  address: {{ .Values.node.settings.address }}
+  {{ .Values.node.settings.node_id }}.address: {{ .Values.node.settings.address }}

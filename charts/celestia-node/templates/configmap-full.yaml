@@ -19,9 +19,8 @@ data:
       RPCPort = "{{ .Values.node.config.full.configtoml.Core.RPCPort }}"
       GRPCPort = "{{ .Values.node.config.full.configtoml.Core.GRPCPort }}"
     [State]
-      KeyringAccName = "{{ .Values.node.config.full.configtoml.State.KeyringAccName }}"
-      KeyringBackend = "{{ .Values.node.config.full.configtoml.State.KeyringBackend }}"
-      GranterAddress = {{ .Values.node.config.full.configtoml.State.GranterAddress }}
+      DefaultKeyName = "{{ .Values.node.config.full.configtoml.State.DefaultKeyName }}"
+      DefaultBackendName = "{{ .Values.node.config.full.configtoml.State.DefaultBackendName }}"
     [P2P]
       ListenAddresses = [{{ range $index, $element := .Values.node.config.full.configtoml.P2P.ListenAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
       AnnounceAddresses = {{ .Values.node.config.full.configtoml.P2P.AnnounceAddresses }}

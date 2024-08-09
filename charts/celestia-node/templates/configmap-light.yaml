@@ -19,9 +19,8 @@ data:
       RPCPort = "{{ .Values.node.config.light.configtoml.Core.RPCPort }}"
       GRPCPort = "{{ .Values.node.config.light.configtoml.Core.GRPCPort }}"
     [State]
-      KeyringAccName = "{{ .Values.node.config.light.configtoml.State.KeyringAccName }}"
-      KeyringBackend = "{{ .Values.node.config.light.configtoml.State.KeyringBackend }}"
-      GranterAddress = {{ .Values.node.config.light.configtoml.State.GranterAddress }}
+      DefaultKeyName = "{{ .Values.node.config.light.configtoml.State.DefaultKeyName }}"
+      DefaultBackendName = "{{ .Values.node.config.light.configtoml.State.DefaultBackendName }}"
     [P2P]
       ListenAddresses = [{{ range $index, $element := .Values.node.config.light.configtoml.P2P.ListenAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
       AnnounceAddresses = {{ .Values.node.config.light.configtoml.P2P.AnnounceAddresses }}
@@ -63,6 +62,8 @@ data:
         PeerCooldown = "{{ .Values.node.config.light.configtoml.Share.PeerManagerParams.PeerCooldown }}"
         GcInterval = "{{ .Values.node.config.light.configtoml.Share.PeerManagerParams.GcInterval }}"
         EnableBlackListing = {{ .Values.node.config.light.configtoml.Share.PeerManagerParams.EnableBlackListing }}
+      [Share.LightAvailability]
+        SampleAmount = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.LightAvailability.SampleAmount }}
       [Share.Discovery]
         PeersLimit = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.Discovery.PeersLimit }}
         AdvertiseInterval = "{{ .Values.node.config.light.configtoml.Share.Discovery.AdvertiseInterval }}"
