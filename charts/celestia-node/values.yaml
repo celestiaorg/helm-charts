@@ -118,22 +118,16 @@ node:
     ##
     # -- home directory for the celestia-node, defaults to /home/celestia
     home: "/home/celestia"
-    ## @param node.settings.node_id Node ID for the celestia-node
-    ##
-    # -- node ID for the celestia-node, it must be set
-    node_id: "SET_IT"
-    ## @param node.settings.address Address for the celestia-node
-    ##
-    # -- address for the celestia-node, it must be set
-    address: "SET_IT"
     ## @param node.settings.secret Secret for the celestia-node
     ##
     ## A secret must be available in the cluster with the following format:
     ## - name: <secret-name>
     ## - items:
+    ##     - key: my_celes_key_info
+    ##     - key: uid
+    ##     - key: address
     ##     - key: NJ3XILLTMVRXEZLUFZVHO5A
     ##     - key: OAZHALLLMV4Q
-    ##     - key: my_celes_key_info
     secret:
       # -- name of the secret, it must be set
       name: SET_IT

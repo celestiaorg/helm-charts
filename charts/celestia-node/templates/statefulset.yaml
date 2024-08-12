@@ -124,7 +124,7 @@ spec:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: /home
               readOnly: false
-        - name: keys-permission
+        - name: keys
           image: busybox
           command:
             - "sh"
@@ -132,23 +132,15 @@ spec:
             - |
               set -ex
               mkdir -p /keys-volume/keyring-test
-              cp /keys/* /keys-volume/
-              cp /address/* /keys-volume/keyring-test/
-              cp /celes-key/* /keys-volume/keyring-test/
-              printf "%s" "$(cat /celes-key/my_celes_key.info)" > /keys-volume/keyring-test/my_celes_key.info
-              rm /keys-volume/my_celes_key.info
-              chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /keys-volume/* /keys-volume/keyring-test/
-              find /keys-volume/ -type f -exec chmod 0400 {} \;
+              cp /keys/NJ3XILLTMVRXEZLUFZVHO5A /keys-volume/
+              cp /keys/OAZHALLLMV4Q /keys-volume/
+              cp /keys/my_celes_key.info /keys-volume/keyring-test/
+              printf "%s" "$(cat /keys/address)" > /keys-volume/keyring-test/$(cat /keys/uid).address
+              chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /keys-volume/
+              find /keys-volume/ -type f -exec chmod 0600 {} \;
           volumeMounts:
             - name: keys
               mountPath: /keys
-              readOnly: true
-            - name: address
-              mountPath: /address/{{ .Values.node.settings.node_id }}.address
-              subPath: {{ .Values.node.settings.node_id }}.address
-              readOnly: true
-            - name: celes-key
-              mountPath: /celes-key
               readOnly: true
             - name: keys-volume
               mountPath: /keys-volume
@@ -351,18 +343,10 @@ spec:
                 path: OAZHALLLMV4Q
               - key: my_celes_key_info
                 path: my_celes_key.info
-        - name: address
-          configMap:
-            name: {{ template "common.names.fullname" . }}-address
-            items:
-              - key: {{ .Values.node.settings.node_id }}.address
-                path: {{ .Values.node.settings.node_id }}.address
-        - name: celes-key
-          secret:
-            secretName: {{ .Values.node.settings.secret.name }}
-            items:
-              - key: my_celes_key_info
-                path: my_celes_key.info
+              - key: uid
+                path: uid
+              - key: address
+                path: address
         - name: keys-volume
           emptyDir: {}
         - name: home-dir
