@@ -116,32 +116,31 @@ spec:
           command:
             - "sh"
             - "-c"
-            - "chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /home"
+            - |
+              set -ex
+              chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /home
+              ls -ltra /home
           volumeMounts:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: /home
               readOnly: false
-        - name: keys-permission
+        - name: keys
           image: busybox
           command:
             - "sh"
             - "-c"
             - |
-              mkdir -p /keys-volume/keyring-test && \
-              cp /keys/* /keys-volume/ && \
-              cp /address/* /keys-volume/keyring-test/ && \
-              cp /celes-key/* /keys-volume/keyring-test/ && \
-              chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /keys-volume/* /keys-volume/keyring-test/ && \
+              set -ex
+              mkdir -p /keys-volume/keyring-test
+              cp /keys/NJ3XILLTMVRXEZLUFZVHO5A /keys-volume/
+              cp /keys/OAZHALLLMV4Q /keys-volume/
+              cp /keys/my_celes_key.info /keys-volume/keyring-test/
+              printf "%s" "$(cat /keys/address)" > /keys-volume/keyring-test/$(cat /keys/uid).address
+              chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /keys-volume/
               find /keys-volume/ -type f -exec chmod 0600 {} \;
           volumeMounts:
             - name: keys
               mountPath: /keys
-              readOnly: true
-            - name: address
-              mountPath: /address
-              readOnly: true
-            - name: celes-key
-              mountPath: /celes-key
               readOnly: true
             - name: keys-volume
               mountPath: /keys-volume
@@ -168,6 +167,10 @@ spec:
           env:
             - name: CELESTIA_HOME
               value: {{ .Values.node.settings.home }}
+            {{- if .Values.node.settings.ws.tls.enabled }}
+            - name: CELESTIA_TLS_PATH
+              value: {{ .Values.node.settings.home }}/tls
+            {{- end }}
             {{- if .Values.node.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.node.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
@@ -194,6 +197,10 @@ spec:
               containerPort: {{ .Values.node.containerPorts.p2p }}
               hostPort: {{ .Values.node.containerPorts.p2p }}
               protocol: UDP
+            - name: ws
+              containerPort: {{ .Values.node.containerPorts.ws }}
+              hostPort: {{ .Values.node.containerPorts.ws }}
+              protocol: TCP
             - name: rest
               containerPort: {{ .Values.node.containerPorts.rest }}
               hostPort: {{ .Values.node.containerPorts.rest }}
@@ -272,6 +279,16 @@ spec:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: {{ .Values.node.settings.home }}
               readOnly: false
+            {{- if .Values.node.settings.ws.tls.enabled }}
+            - name: tls-certs
+              mountPath: {{ .Values.node.settings.home }}/tls/cert.pem
+              subPath: tls.crt
+              readOnly: true
+            - name: tls-certs
+              mountPath: {{ .Values.node.settings.home }}/tls/key.pem
+              subPath: tls.key
+              readOnly: true
+            {{- end }}
           {{- if .Values.node.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.node.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
@@ -326,18 +343,10 @@ spec:
                 path: OAZHALLLMV4Q
               - key: my_celes_key_info
                 path: my_celes_key.info
-        - name: address
-          configMap:
-            name: {{ template "common.names.fullname" . }}-address
-            items:
+              - key: uid
+                path: uid
               - key: address
                 path: address
-        - name: celes-key
-          secret:
-            secretName: {{ .Values.node.settings.secret.name }}
-            items:
-              - key: my_celes_key_info
-                path: my_celes_key.info
         - name: keys-volume
           emptyDir: {}
         - name: home-dir
@@ -345,6 +354,16 @@ spec:
         - name: configtoml
           configMap:
             name: {{ template "common.names.fullname" . }}-configtoml
+        {{- if .Values.node.settings.ws.tls.enabled }}
+        - name: tls-certs
+          secret:
+            secretName: {{ .Values.node.settings.ws.tls.secret.name }}
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+        {{- end }}
         - name: otel-agent-config
           configMap:
             name: {{ template "common.names.fullname" . }}-otel-agent

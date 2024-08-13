@@ -80,7 +80,7 @@ Compile all deprecation warnings into a single message.
 {{- define "node.deprecationWarnings" -}}
 {{- $warnings := list -}}
 {{- if .Values.node.args -}}
-  DEPRECATION WARNING: The use of node.args is deprecated. Please configure container args using node.settings.nodeType and node.extraArgs.
+  {{- $warnings = append $warnings "DEPRECATION WARNING: The use of node.args is deprecated. Please configure container args using node.settings.nodeType and node.extraArgs." -}}
 {{- end -}}
 {{- $warnings := without $warnings "" -}}
 {{- $warning := join "\n" $warnings -}}
@@ -98,6 +98,12 @@ Compile all validation messages into a single message and fail the deployment if
 {{- define "node.validateValues" -}}
 {{- $messages := list -}}
 {{- $messages := append $messages (include "node.validateValues.nodeType" .) -}}
+{{- if .Values.node.settings.node_id -}}
+  {{- $messages = append $messages "ERROR: The use of node.settings.node_id is not allowed. Please use the secret specified in node.settings.secret." -}}
+{{- end -}}
+{{- if .Values.node.settings.address -}}
+  {{- $messages = append $messages "ERROR: The use of node.settings.address is not allowed. Please use the secret specified in node.settings.secret." -}}
+{{- end -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
 
