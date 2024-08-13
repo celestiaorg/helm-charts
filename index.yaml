@@ -6,6 +6,34 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v1.11.0
+    created: "2024-08-13T09:48:03.396233765Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: Celestia App
+    digest: 1deb34ffd33c6d7e5e3ddfca1f03aaf8222cfd88378b9191ab247b310e22f49b
+    home: https://celestia.org
+    icon: https://celestia.org/static/celestia-logo-29451ae35d3bb72cc4b0f17712d44c3a.svg
+    keywords:
+    - celestia
+    - celestia-app
+    maintainers:
+    - name: Celestia Labs
+      url: https://github.com/celestiaorg/helm-charts
+    name: celestia-app
+    sources:
+    - https://github.com/celestiaorg/celestia-app
+    urls:
+    - celestia-app-0.1.2.tgz
+    version: 0.1.2
+  - annotations:
+      category: celestia
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v1.11.0
     created: "2024-07-05T12:11:09.634442638Z"
     dependencies:
     - name: common
@@ -30,6 +58,34 @@ entries:
     - celestia-app-0.1.1.tgz
     version: 0.1.1
   celestia-node:
+  - annotations:
+      category: celestia
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.15.0
+    created: "2024-08-13T09:48:03.525790449Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: Celestia Node
+    digest: e4e487ce1bacbee097a08c332609729042508a237e70959e2d77974c39e2bee0
+    home: https://celestia.org
+    icon: https://celestia.org/static/celestia-logo-29451ae35d3bb72cc4b0f17712d44c3a.svg
+    keywords:
+    - celestia
+    - celestia-node
+    maintainers:
+    - name: Celestia Labs
+      url: https://github.com/celestiaorg/helm-charts
+    name: celestia-node
+    sources:
+    - https://github.com/celestiaorg/celestia-node
+    urls:
+    - celestia-node-0.2.0.tgz
+    version: 0.2.0
   - annotations:
       category: celestia
       licenses: Apache-2.0
@@ -142,4 +198,4 @@ entries:
     urls:
     - celestia-node-0.1.1.tgz
     version: 0.1.1
-generated: "2024-08-07T15:01:35.099208601Z"
+generated: "2024-08-13T09:48:03.525809054Z"
