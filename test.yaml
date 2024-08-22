@@ -1,0 +1,78 @@
+commonLabels: &commonLabels
+  chain_id: arabica-11
+  environment: arabica
+  network: da
+  type: &nodeType bridge # check
+  bootstrapper: &bootstrapper "true"
+  secretName: &secretName keys-da-bridge-4 # check
+  pool: &pool pool-da-0 # check pool instance type to validate requests & limits
+  release: &release v0.15.0
+  wssTLS: &wssTLS da-b4-wss-tls
+service:
+  external:
+    annotations:
+      external-dns.alpha.kubernetes.io/endpoints-type: "NodeExternalIP"
+      external-dns.alpha.kubernetes.io/hostname: "v15-da-bridge-4.celestia-arabica-11.com"
+      external-dns.alpha.kubernetes.io/ttl: "60"
+persistence:
+  storageClass: sbs-15k
+  size: 1.5Ti
+  dataSource:
+    apiGroup: snapshot.storage.k8s.io
+    kind: VolumeSnapshot
+    name: da-latest
+node:
+  image:
+    tag: *release
+  nodeSelector:
+    k8s.scaleway.com/pool-name: *pool
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Delete
+    whenScaled: Delete
+  otelAgent:
+    enabled: true
+    grafanaOtelSecret:
+      name: grafana-otel-token
+  resources:
+    requests:
+      cpu: 2
+      memory: 4Gi
+    limits:
+      #cpu: 4 # not required since this pod should run on it's own dedicated node
+      memory: 10Gi
+  extraEnvVars:
+    - name: CELESTIA_BOOTSTRAPPER
+      value: *bootstrapper
+  args:
+    - *nodeType
+    - start
+    - --p2p.network=arabica-11
+    - --node.store=$(CELESTIA_HOME)
+    - --metrics
+    - --metrics.tls=false
+    - --p2p.metrics
+  settings:
+    nodeType: *nodeType
+    address: "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjcmVhdGVkIjoiMjAyNC0wMS0wMiAxMzowMDo1Mi4wMDMzMzM3MTkgKzAwMDAgVVRDIG09KzAuMDQwMjQxMDk3IiwiZW5jIjoiQTI1NkdDTSIsInAyYyI6ODE5MiwicDJzIjoiSUpfUVNZeHFaUi1zUHJ5RyJ9.3elqIhhaOROoBGP9sKBGZa1qd6XY9quGPbChZv5zPbamFnCuByXXZw.sAbNfJO-m8v_LWPk.W-ejd0cYJonLh9BpizjTYMSWeNjboKYGIw2VInDagoDJja_TR_eSQXZVL0LZb9M-YAoMWDySoI3QlTu2fS8cGtFGQ5QpKYix6ndXhtFLb-vlyvMK-eXxOl9Zhjwt7BDb5rOQGOKGCKSGFrouASsuAWhcgULaKsv_BhTnK0EboprKgF9HHN2OMBr1QyXESg2fhpzn3n5WD0W1YUqCpQCn-zMVzwYOJXwL_b04qiWCfHNDn85iQOs9Tbepecyhjcy0bt7nRDDZ7ZgqGlp_h63slZ5fKDGAI_jTFL06ygXgJmre88vr6nGVxeIIKtGcSOaGLySTUjyo_iiHGHFtUdnzNWBbKKh_x9NS8qYqWASTt8bRIisdbQzCLFN5pMLEvhMtnDq6aSUkB-p9ZAGpJXljZJjGMi14K4XfRWAh0RQeAVk_81h2tTXRSzfql-qgfA7DmUrO0VYBTPL78dXqLcJd.YdHoxUmfRqPJfOz-lbybGA"
+    node_id: "db1e0ee216b0dd73068b6460926701ff40ce8f1a"
+    secret:
+      name: *secretName
+    ws:
+      enabled: false
+      secret:
+        name: *wssTLS
+  config:
+    configtoml:
+      Core:
+        IP: consensus-validator
+      RPC:
+        Address: 0.0.0.0
+      Gateway:
+        Enabled: true
+        Address: 0.0.0.0
+      Node:
+        StartupTimeout: 2m
+diagnosticMode:
+  enabled: false
+networkPolicy:
+  enabled: false
