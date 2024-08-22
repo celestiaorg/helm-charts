@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![AppVersion: v0.15.0](https://img.shields.io/badge/AppVersion-v0.15.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![AppVersion: v0.15.0](https://img.shields.io/badge/AppVersion-v0.15.0-informational?style=flat-square)
 
 Celestia Node
 
@@ -374,10 +374,8 @@ Celestia Node
 | node.resources.requests.memory | string | `"16Gi"` | memory requests for the node, 8Gi by default |
 | node.resourcesPreset | string | `"nano"` | more information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15 |
 | node.schedulerName | string | `""` |  |
-| node.settings.address | string | `"SET_IT"` | address for the celestia-node, it must be set |
 | node.settings.home | string | `"/home/celestia"` | home directory for the celestia-node, defaults to /home/celestia |
 | node.settings.nodeType | string | `"bridge"` |  |
-| node.settings.node_id | string | `"SET_IT"` | node ID for the celestia-node, it must be set |
 | node.settings.secret.name | string | `"SET_IT"` | name of the secret, it must be set |
 | node.settings.ws.tls.enabled | bool | `false` |  |
 | node.settings.ws.tls.secret.name | string | `"SET_IT"` |  |
