@@ -271,7 +271,7 @@ spec:
               mountPath: {{ .Values.node.settings.home }}/transients
               subPath: transients
               readOnly: false
-            {{- else if .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+            {{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
             - name: data-others
               mountPath: {{ .Values.node.settings.home }}/data
               subPath: data
