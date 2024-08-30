@@ -1119,10 +1119,12 @@ persistence:
   # -- EXPERIMENTAL -- enable bmulti-volume persistence, false by default
   enabledMultiVolume: false
   dataBlocks:
+    storageClass: ""
     size: 250Gi
     dataSource: {}
     selector: {}
   dataOthers:
+    storageClass: ""
     size: 250Gi
     dataSource: {}
     selector: {}
