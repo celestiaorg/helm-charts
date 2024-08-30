@@ -391,7 +391,7 @@ Celestia Node
 | node.tolerations | list | `[]` |  |
 | node.topologySpreadConstraints | list | `[]` |  |
 | node.updateStrategy.type | string | `"RollingUpdate"` |  |
-| persistence | object | `{"accessModes":["ReadWriteOnce"],"annotations":{},"dataBlocks":{"dataSource":{},"selector":{},"size":"4000Gi"},"dataOthers":{"dataSource":{},"selector":{},"size":"4000Gi"},"dataSource":{},"enabled":true,"enabledMultiVolume":false,"existingClaim":"","mountPath":"/bitnami/app/data","selector":{},"size":"250Gi","storageClass":"","subPath":""}` | persistence parameters |
+| persistence | object | `{"accessModes":["ReadWriteOnce"],"annotations":{},"dataBlocks":{"dataSource":{},"selector":{},"size":"250Gi","storageClass":""},"dataOthers":{"dataSource":{},"selector":{},"size":"250Gi","storageClass":""},"dataSource":{},"enabled":true,"enabledMultiVolume":false,"existingClaim":"","mountPath":"/bitnami/app/data","selector":{},"size":"250Gi","storageClass":"","subPath":""}` | persistence parameters |
 | persistence.enabled | bool | `true` | enable persistence, true by default |
 | persistence.size | string | `"250Gi"` | size of data volume, 250Gi by default |
 | rbac.create | bool | `false` |  |
