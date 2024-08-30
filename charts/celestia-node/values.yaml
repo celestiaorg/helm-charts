@@ -1116,7 +1116,7 @@ persistence:
   # -- enable persistence, true by default
   enabled: true
 
-  # -- enable multi-volume persistence, false by default
+  # -- enable multi-volume persistence, false by default -- EXPERIMENTAL
   enabledMultiVolume: false
   dataBlocks:
     size: 4000Gi
