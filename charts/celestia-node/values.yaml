@@ -1119,11 +1119,11 @@ persistence:
   # -- EXPERIMENTAL -- enable bmulti-volume persistence, false by default
   enabledMultiVolume: false
   dataBlocks:
-    size: 4000Gi
+    size: 250Gi
     dataSource: {}
     selector: {}
   dataOthers:
-    size: 4000Gi
+    size: 250Gi
     dataSource: {}
     selector: {}
   ## @param persistence.mountPath Path to mount the volume at.
