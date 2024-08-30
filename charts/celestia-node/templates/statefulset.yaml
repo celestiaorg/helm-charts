@@ -397,7 +397,7 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: {{ template "common.names.fullname" . }}-data
-        {{- else if .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+        {{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
         - name: data-blocks
           persistentVolumeClaim:
             claimName: {{ template "common.names.fullname" . }}-data-blocks
