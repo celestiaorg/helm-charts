@@ -54,7 +54,7 @@ spec:
   selector: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataBlocks.selector "context" $) | nindent 4 }}
   {{- end }}
   {{- if .Values.persistence.dataBlocks.dataSource }}
-  dataSource: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataSource "context" $) | nindent 4 }}
+  dataSource: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataBlocks.dataSource "context" $) | nindent 4 }}
   {{- end }}
   {{- include "common.storage.class" (dict "persistence" .Values.persistence.dataBlocks "global" .Values.global) | nindent 2 }}
 ---
