@@ -49,7 +49,7 @@ spec:
   {{- end }}
   resources:
     requests:
-      storage: {{ .Values.persistence.size | quote }}
+      storage: {{ .Values.persistence.dataBlocks.size | quote }}
   {{- if .Values.persistence.dataBlocks.selector }}
   selector: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataBlocks.selector "context" $) | nindent 4 }}
   {{- end }}
@@ -78,7 +78,7 @@ spec:
   {{- end }}
   resources:
     requests:
-      storage: {{ .Values.persistence.size | quote }}
+      storage: {{ .Values.persistence.dataOthers.size | quote }}
   {{- if .Values.persistence.dataOthers.selector }}
   selector: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataOthers.selector "context" $) | nindent 4 }}
   {{- end }}
