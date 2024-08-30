@@ -250,6 +250,7 @@ spec:
           lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.node.lifecycleHooks "context" $) | nindent 12 }}
           {{- end }}
           volumeMounts:
+            {{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) }}
             - name: data
               mountPath: {{ .Values.node.settings.home }}/data
               subPath: data
@@ -270,6 +271,28 @@ spec:
               mountPath: {{ .Values.node.settings.home }}/transients
               subPath: transients
               readOnly: false
+            {{- else if .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+            - name: data-others
+              mountPath: {{ .Values.node.settings.home }}/data
+              subPath: data
+              readOnly: false
+            - name: data-blocks
+              mountPath: {{ .Values.node.settings.home }}/blocks
+              subPath: blocks
+              readOnly: false
+            - name: data-others
+              mountPath: {{ .Values.node.settings.home }}/index
+              subPath: index
+              readOnly: false
+            - name: data-others
+              mountPath: {{ .Values.node.settings.home }}/inverted_index
+              subPath: inverted_index
+              readOnly: false
+            - name: data-others
+              mountPath: {{ .Values.node.settings.home }}/transients
+              subPath: transients
+              readOnly: false
+            {{- end }}
             - name: keys-volume
               mountPath: {{ .Values.node.settings.home }}/keys
               readOnly: false
@@ -370,10 +393,17 @@ spec:
             items:
               - key: config.yaml
                 path: config.yaml
-        {{- if .Values.persistence.enabled }}
+        {{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) }}
         - name: data
           persistentVolumeClaim:
             claimName: {{ template "common.names.fullname" . }}-data
+        {{- else if .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+        - name: data-blocks
+          persistentVolumeClaim:
+            claimName: {{ template "common.names.fullname" . }}-data-blocks
+        - name: data-others
+          persistentVolumeClaim:
+            claimName: {{ template "common.names.fullname" . }}-data-others
         {{- else }}
         - name: data
           emptyDir: {}

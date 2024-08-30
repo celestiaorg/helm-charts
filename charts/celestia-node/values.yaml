@@ -1115,6 +1115,17 @@ persistence:
   ##
   # -- enable persistence, true by default
   enabled: true
+
+  # -- enable multi-volume persistence, false by default
+  enabledMultiVolume: false
+  dataBlocks:
+    size: 4000Gi
+    dataSource: {}
+    selector: {}
+  dataOthers:
+    size: 4000Gi
+    dataSource: {}
+    selector: {}
   ## @param persistence.mountPath Path to mount the volume at.
   ## Note: This value is overridden by 'Values.node.settings.home' in the stateful set.
   ##
