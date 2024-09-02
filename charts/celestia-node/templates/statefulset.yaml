@@ -90,6 +90,7 @@ spec:
           resources: {{- include "common.resources.preset" (dict "type" .Values.volumePermissions.resourcesPreset) | nindent 12 }}
           {{- end }}
           volumeMounts:
+            {{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) }}
             - name: data
               mountPath: {{ .Values.node.settings.home }}/data
               subPath: data
@@ -110,7 +111,29 @@ spec:
               mountPath: {{ .Values.node.settings.home }}/transients
               subPath: transients
               readOnly: false
-        {{- end }}
+            {{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+            - name: data-others
+              mountPath: {{ .Values.node.settings.home }}/data
+              subPath: data
+              readOnly: false
+            - name: data-blocks
+              mountPath: {{ .Values.node.settings.home }}/blocks
+              subPath: blocks
+              readOnly: false
+            - name: data-others
+              mountPath: {{ .Values.node.settings.home }}/index
+              subPath: index
+              readOnly: false
+            - name: data-others
+              mountPath: {{ .Values.node.settings.home }}/inverted_index
+              subPath: inverted_index
+              readOnly: false
+            - name: data-others
+              mountPath: {{ .Values.node.settings.home }}/transients
+              subPath: transients
+              readOnly: false
+            {{- end }}
+          {{- end }}
         - name: home-permission
           image: busybox
           command:

@@ -27,8 +27,7 @@ spec:
   dataSource: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataSource "context" $) | nindent 4 }}
   {{- end }}
   {{- include "common.storage.class" (dict "persistence" .Values.persistence "global" .Values.global) | nindent 2 }}
-{{- end }}
-{{- if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+{{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
