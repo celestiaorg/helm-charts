@@ -89,8 +89,8 @@ app:
     registry: ghcr.io
     # -- repository for the image, celestiaorg/celestia-app by default
     repository: celestiaorg/celestia-app
-    # -- tag for the image, v1.9.0 by default
-    tag: v1.11.0
+    # -- tag for the image, v2.1.2 by default
+    tag: v2.1.2
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
