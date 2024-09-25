@@ -60,7 +60,7 @@ extract_node_configs() {
     mkdir -p $NODE_CONFIG_DIR
 
     # Copy the config file from the celestia-node container to the folder
-    docker cp $CONTAINER_NAME:/home/celestia/.celestia-$NODE_TYPE/config.toml $NODE_CONFIG_DIR
+    docker cp $CONTAINER_NAME:/home/celestia/config.toml $NODE_CONFIG_DIR
 
     # Stop and remove the celestia-node container in the background
     docker stop $CONTAINER_NAME

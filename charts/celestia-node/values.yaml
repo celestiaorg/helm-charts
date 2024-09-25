@@ -90,7 +90,7 @@ node:
     # -- repository for the image, celestiaorg/celestia-node by default
     repository: celestiaorg/celestia-node
     # -- tag for the image, v0.16.0 by default
-    tag: v0.16.0
+    tag: v0.16.1
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -108,12 +108,22 @@ node:
     pullSecrets: []
   ## @param node.settings Settings for the celestia-node
   settings:
-    ## Select from: bridge, full, light
+    ## @param node.settings.nodeType Type of the celestia-node
+    ##
     ## Valid values:
     ## - bridge
     ## - full
-    ## - light:
+    ## - light
+    ##
     nodeType: bridge
+    ## @param node.settings.network Network for the celestia-node
+    ##
+    ## Valid values:
+    ## - celestia
+    ## - mocha
+    ## - arabica
+    ##
+    network: "celestia"
     ## @param node.settings.home Home directory for the celestia-node
     ##
     # -- home directory for the celestia-node, defaults to /home/celestia
