@@ -172,9 +172,9 @@ spec:
         {{- end }}
       containers:
         - name: node
-          {{- if or (eq .Values.node.settings.network "mocha") (eq .Values.node.settings.network "arabica") -}}
+          {{- if or (eq .Values.node.settings.network "mocha") (eq .Values.node.settings.network "arabica") }}
           image: {{ template "node.image" . }}-{{ .Values.node.settings.network }}
-          {{- else -}}
+          {{- else }}
           image: {{ template "node.image" . }}
           {{- end }}
           imagePullPolicy: {{ .Values.node.image.pullPolicy }}
