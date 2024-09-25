@@ -89,8 +89,8 @@ app:
     registry: ghcr.io
     # -- repository for the image, celestiaorg/celestia-app by default
     repository: celestiaorg/celestia-app
-    # -- tag for the image, v2.1.2 by default
-    tag: v2.1.2
+    # -- tag for the image, v2.2.0 by default
+    tag: v2.2.0
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -108,6 +108,14 @@ app:
     pullSecrets: []
   ## @param app.settings Settings for the celestia-app
   settings:
+    ## @param node.settings.network Network for the celestia-node
+    ##
+    ## Valid values:
+    ## - celestia
+    ## - mocha
+    ## - arabica
+    ##
+    network: "celestia"
     ## @param app.settings.generateNewKeys Generate new keys for the celestia-app
     ##
     ## If app.settings.secret is used, this must be set to false

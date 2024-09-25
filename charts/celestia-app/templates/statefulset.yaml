@@ -144,7 +144,11 @@ spec:
         {{- end }}
       containers:
         - name: app
+          {{- if or (eq .Values.app.settings.network "mocha") (eq .Values.app.settings.network "arabica") -}}
+          image: {{ template "app.image" . }}-{{ .Values.app.settings.network }}
+          {{- else -}}
           image: {{ template "app.image" . }}
+          {{- end }}
           imagePullPolicy: {{ .Values.app.image.pullPolicy }}
           {{- if .Values.app.containerSecurityContext.enabled }}
           securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.app.containerSecurityContext "context" $) | nindent 12 }}
