@@ -1,6 +1,6 @@
 # celestia-app
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![AppVersion: v2.1.2](https://img.shields.io/badge/AppVersion-v2.1.2-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![AppVersion: v2.1.2](https://img.shields.io/badge/AppVersion-v2.1.2-informational?style=flat-square)
 
 Celestia App
 
@@ -65,11 +65,11 @@ Celestia App
 | app.extraVolumeMounts | list | `[]` |  |
 | app.extraVolumes | list | `[]` |  |
 | app.hostAliases | list | `[]` |  |
-| app.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-app","tag":"v1.11.0"}` | image parameters for the image |
+| app.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-app","tag":"v2.1.2"}` | image parameters for the image |
 | app.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | app.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | app.image.repository | string | `"celestiaorg/celestia-app"` | repository for the image, celestiaorg/celestia-app by default |
-| app.image.tag | string | `"v1.11.0"` | tag for the image, v1.9.0 by default |
+| app.image.tag | string | `"v2.1.2"` | tag for the image, v2.1.2 by default |
 | app.initContainers | list | `[]` |  |
 | app.lifecycleHooks | object | `{}` |  |
 | app.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the app |
