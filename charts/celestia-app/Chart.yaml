@@ -2,7 +2,7 @@ annotations:
   category: celestia
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: v2.1.2
+appVersion: v2.2.0
 dependencies:
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
@@ -21,4 +21,4 @@ maintainers:
 name: celestia-app
 sources:
   - https://github.com/celestiaorg/celestia-app
-version: 0.2.1
+version: 0.3.0
