@@ -89,8 +89,8 @@ node:
     registry: ghcr.io
     # -- repository for the image, celestiaorg/celestia-node by default
     repository: celestiaorg/celestia-node
-    # -- tag for the image, v0.18.0 by default
-    tag: v0.18.0
+    # -- tag for the image, v0.18.1 by default
+    tag: v0.18.1
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
