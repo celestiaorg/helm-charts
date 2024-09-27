@@ -99,18 +99,6 @@ spec:
               mountPath: {{ .Values.node.settings.home }}/blocks
               subPath: blocks
               readOnly: false
-            - name: data
-              mountPath: {{ .Values.node.settings.home }}/index
-              subPath: index
-              readOnly: false
-            - name: data
-              mountPath: {{ .Values.node.settings.home }}/inverted_index
-              subPath: inverted_index
-              readOnly: false
-            - name: data
-              mountPath: {{ .Values.node.settings.home }}/transients
-              subPath: transients
-              readOnly: false
             {{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
             - name: data-others
               mountPath: {{ .Values.node.settings.home }}/data
@@ -119,18 +107,6 @@ spec:
             - name: data-blocks
               mountPath: {{ .Values.node.settings.home }}/blocks
               subPath: blocks
-              readOnly: false
-            - name: data-others
-              mountPath: {{ .Values.node.settings.home }}/index
-              subPath: index
-              readOnly: false
-            - name: data-others
-              mountPath: {{ .Values.node.settings.home }}/inverted_index
-              subPath: inverted_index
-              readOnly: false
-            - name: data-others
-              mountPath: {{ .Values.node.settings.home }}/transients
-              subPath: transients
               readOnly: false
             {{- end }}
           {{- end }}
@@ -286,18 +262,6 @@ spec:
               mountPath: {{ .Values.node.settings.home }}/blocks
               subPath: blocks
               readOnly: false
-            - name: data
-              mountPath: {{ .Values.node.settings.home }}/index
-              subPath: index
-              readOnly: false
-            - name: data
-              mountPath: {{ .Values.node.settings.home }}/inverted_index
-              subPath: inverted_index
-              readOnly: false
-            - name: data
-              mountPath: {{ .Values.node.settings.home }}/transients
-              subPath: transients
-              readOnly: false
             {{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
             - name: data-others
               mountPath: {{ .Values.node.settings.home }}/data
@@ -306,18 +270,6 @@ spec:
             - name: data-blocks
               mountPath: {{ .Values.node.settings.home }}/blocks
               subPath: blocks
-              readOnly: false
-            - name: data-others
-              mountPath: {{ .Values.node.settings.home }}/index
-              subPath: index
-              readOnly: false
-            - name: data-others
-              mountPath: {{ .Values.node.settings.home }}/inverted_index
-              subPath: inverted_index
-              readOnly: false
-            - name: data-others
-              mountPath: {{ .Values.node.settings.home }}/transients
-              subPath: transients
               readOnly: false
             {{- end }}
             - name: keys-volume
