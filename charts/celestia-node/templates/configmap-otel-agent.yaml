@@ -8,5 +8,9 @@ metadata:
     app.kubernetes.io/component: otel-agent
 data:
   config.yaml: |
+{{- if .Values.node.otelAgent.customConfig }}
+{{ .Values.node.otelAgent.customConfig | indent 4 }}
+{{- else }}
 {{ toYaml .Values.node.otelAgent.config | indent 4 }}
+{{- end }}
 {{- end }}

@@ -521,6 +521,8 @@ node:
             level: basic
           logs:
             level: INFO
+    # -- custom config for the otel agent (This will override the default config from above)
+    customConfig: {}
   ## @param node.replicaCount Number of node replicas to deploy
   ##
   # -- number of node replicas to deploy, 1 by default
