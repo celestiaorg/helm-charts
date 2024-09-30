@@ -493,41 +493,31 @@ node:
     ##
     # -- config for the otel agent (See: https://opentelemetry.io/docs/collector/configuration/)
     config:
-      extensions:
-        basicauth/otlp:
-          client_auth:
-            username: "${GRAFANA_OTEL_USERNAME}"
-            password: "${GRAFANA_OTEL_TOKEN}"
       receivers:
         otlp:
           protocols:
             grpc:
-              endpoint: "localhost:4317"
+              endpoint: "0.0.0.0:4317"
             http:
-              endpoint: "localhost:4318"
+              endpoint: "0.0.0.0:4318"
         prometheus:
           config:
             scrape_configs:
               - job_name: "${JOB_NAME}"
                 scrape_interval: 10s
                 static_configs:
-                  - targets: ["localhost:8890"]
+                  - targets: ["0.0.0.0:8890"]
       exporters:
-        otlphttp:
-          auth:
-            authenticator: basicauth/otlp
-          endpoint: https://otlp-gateway-prod-us-central-0.grafana.net/otlp
         prometheus:
-          endpoint: "localhost:8889"
+          endpoint: "0.0.0.0:8889"
       service:
-        extensions: [basicauth/otlp]
         pipelines:
           metrics:
-            receivers: [otlp, prometheus]
-            exporters: [otlphttp, prometheus]
+            receivers: [ otlp, prometheus ]
+            exporters: [ prometheus ]
         telemetry:
           metrics:
-            address: "localhost:8888"
+            address: "0.0.0.0:8888"
             level: basic
           logs:
             level: INFO
