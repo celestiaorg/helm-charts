@@ -123,6 +123,7 @@ spec:
             - name: home-dir # This is needed so that the process has permissions to create files in the home directory
               mountPath: /home
               readOnly: false
+        {{- if .Values.node.settings.secret.enabled }}
         - name: keys
           image: busybox
           command:
@@ -138,11 +139,14 @@ spec:
               chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} /keys-volume/
               find /keys-volume/ -type f -exec chmod 0600 {} \;
           volumeMounts:
+            {{- if .Values.node.settings.secret.enabled }}
             - name: keys
               mountPath: /keys
               readOnly: true
+            {{- end }}
             - name: keys-volume
               mountPath: /keys-volume
+        {{- end }}
         {{- if .Values.node.initContainers }}
           {{- include "common.tplvalues.render" (dict "value" .Values.node.initContainers "context" $) | nindent 8 }}
         {{- end }}
@@ -194,22 +198,32 @@ spec:
           ports:
             - name: p2p-tcp
               containerPort: {{ .Values.node.containerPorts.p2p }}
+              {{- if .Values.node.enableHostPort }}
               hostPort: {{ .Values.node.containerPorts.p2p }}
+              {{- end }}
               protocol: TCP
             - name: p2p-udp
               containerPort: {{ .Values.node.containerPorts.p2p }}
+              {{- if .Values.node.enableHostPort }}
               hostPort: {{ .Values.node.containerPorts.p2p }}
+              {{- end }}
               protocol: UDP
             - name: ws
               containerPort: {{ .Values.node.containerPorts.ws }}
+              {{- if .Values.node.enableHostPort }}
               hostPort: {{ .Values.node.containerPorts.ws }}
+              {{- end }}
               protocol: TCP
             - name: rest
               containerPort: {{ .Values.node.containerPorts.rest }}
+              {{- if .Values.node.enableHostPort }}
               hostPort: {{ .Values.node.containerPorts.rest }}
+              {{- end }}
             - name: rpc
               containerPort: {{ .Values.node.containerPorts.rpc }}
+              {{- if .Values.node.enableHostPort }}
               hostPort: {{ .Values.node.containerPorts.rpc }}
+              {{- end }}
             - name: profiling
               containerPort: {{ .Values.node.containerPorts.profiling }}
             - name: prometheus
@@ -294,6 +308,7 @@ spec:
           {{- if .Values.node.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.node.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
+        {{- if .Values.node.otelAgent.enabled }}
         - name: otel-agent
           image: {{ template "node.otelAgent.image" . }}
           imagePullPolicy: {{ .Values.node.otelAgent.image.pullPolicy }}
@@ -331,10 +346,12 @@ spec:
             - name: otel-agent-config
               mountPath: /etc/otelcol-contrib/config.yaml
               subPath: config.yaml
+        {{- end }}
         {{- if .Values.node.sidecars }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.node.sidecars "context" $) | nindent 8 }}
         {{- end }}
       volumes:
+        {{- if .Values.node.settings.secret.enabled }}
         - name: keys
           secret:
             secretName: {{ .Values.node.settings.secret.name }}
@@ -349,6 +366,7 @@ spec:
                 path: uid
               - key: address
                 path: address
+        {{- end }}
         - name: keys-volume
           emptyDir: {}
         - name: home-dir

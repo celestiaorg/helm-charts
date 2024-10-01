@@ -10,6 +10,7 @@
 ## @param global.imageRegistry Global Docker image registry
 ## @param global.imagePullSecrets Global Docker registry secret names as an array
 ## @param global.storageClass Global StorageClass for Persistent Volume(s)
+## @param global.skipValidationWarnings Skip validation warnings
 ##
 global:
   imageRegistry: ""
@@ -19,6 +20,8 @@ global:
   ##
   imagePullSecrets: []
   storageClass: ""
+  ## Use with caution, this will skip validation warnings
+  skipValidationWarnings: false
   ## Compatibility adaptations for Kubernetes platforms
   ##
   compatibility:
@@ -139,6 +142,7 @@ node:
     ##     - key: NJ3XILLTMVRXEZLUFZVHO5A
     ##     - key: OAZHALLLMV4Q
     secret:
+      enabled: true
       # -- name of the secret, it must be set
       name: SET_IT
     ws:
@@ -547,6 +551,10 @@ node:
     profiling: 6060
     # -- Prometheus container port, 8890 by default
     prometheus: 8890
+  ## @param node.enableHostPort Enable hostPort for the node
+  ##
+  # -- Enable hostPort for the node
+  enableHostPort: true
   ## Configure extra options for node containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param node.livenessProbe.enabled Enable livenessProbe on node containers

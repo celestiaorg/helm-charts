@@ -51,6 +51,10 @@ Compile all warnings into a single message.
 {{- $message := join "\n" $messages -}}
 
 {{- if $message -}}
-{{-   printf "\nVALUES VALIDATION:\n%s" $message -}}
+  {{- if .Values.global.skipValidationWarnings -}}
+    {{- print (printf "\nVALUES VALIDATION WARNINGS:\n%s" $message) -}}
+  {{- else -}}
+    {{- fail (printf "\nVALUES VALIDATION:\n%s" $message) -}}
+  {{- end -}}
 {{- end -}}
 {{- end -}}
