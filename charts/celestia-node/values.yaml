@@ -559,6 +559,10 @@ node:
     profiling: 6060
     # -- Prometheus container port, 8890 by default
     prometheus: 8890
+  ## @param node.enableHostPort Enable hostPort for the node
+  ##
+  # -- Enable hostPort for the node
+  enableHostPort: true
   ## Configure extra options for node containers' liveness and readiness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ## @param node.livenessProbe.enabled Enable livenessProbe on node containers
