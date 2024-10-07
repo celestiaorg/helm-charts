@@ -17,8 +17,8 @@ keywords:
   - celestia-node
 maintainers:
   - name: Celestia Labs
-    url: https://github.com/celestiaorg/helm-charts
+    url: https://celestiaorg.github.io/helm-charts/index.yaml
 name: celestia-node
 sources:
-  - https://github.com/celestiaorg/helm-charts/tree/main/charts/celestia-node
+  - https://github.com/celestiaorg/helm-charts
 version: 0.6.0
