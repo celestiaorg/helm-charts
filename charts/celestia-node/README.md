@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![AppVersion: v0.18.0](https://img.shields.io/badge/AppVersion-v0.18.0-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![AppVersion: v0.17.0](https://img.shields.io/badge/AppVersion-v0.17.0-informational?style=flat-square)
 
 Celestia Node
 
@@ -37,6 +37,7 @@ Celestia Node
 | global.compatibility.openshift.adaptSecurityContext | string | `"auto"` |  |
 | global.imagePullSecrets | list | `[]` |  |
 | global.imageRegistry | string | `""` |  |
+| global.skipValidationWarnings | bool | `false` |  |
 | global.storageClass | string | `""` |  |
 | kubeVersion | string | `""` |  |
 | metrics.enabled | bool | `false` |  |
@@ -105,13 +106,15 @@ Celestia Node
 | node.config.bridge.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
 | node.config.bridge.configtoml.P2P.NoAnnounceAddresses[9] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
 | node.config.bridge.configtoml.P2P.PeerExchange | bool | `true` |  |
+| node.config.bridge.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
 | node.config.bridge.configtoml.Pruner.EnableService | bool | `false` |  |
 | node.config.bridge.configtoml.RPC.Address | string | `"localhost"` |  |
 | node.config.bridge.configtoml.RPC.Port | string | `"26658"` |  |
 | node.config.bridge.configtoml.RPC.SkipAuth | bool | `false` |  |
-| node.config.bridge.configtoml.Share.BlockStoreCacheSize | int | `128` |  |
 | node.config.bridge.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
 | node.config.bridge.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
+| node.config.bridge.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
+| node.config.bridge.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
 | node.config.bridge.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
 | node.config.bridge.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
 | node.config.bridge.configtoml.Share.PeerManagerParams.GcInterval | string | `"30s"` |  |
@@ -179,13 +182,15 @@ Celestia Node
 | node.config.full.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
 | node.config.full.configtoml.P2P.NoAnnounceAddresses[9] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
 | node.config.full.configtoml.P2P.PeerExchange | bool | `true` |  |
+| node.config.full.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
 | node.config.full.configtoml.Pruner.EnableService | bool | `false` |  |
 | node.config.full.configtoml.RPC.Address | string | `"localhost"` |  |
 | node.config.full.configtoml.RPC.Port | string | `"26658"` |  |
 | node.config.full.configtoml.RPC.SkipAuth | bool | `false` |  |
-| node.config.full.configtoml.Share.BlockStoreCacheSize | int | `128` |  |
 | node.config.full.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
 | node.config.full.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
+| node.config.full.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
+| node.config.full.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
 | node.config.full.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
 | node.config.full.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
 | node.config.full.configtoml.Share.PeerManagerParams.GcInterval | string | `"30s"` |  |
@@ -253,13 +258,15 @@ Celestia Node
 | node.config.light.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
 | node.config.light.configtoml.P2P.NoAnnounceAddresses[9] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
 | node.config.light.configtoml.P2P.PeerExchange | bool | `false` |  |
+| node.config.light.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
 | node.config.light.configtoml.Pruner.EnableService | bool | `false` |  |
 | node.config.light.configtoml.RPC.Address | string | `"localhost"` |  |
 | node.config.light.configtoml.RPC.Port | string | `"26658"` |  |
 | node.config.light.configtoml.RPC.SkipAuth | bool | `false` |  |
-| node.config.light.configtoml.Share.BlockStoreCacheSize | int | `128` |  |
 | node.config.light.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
 | node.config.light.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
+| node.config.light.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
+| node.config.light.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
 | node.config.light.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
 | node.config.light.configtoml.Share.LightAvailability.SampleAmount | int | `16` |  |
 | node.config.light.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
@@ -301,6 +308,7 @@ Celestia Node
 | node.customStartupProbe | object | `{}` |  |
 | node.daemonsetAnnotations | object | `{}` |  |
 | node.deploymentAnnotations | object | `{}` |  |
+| node.enableHostPort | bool | `true` | Enable hostPort for the node |
 | node.existingConfigmap | string | `nil` |  |
 | node.extraArgs[0] | string | `"--metrics"` |  |
 | node.extraArgs[1] | string | `"--metrics.tls=false"` |  |
@@ -311,11 +319,11 @@ Celestia Node
 | node.extraVolumeMounts | list | `[]` |  |
 | node.extraVolumes | list | `[]` |  |
 | node.hostAliases | list | `[]` |  |
-| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.18.0"}` | image parameters for the image |
+| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.17.0"}` | image parameters for the image |
 | node.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | node.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | node.image.repository | string | `"celestiaorg/celestia-node"` | repository for the image, celestiaorg/celestia-node by default |
-| node.image.tag | string | `"v0.18.0"` | tag for the image, v0.18.0 by default |
+| node.image.tag | string | `"v0.17.0"` | tag for the image, v0.18.1 by default |
 | node.initContainers | list | `[]` |  |
 | node.lifecycleHooks | object | `{}` |  |
 | node.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the node |
@@ -329,7 +337,8 @@ Celestia Node
 | node.nodeAffinityPreset.type | string | `""` |  |
 | node.nodeAffinityPreset.values | list | `[]` |  |
 | node.nodeSelector | object | `{}` |  |
-| node.otelAgent.config | object | `{"exporters":{"otlphttp":{"auth":{"authenticator":"basicauth/otlp"},"endpoint":"https://otlp-gateway-prod-us-central-0.grafana.net/otlp"},"prometheus":{"endpoint":"localhost:8889"}},"extensions":{"basicauth/otlp":{"client_auth":{"password":"${GRAFANA_OTEL_TOKEN}","username":"${GRAFANA_OTEL_USERNAME}"}}},"receivers":{"otlp":{"protocols":{"grpc":{"endpoint":"localhost:4317"},"http":{"endpoint":"localhost:4318"}}},"prometheus":{"config":{"scrape_configs":[{"job_name":"${JOB_NAME}","scrape_interval":"10s","static_configs":[{"targets":["localhost:8890"]}]}]}}},"service":{"extensions":["basicauth/otlp"],"pipelines":{"metrics":{"exporters":["otlphttp","prometheus"],"receivers":["otlp","prometheus"]}},"telemetry":{"logs":{"level":"INFO"},"metrics":{"address":"localhost:8888","level":"basic"}}}}` | config for the otel agent (See: https://opentelemetry.io/docs/collector/configuration/) |
+| node.otelAgent.config | object | `{"exporters":{"prometheus":{"endpoint":"0.0.0.0:8889"}},"receivers":{"otlp":{"protocols":{"grpc":{"endpoint":"0.0.0.0:4317"},"http":{"endpoint":"0.0.0.0:4318"}}},"prometheus":{"config":{"scrape_configs":[{"job_name":"${JOB_NAME}","scrape_interval":"10s","static_configs":[{"targets":["0.0.0.0:8890"]}]}]}}},"service":{"pipelines":{"metrics":{"exporters":["prometheus"],"receivers":["otlp","prometheus"]}},"telemetry":{"logs":{"level":"INFO"},"metrics":{"address":"0.0.0.0:8888","level":"basic"}}}}` | config for the otel agent (See: https://opentelemetry.io/docs/collector/configuration/) |
+| node.otelAgent.customConfig | object | `{}` | custom config for the otel agent (This will override the default config from above) |
 | node.otelAgent.enabled | bool | `false` | enable otel agent for the node, false by default |
 | node.otelAgent.grafanaOtelSecret | object | `{"name":"SET_IT"}` | grafana otel secret for the node |
 | node.otelAgent.grafanaOtelSecret.name | string | `"SET_IT"` | name of the grafana otel secret, it must be set |
@@ -371,6 +380,7 @@ Celestia Node
 | node.settings.home | string | `"/home/celestia"` | home directory for the celestia-node, defaults to /home/celestia |
 | node.settings.network | string | `"celestia"` |  |
 | node.settings.nodeType | string | `"bridge"` |  |
+| node.settings.secret.enabled | bool | `true` |  |
 | node.settings.secret.name | string | `"SET_IT"` | name of the secret, it must be set |
 | node.settings.ws.tls.enabled | bool | `false` |  |
 | node.settings.ws.tls.secret.name | string | `"SET_IT"` |  |
@@ -431,4 +441,4 @@ Celestia Node
 | volumePermissions.resourcesPreset | string | `"nano"` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.13.1](https://github.com/norwoodj/helm-docs/releases/v1.13.1)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

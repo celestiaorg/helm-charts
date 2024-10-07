@@ -27,6 +27,7 @@ data:
       NoAnnounceAddresses = [{{ range $index, $element := .Values.node.config.full.configtoml.P2P.NoAnnounceAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
       MutualPeers = {{ .Values.node.config.full.configtoml.P2P.MutualPeers }}
       PeerExchange = {{ .Values.node.config.full.configtoml.P2P.PeerExchange }}
+      RoutingTableRefreshPeriod = "{{ .Values.node.config.full.configtoml.P2P.RoutingTableRefreshPeriod }}"
       [P2P.ConnManager]
         Low = {{ printf "%.0f" .Values.node.config.full.configtoml.P2P.ConnManager.Low }}
         High = {{ printf "%.0f" .Values.node.config.full.configtoml.P2P.ConnManager.High }}
