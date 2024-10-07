@@ -20,5 +20,5 @@ maintainers:
     url: https://github.com/celestiaorg/helm-charts
 name: celestia-node
 sources:
-  - https://github.com/celestiaorg/helm-charts/celestia-node
+  - https://github.com/celestiaorg/helm-charts/tree/main/charts/celestia-node
 version: 0.6.0
