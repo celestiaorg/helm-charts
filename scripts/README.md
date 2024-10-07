@@ -1,9 +1,13 @@
 ## `Makefile` example
+
+> **⚠️ Warning**
+> Not tested with `celestia-app` yet!
+
 ```shell
 # See all commands 
 make help
 
-# Extracts config.tom for a particular celesti-node release
+# Extracts config.toml for a particular celesti-node release
 export CELESTIA_NODE_VERSION=v0.18.2-arabica # set the release version
 make node
 ```
