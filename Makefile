@@ -58,13 +58,13 @@ extract-node: prompt_node_version
 # Convert TOML to templated TOML for celestia-app
 .PHONY: toml-app
 toml-app: prompt_app_version
-	@echo "Converting TOML to templated TOML for celestia-app version $(CELESTIA_APP_VERSION)"
+	@echo "Converting TOML to templated HELM for celestia-app version $(CELESTIA_APP_VERSION)"
 	./$(CONVERT_TOML_TO_TEMPLATE_SCRIPT) $(CONFIG_DIR)/app/$(CELESTIA_APP_VERSION)/config.toml app
 
 # Convert TOML to templated TOML for celestia-node
 .PHONY: toml-node
 toml-node: prompt_node_version
-	@echo "Converting TOML to templated TOML for celestia-node version $(CELESTIA_NODE_VERSION)"
+	@echo "Converting TOML to templated HELM for celestia-node version $(CELESTIA_NODE_VERSION)"
 	./$(CONVERT_TOML_TO_TEMPLATE_SCRIPT) $(CONFIG_DIR)/node/bridge/$(CELESTIA_NODE_VERSION)/config.toml node bridge; \
 	./$(CONVERT_TOML_TO_TEMPLATE_SCRIPT) $(CONFIG_DIR)/node/full/$(CELESTIA_NODE_VERSION)/config.toml node full; \
 	./$(CONVERT_TOML_TO_TEMPLATE_SCRIPT) $(CONFIG_DIR)/node/light/$(CELESTIA_NODE_VERSION)/config.toml node light
@@ -112,10 +112,10 @@ all: app node
 help:
 	@echo "Usage:"
 	@echo "  make extract-app           Extract config files for celestia-app"
-	@echo "  make toml-app              Convert TOML to templated HC for celestia-app"
+	@echo "  make toml-app              Convert TOML to templated HELM for celestia-app"
 	@echo "  make yaml-app              Convert TOML to YAML for celestia-app"
 	@echo "  make extract-node          Extract config files for celestia-node"
-	@echo "  make toml-node             Convert TOML to templated HC for celestia-node"
+	@echo "  make toml-node             Convert TOML to templated HELM for celestia-node"
 	@echo "  make yaml-node             Convert TOML to YAML for celestia-node"
 	@echo "  make generate-docs         Generate documentation for Helm charts"
 	@echo "  make upload-keys           Upload keys to 1Password for celestia-node"
