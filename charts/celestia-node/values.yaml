@@ -523,8 +523,8 @@ node:
       service:
         pipelines:
           metrics:
-            receivers: [ otlp, prometheus ]
-            exporters: [ prometheus ]
+            receivers: [otlp, prometheus]
+            exporters: [prometheus]
         telemetry:
           metrics:
             address: "0.0.0.0:8888"
