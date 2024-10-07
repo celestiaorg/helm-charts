@@ -12,81 +12,80 @@ metadata:
 data:
   config.toml: |
     [Node]
-      StartupTimeout = "{{ .Values.full.config.configtoml.Node.StartupTimeout }}"
-      ShutdownTimeout = "{{ .Values.full.config.configtoml.Node.ShutdownTimeout }}"
+      StartupTimeout = "{{ .Values.node.config.full.configtoml.Node.StartupTimeout }}"
+      ShutdownTimeout = "{{ .Values.node.config.full.configtoml.Node.ShutdownTimeout }}"
     [Core]
-      IP = "{{ .Values.full.config.configtoml.Core.IP }}"
-      RPCPort = "{{ .Values.full.config.configtoml.Core.RPCPort }}"
-      GRPCPort = "{{ .Values.full.config.configtoml.Core.GRPCPort }}"
+      IP = "{{ .Values.node.config.full.configtoml.Core.IP }}"
+      RPCPort = "{{ .Values.node.config.full.configtoml.Core.RPCPort }}"
+      GRPCPort = "{{ .Values.node.config.full.configtoml.Core.GRPCPort }}"
     [State]
-      DefaultKeyName = "{{ .Values.full.config.configtoml.State.DefaultKeyName }}"
-      DefaultBackendName = "{{ .Values.full.config.configtoml.State.DefaultBackendName }}"
+      DefaultKeyName = "{{ .Values.node.config.full.configtoml.State.DefaultKeyName }}"
+      DefaultBackendName = "{{ .Values.node.config.full.configtoml.State.DefaultBackendName }}"
     [P2P]
-      ListenAddresses = [{{ range $index, $element := .Values.full.config.configtoml.P2P.ListenAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
-      AnnounceAddresses = {{ .Values.full.config.configtoml.P2P.AnnounceAddresses }}
-      NoAnnounceAddresses = [{{ range $index, $element := .Values.full.config.configtoml.P2P.NoAnnounceAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
-      MutualPeers = {{ .Values.full.config.configtoml.P2P.MutualPeers }}
-      PeerExchange = {{ .Values.full.config.configtoml.P2P.PeerExchange }}
-      RoutingTableRefreshPeriod = "{{ .Values.full.config.configtoml.P2P.RoutingTableRefreshPeriod }}"
+      ListenAddresses = [{{ range $index, $element := .Values.node.config.full.configtoml.P2P.ListenAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
+      AnnounceAddresses = {{ .Values.node.config.full.configtoml.P2P.AnnounceAddresses }}
+      NoAnnounceAddresses = [{{ range $index, $element := .Values.node.config.full.configtoml.P2P.NoAnnounceAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
+      MutualPeers = {{ .Values.node.config.full.configtoml.P2P.MutualPeers }}
+      PeerExchange = {{ .Values.node.config.full.configtoml.P2P.PeerExchange }}
+      RoutingTableRefreshPeriod = "{{ .Values.node.config.full.configtoml.P2P.RoutingTableRefreshPeriod }}"
       [P2P.ConnManager]
-        Low = {{ printf "%.0f" .Values.full.config.configtoml.P2P.ConnManager.Low }}
-        High = {{ printf "%.0f" .Values.full.config.configtoml.P2P.ConnManager.High }}
-        GracePeriod = "{{ .Values.full.config.configtoml.P2P.ConnManager.GracePeriod }}"
+        Low = {{ printf "%.0f" .Values.node.config.full.configtoml.P2P.ConnManager.Low }}
+        High = {{ printf "%.0f" .Values.node.config.full.configtoml.P2P.ConnManager.High }}
+        GracePeriod = "{{ .Values.node.config.full.configtoml.P2P.ConnManager.GracePeriod }}"
     [RPC]
-      Address = "{{ .Values.full.config.configtoml.RPC.Address }}"
-      Port = "{{ .Values.full.config.configtoml.RPC.Port }}"
-      SkipAuth = {{ .Values.full.config.configtoml.RPC.SkipAuth }}
+      Address = "{{ .Values.node.config.full.configtoml.RPC.Address }}"
+      Port = "{{ .Values.node.config.full.configtoml.RPC.Port }}"
+      SkipAuth = {{ .Values.node.config.full.configtoml.RPC.SkipAuth }}
     [Gateway]
-      Address = "{{ .Values.full.config.configtoml.Gateway.Address }}"
-      Port = "{{ .Values.full.config.configtoml.Gateway.Port }}"
-      Enabled = {{ .Values.full.config.configtoml.Gateway.Enabled }}
+      Address = "{{ .Values.node.config.full.configtoml.Gateway.Address }}"
+      Port = "{{ .Values.node.config.full.configtoml.Gateway.Port }}"
+      Enabled = {{ .Values.node.config.full.configtoml.Gateway.Enabled }}
     [Share]
-      UseShareExchange = {{ .Values.full.config.configtoml.Share.UseShareExchange }}
+      BlockStoreCacheSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.BlockStoreCacheSize }}
+      UseShareExchange = {{ .Values.node.config.full.configtoml.Share.UseShareExchange }}
       [Share.EDSStoreParams]
-        GCInterval = "{{ .Values.full.config.configtoml.Share.EDSStoreParams.GCInterval }}"
-        RecentBlocksCacheSize = {{ printf "%.0f" .Values.full.config.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize }}
-        BlockstoreCacheSize = {{ printf "%.0f" .Values.full.config.configtoml.Share.EDSStoreParams.BlockstoreCacheSize }}
+        RecentBlocksCacheSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize }}
       [Share.ShrExEDSParams]
-        ServerReadTimeout = "{{ .Values.full.config.configtoml.Share.ShrExEDSParams.ServerReadTimeout }}"
-        ServerWriteTimeout = "{{ .Values.full.config.configtoml.Share.ShrExEDSParams.ServerWriteTimeout }}"
-        HandleRequestTimeout = "{{ .Values.full.config.configtoml.Share.ShrExEDSParams.HandleRequestTimeout }}"
-        ConcurrencyLimit = {{ printf "%.0f" .Values.full.config.configtoml.Share.ShrExEDSParams.ConcurrencyLimit }}
-        BufferSize = {{ printf "%.0f" .Values.full.config.configtoml.Share.ShrExEDSParams.BufferSize }}
+        ServerReadTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExEDSParams.ServerReadTimeout }}"
+        ServerWriteTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExEDSParams.ServerWriteTimeout }}"
+        HandleRequestTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExEDSParams.HandleRequestTimeout }}"
+        ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.ShrExEDSParams.ConcurrencyLimit }}
+        BufferSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.ShrExEDSParams.BufferSize }}
       [Share.ShrExNDParams]
-        ServerReadTimeout = "{{ .Values.full.config.configtoml.Share.ShrExNDParams.ServerReadTimeout }}"
-        ServerWriteTimeout = "{{ .Values.full.config.configtoml.Share.ShrExNDParams.ServerWriteTimeout }}"
-        HandleRequestTimeout = "{{ .Values.full.config.configtoml.Share.ShrExNDParams.HandleRequestTimeout }}"
-        ConcurrencyLimit = {{ printf "%.0f" .Values.full.config.configtoml.Share.ShrExNDParams.ConcurrencyLimit }}
+        ServerReadTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExNDParams.ServerReadTimeout }}"
+        ServerWriteTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExNDParams.ServerWriteTimeout }}"
+        HandleRequestTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExNDParams.HandleRequestTimeout }}"
+        ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.ShrExNDParams.ConcurrencyLimit }}
       [Share.PeerManagerParams]
-        PoolValidationTimeout = "{{ .Values.full.config.configtoml.Share.PeerManagerParams.PoolValidationTimeout }}"
-        PeerCooldown = "{{ .Values.full.config.configtoml.Share.PeerManagerParams.PeerCooldown }}"
-        GcInterval = "{{ .Values.full.config.configtoml.Share.PeerManagerParams.GcInterval }}"
-        EnableBlackListing = {{ .Values.full.config.configtoml.Share.PeerManagerParams.EnableBlackListing }}
+        PoolValidationTimeout = "{{ .Values.node.config.full.configtoml.Share.PeerManagerParams.PoolValidationTimeout }}"
+        PeerCooldown = "{{ .Values.node.config.full.configtoml.Share.PeerManagerParams.PeerCooldown }}"
+        GcInterval = "{{ .Values.node.config.full.configtoml.Share.PeerManagerParams.GcInterval }}"
+        EnableBlackListing = {{ .Values.node.config.full.configtoml.Share.PeerManagerParams.EnableBlackListing }}
       [Share.Discovery]
-        PeersLimit = {{ printf "%.0f" .Values.full.config.configtoml.Share.Discovery.PeersLimit }}
-        AdvertiseInterval = "{{ .Values.full.config.configtoml.Share.Discovery.AdvertiseInterval }}"
+        PeersLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.Discovery.PeersLimit }}
+        AdvertiseInterval = "{{ .Values.node.config.full.configtoml.Share.Discovery.AdvertiseInterval }}"
     [Header]
-      TrustedHash = "{{ .Values.full.config.configtoml.Header.TrustedHash }}"
-      TrustedPeers = {{ .Values.full.config.configtoml.Header.TrustedPeers }}
+      TrustedHash = "{{ .Values.node.config.full.configtoml.Header.TrustedHash }}"
+      TrustedPeers = {{ .Values.node.config.full.configtoml.Header.TrustedPeers }}
       [Header.Store]
-        StoreCacheSize = {{ printf "%.0f" .Values.full.config.configtoml.Header.Store.StoreCacheSize }}
-        IndexCacheSize = {{ printf "%.0f" .Values.full.config.configtoml.Header.Store.IndexCacheSize }}
-        WriteBatchSize = {{ printf "%.0f" .Values.full.config.configtoml.Header.Store.WriteBatchSize }}
+        StoreCacheSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Header.Store.StoreCacheSize }}
+        IndexCacheSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Header.Store.IndexCacheSize }}
+        WriteBatchSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Header.Store.WriteBatchSize }}
       [Header.Syncer]
-        TrustingPeriod = "{{ .Values.full.config.configtoml.Header.Syncer.TrustingPeriod }}"
+        TrustingPeriod = "{{ .Values.node.config.full.configtoml.Header.Syncer.TrustingPeriod }}"
       [Header.Server]
-        WriteDeadline = "{{ .Values.full.config.configtoml.Header.Server.WriteDeadline }}"
-        ReadDeadline = "{{ .Values.full.config.configtoml.Header.Server.ReadDeadline }}"
-        RangeRequestTimeout = "{{ .Values.full.config.configtoml.Header.Server.RangeRequestTimeout }}"
+        WriteDeadline = "{{ .Values.node.config.full.configtoml.Header.Server.WriteDeadline }}"
+        ReadDeadline = "{{ .Values.node.config.full.configtoml.Header.Server.ReadDeadline }}"
+        RangeRequestTimeout = "{{ .Values.node.config.full.configtoml.Header.Server.RangeRequestTimeout }}"
       [Header.Client]
-        MaxHeadersPerRangeRequest = {{ printf "%.0f" .Values.full.config.configtoml.Header.Client.MaxHeadersPerRangeRequest }}
-        RangeRequestTimeout = "{{ .Values.full.config.configtoml.Header.Client.RangeRequestTimeout }}"
+        MaxHeadersPerRangeRequest = {{ printf "%.0f" .Values.node.config.full.configtoml.Header.Client.MaxHeadersPerRangeRequest }}
+        RangeRequestTimeout = "{{ .Values.node.config.full.configtoml.Header.Client.RangeRequestTimeout }}"
     [DASer]
-      SamplingRange = {{ printf "%.0f" .Values.full.config.configtoml.DASer.SamplingRange }}
-      ConcurrencyLimit = {{ printf "%.0f" .Values.full.config.configtoml.DASer.ConcurrencyLimit }}
-      BackgroundStoreInterval = "{{ .Values.full.config.configtoml.DASer.BackgroundStoreInterval }}"
-      SampleFrom = {{ printf "%.0f" .Values.full.config.configtoml.DASer.SampleFrom }}
-      SampleTimeout = "{{ .Values.full.config.configtoml.DASer.SampleTimeout }}"
+      SamplingRange = {{ printf "%.0f" .Values.node.config.full.configtoml.DASer.SamplingRange }}
+      ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.DASer.ConcurrencyLimit }}
+      BackgroundStoreInterval = "{{ .Values.node.config.full.configtoml.DASer.BackgroundStoreInterval }}"
+      SampleFrom = {{ printf "%.0f" .Values.node.config.full.configtoml.DASer.SampleFrom }}
+      SampleTimeout = "{{ .Values.node.config.full.configtoml.DASer.SampleTimeout }}"
     [Pruner]
-      EnableService = {{ .Values.full.config.configtoml.Pruner.EnableService }}
+      EnableService = {{ .Values.node.config.full.configtoml.Pruner.EnableService }}
 {{- end }}
