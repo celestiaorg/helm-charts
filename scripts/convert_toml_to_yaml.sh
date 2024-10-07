@@ -3,6 +3,7 @@
 # Function to convert TOML to YAML
 convert_toml_to_yaml() {
   local toml_file=$1
+  local yaml_file="${toml_file%.toml}.yaml"
   local yaml_output
 
   echo "Converting TOML file: $toml_file"
@@ -27,8 +28,9 @@ convert_toml_to_yaml() {
     exit 1
   fi
 
-  # Print the YAML output
-  echo "$yaml_output"
+  # Save the YAML output to a file
+  echo "$yaml_output" > "$yaml_file"
+  echo "Converted YAML file saved to: $yaml_file"
 }
 
 # Check if the correct number of arguments is provided
