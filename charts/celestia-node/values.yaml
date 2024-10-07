@@ -93,7 +93,7 @@ node:
     # -- repository for the image, celestiaorg/celestia-node by default
     repository: celestiaorg/celestia-node
     # -- tag for the image, v0.18.1 by default
-    tag: v0.17.0
+    tag: v0.18.2
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -201,7 +201,6 @@ node:
             - /ip6/::/tcp/2121
           MutualPeers: []
           PeerExchange: true
-          RoutingTableRefreshPeriod: 1m0s
           ConnManager:
             Low: 800
             High: 1000
@@ -215,11 +214,10 @@ node:
           Port: "26659"
           Enabled: false
         Share:
+          BlockStoreCacheSize: 128
           UseShareExchange: true
           EDSStoreParams:
-            GCInterval: 0s
             RecentBlocksCacheSize: 10
-            BlockstoreCacheSize: 128
           ShrExEDSParams:
             ServerReadTimeout: 5s
             ServerWriteTimeout: 1m0s
@@ -297,7 +295,6 @@ node:
             - /ip6/::/tcp/2121
           MutualPeers: []
           PeerExchange: true
-          RoutingTableRefreshPeriod: 1m0s
           ConnManager:
             Low: 800
             High: 1000
@@ -311,11 +308,10 @@ node:
           Port: "26659"
           Enabled: false
         Share:
+          BlockStoreCacheSize: 128
           UseShareExchange: true
           EDSStoreParams:
-            GCInterval: 0s
             RecentBlocksCacheSize: 10
-            BlockstoreCacheSize: 128
           ShrExEDSParams:
             ServerReadTimeout: 5s
             ServerWriteTimeout: 1m0s
@@ -399,7 +395,6 @@ node:
             - /ip6/::/tcp/2121
           MutualPeers: []
           PeerExchange: false
-          RoutingTableRefreshPeriod: 1m0s
           ConnManager:
             Low: 50
             High: 100
@@ -413,11 +408,10 @@ node:
           Port: "26659"
           Enabled: false
         Share:
+          BlockStoreCacheSize: 128
           UseShareExchange: true
           EDSStoreParams:
-            GCInterval: 0s
             RecentBlocksCacheSize: 10
-            BlockstoreCacheSize: 128
           ShrExEDSParams:
             ServerReadTimeout: 5s
             ServerWriteTimeout: 1m0s
