@@ -1,8 +1,8 @@
 # Define default variables
 DEFAULT_CELESTIA_APP_VERSION ?=
 DEFAULT_CELESTIA_NODE_VERSION ?=
-CONFIG_DIR ?= scripts/config
-SCRIPTS_DIR ?= scripts
+CONFIG_DIR ?= config/
+SCRIPTS_DIR ?= .
 
 # Define paths to scripts
 EXTRACT_CONFIGS_APP_SCRIPT := $(SCRIPTS_DIR)/extract_app_config.sh
