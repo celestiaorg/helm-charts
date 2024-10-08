@@ -1,3 +1,17 @@
+## `Makefile` example
+
+> **⚠️ Warning**
+> Not tested with `celestia-app` yet!
+
+```shell
+# See all commands 
+make help
+
+# Extracts config.toml for a particular celesti-node release
+export CELESTIA_NODE_VERSION=v0.18.2-arabica # set the release version
+make node
+```
+
 # scripts
 
 ## config
@@ -29,3 +43,4 @@ Steps with example
 ```bash
 ./scripts/convert_toml_to_yaml.sh scripts/config/node/<celestia-app-version>/config.toml
 ```
+
