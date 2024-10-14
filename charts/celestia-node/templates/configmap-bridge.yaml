@@ -27,6 +27,7 @@ data:
       NoAnnounceAddresses = [{{ range $index, $element := .Values.node.config.bridge.configtoml.P2P.NoAnnounceAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
       MutualPeers = {{ .Values.node.config.bridge.configtoml.P2P.MutualPeers }}
       PeerExchange = {{ .Values.node.config.bridge.configtoml.P2P.PeerExchange }}
+      RoutingTableRefreshPeriod = "{{ .Values.node.config.bridge.configtoml.P2P.RoutingTableRefreshPeriod }}"
       [P2P.ConnManager]
         Low = {{ printf "%.0f" .Values.node.config.bridge.configtoml.P2P.ConnManager.Low }}
         High = {{ printf "%.0f" .Values.node.config.bridge.configtoml.P2P.ConnManager.High }}
@@ -40,10 +41,11 @@ data:
       Port = "{{ .Values.node.config.bridge.configtoml.Gateway.Port }}"
       Enabled = {{ .Values.node.config.bridge.configtoml.Gateway.Enabled }}
     [Share]
-      BlockStoreCacheSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.BlockStoreCacheSize }}
       UseShareExchange = {{ .Values.node.config.bridge.configtoml.Share.UseShareExchange }}
       [Share.EDSStoreParams]
+        GCInterval = "{{ .Values.node.config.bridge.configtoml.Share.EDSStoreParams.GCInterval }}"
         RecentBlocksCacheSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize }}
+        BlockstoreCacheSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.EDSStoreParams.BlockstoreCacheSize }}
       [Share.ShrExEDSParams]
         ServerReadTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrExEDSParams.ServerReadTimeout }}"
         ServerWriteTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrExEDSParams.ServerWriteTimeout }}"
