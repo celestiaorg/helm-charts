@@ -1,6 +1,9 @@
 dependencies:
+- name: common-celestia-node
+  repository: https://celestiaorg.github.io/helm-charts
+  version: 0.1.0
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 2.24.0
-digest: sha256:46b36e150d694a13f14e342c1f73c1609d8e7d2adae517b0ace596d0b27c1c77
-generated: "2024-10-07T15:03:43.523703+01:00"
+  version: 2.26.0
+digest: sha256:86a025452a430053100e0292786f7dd36cc512b53aba06e1207581090e1d1e36
+generated: "2024-10-17T11:14:53.812685+01:00"
