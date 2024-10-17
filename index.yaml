@@ -842,4 +842,15 @@ entries:
     urls:
     - celestia-node-0.1.1.tgz
     version: 0.1.1
-generated: "2024-10-14T09:19:24.345499857Z"
+  common-celestia-node:
+  - apiVersion: v2
+    appVersion: 0.17.1
+    created: "2024-10-17T08:31:51.463699492Z"
+    description: A Helm library implementation for celestia-node shared templates
+    digest: b59043ae14ca5ba08d0400e38276ad7682d2bba73da903b08cf84b907f3cdea8
+    name: common-celestia-node
+    type: library
+    urls:
+    - common-celestia-node-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-10-17T08:31:51.463782558Z"
