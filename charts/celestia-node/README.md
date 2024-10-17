@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![AppVersion: v0.17.0](https://img.shields.io/badge/AppVersion-v0.17.0-informational?style=flat-square)
+![Version: 0.8.1](https://img.shields.io/badge/Version-0.8.1-informational?style=flat-square) ![AppVersion: v0.17.1](https://img.shields.io/badge/AppVersion-v0.17.1-informational?style=flat-square)
 
 Celestia Node
 
@@ -10,16 +10,17 @@ Celestia Node
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Celestia Labs |  | <https://github.com/celestiaorg/helm-charts> |
+| Celestia Labs |  | <https://github.com/celestiaorg> |
 
 ## Source Code
 
-* <https://github.com/celestiaorg/celestia-node>
+* <https://github.com/celestiaorg/helm-charts>
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://celestiaorg.github.io/helm-charts | common-celestia-node | 0.1.0 |
 | oci://registry-1.docker.io/bitnamicharts | common | 2.x.x |
 
 ## Values
@@ -319,11 +320,11 @@ Celestia Node
 | node.extraVolumeMounts | list | `[]` |  |
 | node.extraVolumes | list | `[]` |  |
 | node.hostAliases | list | `[]` |  |
-| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.17.0"}` | image parameters for the image |
+| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.18.2"}` | image parameters for the image |
 | node.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | node.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | node.image.repository | string | `"celestiaorg/celestia-node"` | repository for the image, celestiaorg/celestia-node by default |
-| node.image.tag | string | `"v0.17.0"` | tag for the image, v0.18.1 by default |
+| node.image.tag | string | `"v0.18.2"` | tag for the image, v0.18.1 by default |
 | node.initContainers | list | `[]` |  |
 | node.lifecycleHooks | object | `{}` |  |
 | node.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the node |

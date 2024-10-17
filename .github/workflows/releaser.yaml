@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  # ability to manually trigger the workflow
 
 jobs:
   release:
@@ -25,6 +26,16 @@ jobs:
         uses: azure/setup-helm@v4
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Add Helm Repositories
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add celestiaorg https://celestiaorg.github.io/helm-charts
+          helm repo update
+
+      - name: Update Helm Dependencies
+        run: |
+          helm dependency update charts/celestia-node
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
