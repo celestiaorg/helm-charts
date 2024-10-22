@@ -1,4 +1,3 @@
-{{- define "common-celestia-node.light_config.toml" -}}
 [Node]
   StartupTimeout = "{{ .Values.node.config.light.configtoml.Node.StartupTimeout }}"
   ShutdownTimeout = "{{ .Values.node.config.light.configtoml.Node.ShutdownTimeout }}"
@@ -77,4 +76,4 @@
   SampleTimeout = "{{ .Values.node.config.light.configtoml.DASer.SampleTimeout }}"
 [Pruner]
   EnableService = {{ .Values.node.config.light.configtoml.Pruner.EnableService }}
-{{- end }}
+
