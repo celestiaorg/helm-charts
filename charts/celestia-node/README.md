@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![AppVersion: v0.17.0](https://img.shields.io/badge/AppVersion-v0.17.0-informational?style=flat-square)
+![Version: 0.10.3](https://img.shields.io/badge/Version-0.10.3-informational?style=flat-square) ![AppVersion: v0.20.1](https://img.shields.io/badge/AppVersion-v0.20.1-informational?style=flat-square)
 
 Celestia Node
 
@@ -10,16 +10,17 @@ Celestia Node
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Celestia Labs |  | <https://github.com/celestiaorg/helm-charts> |
+| Celestia Labs |  | <https://github.com/celestiaorg> |
 
 ## Source Code
 
-* <https://github.com/celestiaorg/celestia-node>
+* <https://github.com/celestiaorg/helm-charts>
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://celestiaorg.github.io/helm-charts | common-celestia-node | 0.1.1 |
 | oci://registry-1.docker.io/bitnamicharts | common | 2.x.x |
 
 ## Values
@@ -106,15 +107,13 @@ Celestia Node
 | node.config.bridge.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
 | node.config.bridge.configtoml.P2P.NoAnnounceAddresses[9] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
 | node.config.bridge.configtoml.P2P.PeerExchange | bool | `true` |  |
-| node.config.bridge.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
 | node.config.bridge.configtoml.Pruner.EnableService | bool | `false` |  |
 | node.config.bridge.configtoml.RPC.Address | string | `"localhost"` |  |
 | node.config.bridge.configtoml.RPC.Port | string | `"26658"` |  |
 | node.config.bridge.configtoml.RPC.SkipAuth | bool | `false` |  |
+| node.config.bridge.configtoml.Share.BlockStoreCacheSize | int | `128` |  |
 | node.config.bridge.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
 | node.config.bridge.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
-| node.config.bridge.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
-| node.config.bridge.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
 | node.config.bridge.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
 | node.config.bridge.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
 | node.config.bridge.configtoml.Share.PeerManagerParams.GcInterval | string | `"30s"` |  |
@@ -182,15 +181,13 @@ Celestia Node
 | node.config.full.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
 | node.config.full.configtoml.P2P.NoAnnounceAddresses[9] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
 | node.config.full.configtoml.P2P.PeerExchange | bool | `true` |  |
-| node.config.full.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
 | node.config.full.configtoml.Pruner.EnableService | bool | `false` |  |
 | node.config.full.configtoml.RPC.Address | string | `"localhost"` |  |
 | node.config.full.configtoml.RPC.Port | string | `"26658"` |  |
 | node.config.full.configtoml.RPC.SkipAuth | bool | `false` |  |
+| node.config.full.configtoml.Share.BlockStoreCacheSize | int | `128` |  |
 | node.config.full.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
 | node.config.full.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
-| node.config.full.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
-| node.config.full.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
 | node.config.full.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
 | node.config.full.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
 | node.config.full.configtoml.Share.PeerManagerParams.GcInterval | string | `"30s"` |  |
@@ -258,15 +255,13 @@ Celestia Node
 | node.config.light.configtoml.P2P.NoAnnounceAddresses[8] | string | `"/ip6/::/udp/2121/webrtc-direct"` |  |
 | node.config.light.configtoml.P2P.NoAnnounceAddresses[9] | string | `"/ip4/0.0.0.0/tcp/2121"` |  |
 | node.config.light.configtoml.P2P.PeerExchange | bool | `false` |  |
-| node.config.light.configtoml.P2P.RoutingTableRefreshPeriod | string | `"1m0s"` |  |
 | node.config.light.configtoml.Pruner.EnableService | bool | `false` |  |
 | node.config.light.configtoml.RPC.Address | string | `"localhost"` |  |
 | node.config.light.configtoml.RPC.Port | string | `"26658"` |  |
 | node.config.light.configtoml.RPC.SkipAuth | bool | `false` |  |
+| node.config.light.configtoml.Share.BlockStoreCacheSize | int | `128` |  |
 | node.config.light.configtoml.Share.Discovery.AdvertiseInterval | string | `"1h0m0s"` |  |
 | node.config.light.configtoml.Share.Discovery.PeersLimit | int | `5` |  |
-| node.config.light.configtoml.Share.EDSStoreParams.BlockstoreCacheSize | int | `128` |  |
-| node.config.light.configtoml.Share.EDSStoreParams.GCInterval | string | `"0s"` |  |
 | node.config.light.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize | int | `10` |  |
 | node.config.light.configtoml.Share.LightAvailability.SampleAmount | int | `16` |  |
 | node.config.light.configtoml.Share.PeerManagerParams.EnableBlackListing | bool | `false` |  |
@@ -319,11 +314,11 @@ Celestia Node
 | node.extraVolumeMounts | list | `[]` |  |
 | node.extraVolumes | list | `[]` |  |
 | node.hostAliases | list | `[]` |  |
-| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.17.0"}` | image parameters for the image |
+| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.20.0"}` | image parameters for the image |
 | node.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | node.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | node.image.repository | string | `"celestiaorg/celestia-node"` | repository for the image, celestiaorg/celestia-node by default |
-| node.image.tag | string | `"v0.17.0"` | tag for the image, v0.18.1 by default |
+| node.image.tag | string | `"v0.20.0"` | tag for the image, v0.18.1 by default |
 | node.initContainers | list | `[]` |  |
 | node.lifecycleHooks | object | `{}` |  |
 | node.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the node |
