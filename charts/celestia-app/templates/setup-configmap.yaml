@@ -1,0 +1,12 @@
+{{- if and .Values.app.setup (eq .Values.app.setup.enabled true) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "common.names.fullname" . }}-setup
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: app
+data:
+  setup.sh: |-
+{{ .Files.Get "files/setup.sh" | indent 4 }}
+{{- end }}

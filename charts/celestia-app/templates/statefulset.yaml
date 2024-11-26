@@ -78,7 +78,11 @@ spec:
           image: {{ include "app.volumePermissions.image" . }}
           imagePullPolicy: {{ .Values.volumePermissions.image.pullPolicy | quote }}
           command:
-            - "chown -R {{ .Values.node.containerSecurityContext.runAsUser }}:{{ .Values.node.containerSecurityContext.runAsGroup }} {{ .Values.app.settings.home }}"
+            - sh
+            - -c
+            - |
+              chown -R {{ .Values.app.containerSecurityContext.runAsUser }}:{{ .Values.app.containerSecurityContext.runAsGroup }} {{ .Values.app.settings.home }}
+              ls -ltra {{ .Values.app.settings.home }}
           {{- if .Values.volumePermissions.containerSecurityContext.enabled }}
           securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.volumePermissions.containerSecurityContext "context" $) | nindent 12 }}
           {{- end }}
@@ -94,6 +98,54 @@ spec:
               subPath: {{ .Values.persistence.subPath }}
               {{- end }}
         {{- end }}
+        {{- if .Values.app.settings.secret.enabled }}
+        - name: setup-keys
+          image: busybox
+          command:
+            - "sh"
+            - "-c"
+            - |
+              set -ex
+              # Create necessary directories
+              mkdir -p {{ .Values.app.settings.home }}/keys
+              mkdir -p {{ .Values.app.settings.home }}/keyring-test
+              mkdir -p {{ .Values.app.settings.home }}/config
+              
+              # Copy keys to their proper locations
+              cp /keys/priv_validator_key_json {{ .Values.app.settings.home }}/keys/priv_validator_key.json
+              cp /keys/node_key_json {{ .Values.app.settings.home }}/keys/node_key.json
+              cp /keys/priv_validator_key_json {{ .Values.app.settings.home }}/config/priv_validator_key.json
+              cp /keys/node_key_json {{ .Values.app.settings.home }}/config/node_key.json
+              
+              # Copy keyring files
+              cp "/keys/consensus_validator_info" {{ .Values.app.settings.home }}/keyring-test/consensus-validator-1-0-arabica.info
+              cp "/keys/address" {{ .Values.app.settings.home }}/keyring-test/$(cat /keys/id).address
+              
+              # Set proper ownership and permissions
+              chown -R 10001:10001 {{ .Values.app.settings.home }}/keys
+              chown -R 10001:10001 {{ .Values.app.settings.home }}/keyring-test
+              chown -R 10001:10001 {{ .Values.app.settings.home }}/config
+              chmod 750 {{ .Values.app.settings.home }}/keys
+              chmod 750 {{ .Values.app.settings.home }}/keyring-test
+              chmod 750 {{ .Values.app.settings.home }}/config
+              chmod 600 {{ .Values.app.settings.home }}/keys/*
+              chmod 600 {{ .Values.app.settings.home }}/config/priv_validator_key.json
+              chmod 600 {{ .Values.app.settings.home }}/config/node_key.json
+              chmod 600 {{ .Values.app.settings.home }}/keyring-test/*
+          volumeMounts:
+            - name: keys
+              mountPath: /keys
+              readOnly: true
+            - name: keys-dir
+              mountPath: {{ .Values.app.settings.home }}/keys
+            - name: keyring-dir
+              mountPath: {{ .Values.app.settings.home }}/keyring-test
+            - name: config-dir
+              mountPath: {{ .Values.app.settings.home }}/config
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+        {{- end }}
         - name: create-priv-validator-state
           image: busybox
           imagePullPolicy: IfNotPresent
@@ -104,6 +156,7 @@ spec:
             - sh
             - -c
             - |
+              set -ex
               if [[ ! -f ${CELESTIA_HOME}/data/priv_validator_state.json ]]
               then
                   mkdir -p ${CELESTIA_HOME}/data
@@ -126,27 +179,68 @@ spec:
             - -c
             - |
               mkdir -p /genesis
-              wget -O /genesis/genesis.json {{ .Values.app.settings.genesisURL }}
-              if ! command -v jq &> /dev/null; then
-                echo "jq not found, installing..."
-                wget -O /bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
-                chmod +x /bin/jq
-              fi
-              if jq -e '.result.genesis' /genesis/genesis.json > /dev/null; then
-                jq '.result.genesis' /genesis/genesis.json > /genesis/genesis.json.tmp
-                mv /genesis/genesis.json.tmp /genesis/genesis.json
+              if [ -n "{{ .Values.app.settings.genesisURL }}" ]; then
+                wget -O /genesis/genesis.json {{ .Values.app.settings.genesisURL }}
+                if ! command -v jq &> /dev/null; then
+                  echo "jq not found, installing..."
+                  wget -O /bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+                  chmod +x /bin/jq
+                fi
+                if jq -e '.result.genesis' /genesis/genesis.json > /dev/null; then
+                  jq '.result.genesis' /genesis/genesis.json > /genesis/genesis.json.tmp
+                  mv /genesis/genesis.json.tmp /genesis/genesis.json
+                fi
+                cp /genesis/genesis.json {{ .Values.app.settings.home }}/config/
+              else
+                echo "Error: genesisURL is not set"
+                exit 1
               fi
           volumeMounts:
             - name: genesis
               mountPath: /genesis
+            - name: config-dir
+              mountPath: {{ .Values.app.settings.home }}/config
+        {{- if and .Values.app.setup (eq .Values.app.setup.enabled true) }}
+        - name: consensus-setup
+          {{- if or (eq .Values.app.settings.network "mocha") (eq .Values.app.settings.network "arabica") }}
+          image: {{ template "app.image" . }}-{{ .Values.app.settings.network }}
+          {{- else }}
+          image: {{ template "app.image" . }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+          command: ["/bin/sh"]
+          args: ["/scripts/setup.sh"]
+          env:
+            {{- if .Values.app.setup.env }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.app.setup.env "context" $) | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: setup-scripts
+              mountPath: /scripts
+            {{- if and .Values.app.configFiles.config.enabled }}
+            - name: config-toml
+              mountPath: {{ .Values.app.configFiles.config.mountPath }}
+              subPath: config.toml
+            {{- end }}
+            {{- if and .Values.app.configFiles.app.enabled }}
+            - name: app-toml
+              mountPath: {{ .Values.app.configFiles.app.mountPath }}
+              subPath: app.toml
+            {{- end }}
+            {{- if and .Values.app.configFiles.client.enabled }}
+            - name: client-toml
+              mountPath: {{ .Values.app.configFiles.client.mountPath }}
+              subPath: client.toml
+            {{- end }}
+        {{- end }}
         {{- if .Values.app.initContainers }}
           {{- include "common.tplvalues.render" (dict "value" .Values.app.initContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
         - name: app
-          {{- if or (eq .Values.app.settings.network "mocha") (eq .Values.app.settings.network "arabica") -}}
+          {{- if or (eq .Values.app.settings.network "mocha") (eq .Values.app.settings.network "arabica") }}
           image: {{ template "app.image" . }}-{{ .Values.app.settings.network }}
-          {{- else -}}
+          {{- else }}
           image: {{ template "app.image" . }}
           {{- end }}
           imagePullPolicy: {{ .Values.app.image.pullPolicy }}
@@ -240,20 +334,12 @@ spec:
               {{- if .Values.persistence.subPath }}
               subPath: {{ .Values.persistence.subPath }}
               {{- end }}
-              readOnly: false
-            {{- if not .Values.app.settings.generateNewKeys }}
-            - name: node-key
-              mountPath: {{ .Values.app.settings.home }}/config/node_key.json
-              subPath: node_key.json
-            - name: validator-key
-              mountPath: {{ .Values.app.settings.home }}/config/priv_validator_key.json
-              subPath: priv_validator_key.json
-            {{- end }}
-            - name: genesis
-              mountPath: {{ .Values.app.settings.home }}/config/genesis.json
-              subPath: genesis.json
-            - name: config-dir # This is needed so that the process has permissions to create files in the config directory
+            - name: config-dir
               mountPath: {{ .Values.app.settings.home }}/config
+            - name: keys-dir
+              mountPath: {{ .Values.app.settings.home }}/keys
+            - name: keyring-dir
+              mountPath: {{ .Values.app.settings.home }}/keyring-test
             - name: apptoml
               mountPath: {{ .Values.app.settings.home }}/config/app.toml
               subPath: app.toml
@@ -263,6 +349,9 @@ spec:
             - name: clienttoml
               mountPath: {{ .Values.app.settings.home }}/config/client.toml
               subPath: client.toml
+            - name: genesis
+              mountPath: {{ .Values.app.settings.home }}/config/genesis.json
+              subPath: genesis.json
           {{- if .Values.app.extraVolumeMounts }}
           {{- include "common.tplvalues.render" (dict "value" .Values.app.extraVolumeMounts "context" $) | nindent 12 }}
           {{- end }}
@@ -308,6 +397,47 @@ spec:
         {{- if .Values.app.sidecars }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.app.sidecars "context" $) | nindent 8 }}
         {{- end }}
+        {{- if .Values.app.valMaker.enabled }}
+        - name: val-maker
+          image: {{ .Values.app.valMaker.image.repository }}:{{ .Values.app.valMaker.image.tag }}
+          imagePullPolicy: {{ .Values.app.valMaker.image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
+          args: ["/scripts/val-maker.sh"]
+          env:
+            - name: CELESTIA_HOME
+              value: {{ .Values.app.valMaker.celestiaHome }}
+            - name: CHAIN_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: FUND_TIA_AMOUNT
+              value: {{ .Values.app.valMaker.fundAmount | quote }}
+            - name: STAKING_TIA_AMOUNT
+              value: {{ .Values.app.valMaker.stakingAmount | quote }}
+            - name: CONSENSUS_VALIDATOR_POD
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: CONSENSUS_VALIDATOR_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: KUBERNETES_SERVICE_HOST
+              value: "kubernetes.default.svc"
+            - name: KUBERNETES_SERVICE_PORT
+              value: "443"
+            - name: CONENSUS_VALIDATOR_POD_NOMINATEES
+              value: {{ .Values.app.valMaker.nominatees | quote }}
+          volumeMounts:
+            - name: val-maker-scripts
+              mountPath: /scripts
+            - name: kube-api-access
+              mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+              readOnly: true
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
+        {{- end }}
       volumes:
         {{- if not .Values.app.settings.generateNewKeys }}
         - name: node-key
@@ -329,15 +459,19 @@ spec:
           emptyDir: {}
         - name: config-dir
           emptyDir: {}
+        - name: keys-dir
+          emptyDir: {}
+        - name: keyring-dir
+          emptyDir: {}
         - name: apptoml
           configMap:
-            name: {{ template "common.names.fullname" . }}-apptoml
+            name: {{ template "common.names.fullname" . }}-config
         - name: clienttoml
           configMap:
-            name: {{ template "common.names.fullname" . }}-clienttoml
+            name: {{ template "common.names.fullname" . }}-config
         - name: configtoml
           configMap:
-            name: {{ template "common.names.fullname" . }}-configtoml
+            name: {{ template "common.names.fullname" . }}-config
         {{- if .Values.app.otelAgent.enabled }}
         - name: otel-agent-config
           configMap:
@@ -349,12 +483,67 @@ spec:
         {{- if .Values.app.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.app.extraVolumes "context" $) | nindent 8 }}
         {{- end }}
+        {{- if .Values.app.settings.secret.enabled }}
+        - name: keys
+          secret:
+            secretName: {{ .Values.app.settings.secret.name }}
+            items:
+            {{- range .Values.app.settings.secret.items }}
+              - key: {{ .key }}
+                path: {{ .path }}
+            {{- end }}
+            defaultMode: 0600
+        {{- end }}
+        {{- if .Values.app.valMaker.enabled }}
+        - name: val-maker-scripts
+          configMap:
+            name: {{ template "common.names.fullname" . }}-val-maker
+            defaultMode: 0550
+        - name: kube-api-access
+          projected:
+            sources:
+            - serviceAccountToken:
+                expirationSeconds: 3607
+                path: token
+            - configMap:
+                items:
+                - key: ca.crt
+                  path: ca.crt
+                name: kube-root-ca.crt
+            - downwardAPI:
+                items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+        {{- end }}
+        {{- if .Values.app.configFiles.config.enabled }}
+        - name: config-toml
+          configMap:
+            name: {{ template "common.names.fullname" . }}-config
+        {{- end }}
+        {{- if .Values.app.configFiles.app.enabled }}
+        - name: app-toml
+          configMap:
+            name: {{ template "common.names.fullname" . }}-config
+        {{- end }}
+        {{- if .Values.app.configFiles.client.enabled }}
+        - name: client-toml
+          configMap:
+            name: {{ template "common.names.fullname" . }}-config
+        {{- end }}
+        {{- if and .Values.app.setup (eq .Values.app.setup.enabled true) }}
+        - name: setup-scripts
+          configMap:
+            name: {{ template "common.names.fullname" . }}-setup
+            defaultMode: 0755
+        {{- end }}
   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: data
         {{- if or .Values.persistence.annotations .Values.commonAnnotations }}
-        {{- $claimAnnotations := include "common.tplvalues.merge" (dict "values" .Values.persistence.annotations .Values.commonAnnotations "context" .) | fromYaml }}
+        {{- $claimAnnotations := include "common.tplvalues.merge" (dict "values" (list .Values.persistence.annotations .Values.commonAnnotations) "context" .) }}
         annotations: {{- include "common.tplvalues.render" ( dict "value" $claimAnnotations "context" $ ) | nindent 10 }}
         {{- end }}
         {{- if .Values.commonLabels }}
@@ -368,11 +557,13 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.size | quote }}
-        {{- if .Values.persistence.selector }}
-        selector: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.selector "context" $) | nindent 10 }}
+        {{- if .Values.persistence.storageClass }}
+        storageClassName: {{ .Values.persistence.storageClass }}
         {{- end }}
         {{- if .Values.persistence.dataSource }}
-        dataSource: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataSource "context" $) | nindent 10 }}
+        dataSource:
+          name: {{ .Values.persistence.dataSource.name }}
+          kind: {{ .Values.persistence.dataSource.kind }}
+          apiGroup: {{ .Values.persistence.dataSource.apiGroup }}
         {{- end }}
-        {{- include "common.storage.class" (dict "persistence" .Values.persistence "global" .Values.global) | nindent 8 }}
   {{- end }}
