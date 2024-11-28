@@ -64,7 +64,7 @@ extraDeploy: []
 ## @param diagnosticMode.args Args to override all containers in the chart release
 ##
 diagnosticMode:
-  enabled: true
+  enabled: false
   command:
     - sleep
   args:
@@ -85,6 +85,9 @@ app:
   ## @param app.image.pullPolicy celestia-app image pull policy
   ## @param app.image.pullSecrets celestia-app image pull secrets
   ##
+  # -- full pod name for the celestia-app
+  # -- used to generate the keyring file name
+  podName: "consensus-validator-4-0"
   # -- image parameters for the image
   image:
     # -- registry for the image, GitHub Container Registry by default
