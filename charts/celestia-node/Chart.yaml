@@ -2,7 +2,7 @@ annotations:
   category: celestia
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: v0.20.3
+appVersion: v0.20.4
 dependencies:
 - name: common-celestia-node
   version: 0.1.1
