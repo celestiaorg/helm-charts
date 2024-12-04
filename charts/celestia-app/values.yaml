@@ -1181,11 +1181,7 @@ app:
     selector: {}
     ## @param persistence.dataSource Custom PVC data source
     ##
-    # dataSource: {}
-    dataSource:
-      name: "consensus-latest-2"
-      kind: VolumeSnapshot
-      apiGroup: snapshot.storage.k8s.io
+    dataSource: {}
   ## @section Init Container Parameters
   ##
   
