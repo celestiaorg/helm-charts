@@ -1,0 +1,119 @@
+proxy_app = "{{ .Values.config.config.config.proxy_app }}"
+moniker = "{{ .Values.config.config.config.moniker }}"
+fast_sync = {{ .Values.config.config.config.fast_sync }}
+db_backend = "{{ .Values.config.config.config.db_backend }}"
+db_dir = "{{ .Values.config.config.config.db_dir }}"
+log_level = "{{ .Values.config.config.config.log_level }}"
+log_format = "{{ .Values.config.config.config.log_format }}"
+genesis_file = "{{ .Values.config.config.config.genesis_file }}"
+priv_validator_key_file = "{{ .Values.config.config.config.priv_validator_key_file }}"
+priv_validator_state_file = "{{ .Values.config.config.config.priv_validator_state_file }}"
+priv_validator_laddr = "{{ .Values.config.config.config.priv_validator_laddr }}"
+node_key_file = "{{ .Values.config.config.config.node_key_file }}"
+abci = "{{ .Values.config.config.config.abci }}"
+filter_peers = {{ .Values.config.config.config.filter_peers }}
+[rpc]
+laddr = "{{ .Values.config.config.config.rpc.laddr }}"
+cors_allowed_origins = {{ .Values.config.config.config.rpc.cors_allowed_origins }}
+cors_allowed_methods = [{{ range $index, $element := .Values.config.config.config.rpc.cors_allowed_methods }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
+cors_allowed_headers = [{{ range $index, $element := .Values.config.config.config.rpc.cors_allowed_headers }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
+grpc_laddr = "{{ .Values.config.config.config.rpc.grpc_laddr }}"
+grpc_max_open_connections = {{ printf "%.0f" .Values.config.config.config.rpc.grpc_max_open_connections }}
+unsafe = {{ .Values.config.config.config.rpc.unsafe }}
+max_open_connections = {{ printf "%.0f" .Values.config.config.config.rpc.max_open_connections }}
+max_subscription_clients = {{ printf "%.0f" .Values.config.config.config.rpc.max_subscription_clients }}
+max_subscriptions_per_client = {{ printf "%.0f" .Values.config.config.config.rpc.max_subscriptions_per_client }}
+experimental_subscription_buffer_size = {{ printf "%.0f" .Values.config.config.config.rpc.experimental_subscription_buffer_size }}
+experimental_websocket_write_buffer_size = {{ printf "%.0f" .Values.config.config.config.rpc.experimental_websocket_write_buffer_size }}
+experimental_close_on_slow_client = {{ .Values.config.config.config.rpc.experimental_close_on_slow_client }}
+timeout_broadcast_tx_commit = "{{ .Values.config.config.config.rpc.timeout_broadcast_tx_commit }}"
+max_body_bytes = {{ printf "%.0f" .Values.config.config.config.rpc.max_body_bytes }}
+max_header_bytes = {{ printf "%.0f" .Values.config.config.config.rpc.max_header_bytes }}
+tls_cert_file = "{{ .Values.config.config.config.rpc.tls_cert_file }}"
+tls_key_file = "{{ .Values.config.config.config.rpc.tls_key_file }}"
+pprof_laddr = "{{ .Values.config.config.config.rpc.pprof_laddr }}"
+[p2p]
+laddr = "{{ .Values.config.config.config.p2p.laddr }}"
+external_address = "{{ .Values.config.config.config.p2p.external_address }}"
+seeds = "{{ .Values.config.config.config.p2p.seeds }}"
+persistent_peers = "{{ .Values.config.config.config.p2p.persistent_peers }}"
+upnp = {{ .Values.config.config.config.p2p.upnp }}
+addr_book_file = "{{ .Values.config.config.config.p2p.addr_book_file }}"
+addr_book_strict = {{ .Values.config.config.config.p2p.addr_book_strict }}
+max_num_inbound_peers = {{ printf "%.0f" .Values.config.config.config.p2p.max_num_inbound_peers }}
+max_num_outbound_peers = {{ printf "%.0f" .Values.config.config.config.p2p.max_num_outbound_peers }}
+unconditional_peer_ids = "{{ .Values.config.config.config.p2p.unconditional_peer_ids }}"
+persistent_peers_max_dial_period = "{{ .Values.config.config.config.p2p.persistent_peers_max_dial_period }}"
+flush_throttle_timeout = "{{ .Values.config.config.config.p2p.flush_throttle_timeout }}"
+max_packet_msg_payload_size = {{ printf "%.0f" .Values.config.config.config.p2p.max_packet_msg_payload_size }}
+send_rate = {{ printf "%.0f" .Values.config.config.config.p2p.send_rate }}
+recv_rate = {{ printf "%.0f" .Values.config.config.config.p2p.recv_rate }}
+pex = {{ .Values.config.config.config.p2p.pex }}
+seed_mode = {{ .Values.config.config.config.p2p.seed_mode }}
+private_peer_ids = "{{ .Values.config.config.config.p2p.private_peer_ids }}"
+allow_duplicate_ip = {{ .Values.config.config.config.p2p.allow_duplicate_ip }}
+handshake_timeout = "{{ .Values.config.config.config.p2p.handshake_timeout }}"
+dial_timeout = "{{ .Values.config.config.config.p2p.dial_timeout }}"
+[mempool]
+version = "{{ .Values.config.config.config.mempool.version }}"
+recheck = {{ .Values.config.config.config.mempool.recheck }}
+broadcast = {{ .Values.config.config.config.mempool.broadcast }}
+wal_dir = "{{ .Values.config.config.config.mempool.wal_dir }}"
+size = {{ printf "%.0f" .Values.config.config.config.mempool.size }}
+max_txs_bytes = {{ printf "%.0f" .Values.config.config.config.mempool.max_txs_bytes }}
+cache_size = {{ printf "%.0f" .Values.config.config.config.mempool.cache_size }}
+keep-invalid-txs-in-cache = {{ .Values.config.config.config.mempool.keep_invalid_txs_in_cache }}
+max_tx_bytes = {{ printf "%.0f" .Values.config.config.config.mempool.max_tx_bytes }}
+max_batch_bytes = {{ printf "%.0f" .Values.config.config.config.mempool.max_batch_bytes }}
+ttl-duration = "{{ .Values.config.config.config.mempool.ttl_duration }}"
+ttl-num-blocks = {{ printf "%.0f" .Values.config.config.config.mempool.ttl_num_blocks }}
+max-gossip-delay = "{{ .Values.config.config.config.mempool.max_gossip_delay }}"
+experimental_max_gossip_connections_to_persistent_peers = {{ printf "%.0f" .Values.config.config.config.mempool.experimental_max_gossip_connections_to_persistent_peers }}
+experimental_max_gossip_connections_to_non_persistent_peers = {{ printf "%.0f" .Values.config.config.config.mempool.experimental_max_gossip_connections_to_non_persistent_peers }}
+[statesync]
+enable = {{ .Values.config.config.config.statesync.enable }}
+rpc_servers = "{{ .Values.config.config.config.statesync.rpc_servers }}"
+trust_height = {{ printf "%.0f" .Values.config.config.config.statesync.trust_height }}
+trust_hash = "{{ .Values.config.config.config.statesync.trust_hash }}"
+trust_period = "{{ .Values.config.config.config.statesync.trust_period }}"
+discovery_time = "{{ .Values.config.config.config.statesync.discovery_time }}"
+temp_dir = "{{ .Values.config.config.config.statesync.temp_dir }}"
+chunk_request_timeout = "{{ .Values.config.config.config.statesync.chunk_request_timeout }}"
+chunk_fetchers = "{{ .Values.config.config.config.statesync.chunk_fetchers }}"
+[fastsync]
+version = "{{ .Values.config.config.config.fastsync.version }}"
+[consensus]
+only_internal_wal = "{{ .Values.config.config.config.consensus.only_internal_wal }}"
+wal_file = "{{ .Values.config.config.config.consensus.wal_file }}"
+timeout_propose = "{{ .Values.config.config.config.consensus.timeout_propose }}"
+timeout_propose_delta = "{{ .Values.config.config.config.consensus.timeout_propose_delta }}"
+timeout_prevote = "{{ .Values.config.config.config.consensus.timeout_prevote }}"
+timeout_prevote_delta = "{{ .Values.config.config.config.consensus.timeout_prevote_delta }}"
+timeout_precommit = "{{ .Values.config.config.config.consensus.timeout_precommit }}"
+timeout_precommit_delta = "{{ .Values.config.config.config.consensus.timeout_precommit_delta }}"
+timeout_commit = "{{ .Values.config.config.config.consensus.timeout_commit }}"
+double_sign_check_height = {{ printf "%.0f" .Values.config.config.config.consensus.double_sign_check_height }}
+skip_timeout_commit = {{ .Values.config.config.config.consensus.skip_timeout_commit }}
+create_empty_blocks = {{ .Values.config.config.config.consensus.create_empty_blocks }}
+create_empty_blocks_interval = "{{ .Values.config.config.config.consensus.create_empty_blocks_interval }}"
+peer_gossip_sleep_duration = "{{ .Values.config.config.config.consensus.peer_gossip_sleep_duration }}"
+peer_query_maj23_sleep_duration = "{{ .Values.config.config.config.consensus.peer_query_maj23_sleep_duration }}"
+[storage]
+discard_abci_responses = {{ .Values.config.config.config.storage.discard_abci_responses }}
+[tx_index]
+indexer = "{{ .Values.config.config.config.tx_index.indexer }}"
+psql-conn = "{{ .Values.config.config.config.tx_index.psql_conn }}"
+[instrumentation]
+prometheus = {{ .Values.config.config.config.instrumentation.prometheus }}
+prometheus_listen_addr = "{{ .Values.config.config.config.instrumentation.prometheus_listen_addr }}"
+max_open_connections = {{ printf "%.0f" .Values.config.config.config.instrumentation.max_open_connections }}
+namespace = "{{ .Values.config.config.config.instrumentation.namespace }}"
+trace_push_config = "{{ .Values.config.config.config.instrumentation.trace_push_config }}"
+trace_pull_address = "{{ .Values.config.config.config.instrumentation.trace_pull_address }}"
+trace_type = "{{ .Values.config.config.config.instrumentation.trace_type }}"
+trace_push_batch_size = {{ printf "%.0f" .Values.config.config.config.instrumentation.trace_push_batch_size }}
+tracing_tables = "{{ .Values.config.config.config.instrumentation.tracing_tables }}"
+pyroscope_url = "{{ .Values.config.config.config.instrumentation.pyroscope_url }}"
+pyroscope_trace = {{ .Values.config.config.config.instrumentation.pyroscope_trace }}
+pyroscope_profile_types = [{{ range $index, $element := .Values.config.config.config.instrumentation.pyroscope_profile_types }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
+

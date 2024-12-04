@@ -87,7 +87,7 @@ app:
   ##
   # -- full pod name for the celestia-app
   # -- used to generate the keyring file name
-  podName: "consensus-validator-1-0"
+  podName: "consensus-validator-4-0"
   # -- image parameters for the image
   image:
     # -- registry for the image, GitHub Container Registry by default
@@ -142,7 +142,7 @@ app:
     ##     - key: priv_validator_key_json
     secret:
       # -- name of the secret, it must be set
-      name: "keys-consensus-validator-1-arabica-11"
+      name: "keys-consensus-validator-4-arabica-11"
       # -- enable the secret, true by default
       enabled: true
       items:
@@ -150,9 +150,9 @@ app:
           path: "priv_validator_key_json"
         - key: "node_key_json"
           path: "node_key_json"
-        - key: "consensus_validator_1_0_arabica_11_info"
+        - key: "consensus_validator_4_0_arabica_11_info"
           path: "consensus_validator_info"
-        - key: ""
+        - key: "5d517494f51288a2327537646c6e921291483440_address"
           path: "address"
         - key: "id"
           path: "id"
@@ -377,7 +377,7 @@ app:
         seeds: ""
         persistent_peers: "827583022cc6ce65cf762115642258f937c954cd@10.46.34.16:26656"
         upnp: false
-        addr_book_file: data/addrbook.json
+        addr_book_file: config/addrbook.json
         addr_book_strict: true
         max_num_inbound_peers: 40
         max_num_outbound_peers: 10
@@ -1181,7 +1181,11 @@ app:
     selector: {}
     ## @param persistence.dataSource Custom PVC data source
     ##
-    dataSource: {}
+    # dataSource: {}
+    dataSource:
+      name: "consensus-latest-2"
+      kind: VolumeSnapshot
+      apiGroup: snapshot.storage.k8s.io
   ## @section Init Container Parameters
   ##
   
