@@ -1,4 +1,4 @@
-{{- if .Values.networkPolicy.enabled }}
+{{- if .Values.app.networkPolicy.enabled }}
 kind: NetworkPolicy
 apiVersion: {{ include "common.capabilities.networkPolicy.apiVersion" . }}
 metadata:
@@ -18,7 +18,7 @@ spec:
     - Ingress
     - Egress
   egress:
-    {{- if .Values.networkPolicy.allowExternalEgress }}
+    {{- if .Values.app.networkPolicy.allowExternalEgress }}
     - {}
     {{- else }}
     - ports:
@@ -27,37 +27,37 @@ spec:
           protocol: UDP
         - port: 53
           protocol: TCP
-    {{- if .Values.networkPolicy.extraEgress }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.networkPolicy.extraEgress "context" $ ) | nindent 4 }}
+    {{- if .Values.app.networkPolicy.extraEgress }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.app.networkPolicy.extraEgress "context" $ ) | nindent 4 }}
     {{- end }}
     {{- end }}
   ingress:
     - ports:
         - port: {{ .Values.app.containerPorts.http }}
         - port: {{ .Values.app.containerPorts.https }}
-      {{- if not .Values.networkPolicy.allowExternal }}
+      {{- if not .Values.app.networkPolicy.allowExternal }}
       from:
         - podSelector:
             matchLabels: {{- include "common.labels.matchLabels" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 14 }}
         - podSelector:
             matchLabels:
               {{ template "common.names.fullname" . }}-client: "true"
-        {{- if .Values.networkPolicy.ingressNSMatchLabels }}
+        {{- if .Values.app.networkPolicy.ingressNSMatchLabels }}
         - namespaceSelector:
             matchLabels:
-              {{- range $key, $value := .Values.networkPolicy.ingressNSMatchLabels }}
+              {{- range $key, $value := .Values.app.networkPolicy.ingressNSMatchLabels }}
               {{ $key | quote }}: {{ $value | quote }}
               {{- end }}
-          {{- if .Values.networkPolicy.ingressNSPodMatchLabels }}
+          {{- if .Values.app.networkPolicy.ingressNSPodMatchLabels }}
           podSelector:
             matchLabels:
-              {{- range $key, $value := .Values.networkPolicy.ingressNSPodMatchLabels }}
+              {{- range $key, $value := .Values.app.networkPolicy.ingressNSPodMatchLabels }}
               {{ $key | quote }}: {{ $value | quote }}
               {{- end }}
           {{- end }}
         {{- end }}
       {{- end }}
-    {{- if .Values.networkPolicy.extraIngress }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.networkPolicy.extraIngress "context" $ ) | nindent 4 }}
+    {{- if .Values.app.networkPolicy.extraIngress }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.app.networkPolicy.extraIngress "context" $ ) | nindent 4 }}
     {{- end }}
 {{- end }}

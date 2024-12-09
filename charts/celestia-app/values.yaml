@@ -64,7 +64,7 @@ extraDeploy: []
 ## @param diagnosticMode.args Args to override all containers in the chart release
 ##
 diagnosticMode:
-  enabled: false
+  enabled: true
   command:
     - sleep
   args:
@@ -95,7 +95,7 @@ app:
     # -- repository for the image, celestiaorg/celestia-app by default
     repository: celestiaorg/celestia-app
     # -- tag for the image, v3.0.0 by default
-    tag: v3.0.0
+    tag: v3.0.2
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -152,7 +152,7 @@ app:
           path: "node_key_json"
         - key: "consensus_validator_1_0_arabica_11_info"
           path: "consensus_validator_info"
-        - key: ""
+        - key: "50a1ecc6670c9a721f267e08cd7b2bbb22fde6c8_address"
           path: "address"
         - key: "id"
           path: "id"
@@ -214,7 +214,7 @@ app:
   ##
   valMaker:
     # -- enable the valMaker, false by default
-    enabled: false
+    enabled: true
     ## @param app.valMaker.image Image for the valMaker
     ##
     image:
@@ -1181,7 +1181,11 @@ app:
     selector: {}
     ## @param persistence.dataSource Custom PVC data source
     ##
-    dataSource: {}
+    # dataSource: {}
+    dataSource:
+      name: "consensus-latest-2"
+      kind: VolumeSnapshot
+      apiGroup: snapshot.storage.k8s.io
   ## @section Init Container Parameters
   ##
   

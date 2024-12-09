@@ -73,29 +73,29 @@ spec:
       terminationGracePeriodSeconds: {{ .Values.app.terminationGracePeriodSeconds }}
       {{- end }}
       initContainers:
-        {{- if and .Values.volumePermissions.enabled .Values.persistence.enabled }}
+        {{- if and .Values.app.volumePermissions.enabled .Values.app.persistence.enabled }}
         - name: volume-permissions
           image: {{ include "app.volumePermissions.image" . }}
-          imagePullPolicy: {{ .Values.volumePermissions.image.pullPolicy | quote }}
+          imagePullPolicy: {{ .Values.app.volumePermissions.image.pullPolicy | quote }}
           command:
             - sh
             - -c
             - |
               chown -R {{ .Values.app.containerSecurityContext.runAsUser }}:{{ .Values.app.containerSecurityContext.runAsGroup }} {{ .Values.app.settings.home }}
               ls -ltra {{ .Values.app.settings.home }}
-          {{- if .Values.volumePermissions.containerSecurityContext.enabled }}
-          securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.volumePermissions.containerSecurityContext "context" $) | nindent 12 }}
+          {{- if .Values.app.volumePermissions.containerSecurityContext.enabled }}
+          securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.app.volumePermissions.containerSecurityContext "context" $) | nindent 12 }}
           {{- end }}
-          {{- if .Values.volumePermissions.resources }}
-          resources: {{- toYaml .Values.volumePermissions.resources | nindent 12 }}
-          {{- else if ne .Values.volumePermissions.resourcesPreset "none" }}
-          resources: {{- include "common.resources.preset" (dict "type" .Values.volumePermissions.resourcesPreset) | nindent 12 }}
+          {{- if .Values.app.volumePermissions.resources }}
+          resources: {{- toYaml .Values.app.volumePermissions.resources | nindent 12 }}
+          {{- else if ne .Values.app.volumePermissions.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.app.volumePermissions.resourcesPreset) | nindent 12 }}
           {{- end }}
           volumeMounts:
             - name: data
               mountPath: {{ .Values.app.settings.home }}/data
-              {{- if .Values.persistence.subPath }}
-              subPath: {{ .Values.persistence.subPath }}
+              {{- if .Values.app.persistence.subPath }}
+              subPath: {{ .Values.app.persistence.subPath }}
               {{- end }}
         {{- end }}
         - name: download-genesis
@@ -345,8 +345,8 @@ spec:
           volumeMounts:
             - name: data
               mountPath: {{ .Values.app.settings.home }}/data
-              {{- if .Values.persistence.subPath }}
-              subPath: {{ .Values.persistence.subPath }}
+              {{- if .Values.app.persistence.subPath }}
+              subPath: {{ .Values.app.persistence.subPath }}
               {{- end }}
             - name: config-dir
               mountPath: {{ .Values.app.settings.home }}/config
@@ -552,12 +552,12 @@ spec:
             name: {{ template "common.names.fullname" . }}-setup
             defaultMode: 0755
         {{- end }}
-  {{- if .Values.persistence.enabled }}
+  {{- if .Values.app.persistence.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: data
-        {{- if or .Values.persistence.annotations .Values.commonAnnotations }}
-        {{- $claimAnnotations := include "common.tplvalues.merge" (dict "values" (list .Values.persistence.annotations .Values.commonAnnotations) "context" .) }}
+        {{- if or .Values.app.persistence.annotations .Values.commonAnnotations }}
+        {{- $claimAnnotations := include "common.tplvalues.merge" (dict "values" (list .Values.app.persistence.annotations .Values.commonAnnotations) "context" .) }}
         annotations: {{- include "common.tplvalues.render" ( dict "value" $claimAnnotations "context" $ ) | nindent 10 }}
         {{- end }}
         {{- if .Values.commonLabels }}
@@ -565,19 +565,19 @@ spec:
         {{- end }}
       spec:
         accessModes:
-        {{- range .Values.persistence.accessModes }}
+        {{- range .Values.app.persistence.accessModes }}
           - {{ . | quote }}
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.persistence.size | quote }}
-        {{- if .Values.persistence.storageClass }}
-        storageClassName: {{ .Values.persistence.storageClass }}
+            storage: {{ .Values.app.persistence.size | quote }}
+        {{- if .Values.app.persistence.storageClass }}
+        storageClassName: {{ .Values.app.persistence.storageClass }}
         {{- end }}
-        {{- if .Values.persistence.dataSource }}
+        {{- if .Values.app.persistence.dataSource }}
         dataSource:
-          name: {{ .Values.persistence.dataSource.name }}
-          kind: {{ .Values.persistence.dataSource.kind }}
-          apiGroup: {{ .Values.persistence.dataSource.apiGroup }}
+          name: {{ .Values.app.persistence.dataSource.name }}
+          kind: {{ .Values.app.persistence.dataSource.kind }}
+          apiGroup: {{ .Values.app.persistence.dataSource.apiGroup }}
         {{- end }}
   {{- end }}
