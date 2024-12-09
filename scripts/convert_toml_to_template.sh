@@ -30,6 +30,7 @@ convert_toml_to_template() {
   template_output=""
   current_section=""
   file_base_name=$(basename "$toml_file" .toml)
+
   while IFS= read -r line; do
     leading_spaces=$(echo "$line" | sed -e 's/\(^[[:space:]]*\).*/\1/')
     if [[ $line =~ ^[[:space:]]*([a-zA-Z0-9_-]+)\ =\ \"(.+)\"$ ]]; then
@@ -37,96 +38,52 @@ convert_toml_to_template() {
       key_replaced="${key//-/_}"
       current_section_replaced="${current_section//-/_}"
       if [ -n "$current_section" ]; then
-        if [ "$node_type" == "node" ]; then
-          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${node_subtype}.configtoml.${current_section_replaced}.$key_replaced }}\"\n"
-        else
-          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\"\n"
-        fi
+        template_output+="${leading_spaces}$key = \"{{ .Values.app.config.config.${current_section_replaced}.$key_replaced }}\"\n"
       else
-        if [ "$node_type" == "node" ]; then
-          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${node_subtype}.configtoml.$key_replaced }}\"\n"
-        else
-          template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.$key_replaced }}\"\n"
-        fi
+        template_output+="${leading_spaces}$key = \"{{ .Values.app.config.config.$key_replaced }}\"\n"
       fi
     elif [[ $line =~ ^[[:space:]]*([a-zA-Z0-9_-]+)\ =\ \[(.+)\]$ ]]; then
       key="${BASH_REMATCH[1]}"
+      value="${BASH_REMATCH[2]}"
       key_replaced="${key//-/_}"
       current_section_replaced="${current_section//-/_}"
-      if [ -n "$current_section" ]; then
-        if [ "$node_type" == "node" ]; then
-          template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${node_subtype}.configtoml.${current_section_replaced}.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
-        else
-          template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
-        fi
+      if [[ $value =~ ^\".*\"$ ]]; then
+        template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.app.config.config.${current_section_replaced}.$key_replaced }}{{ if \$index }}, {{ end }}\"\$element\"{{ end }}]\n"
       else
-        if [ "$node_type" == "node" ]; then
-          template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${node_subtype}.configtoml.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
-        else
-          template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.${node_type}.config.${file_base_name}.$key_replaced }}{{ if \$index }}, {{ end }}\"{{ \$element }}\"{{ end }}]\n"
-        fi
+        template_output+="${leading_spaces}$key = [{{ range \$index, \$element := .Values.app.config.config.${current_section_replaced}.$key_replaced }}{{ if \$index }}, {{ end }}\$element{{ end }}]\n"
       fi
     elif [[ $line =~ ^[[:space:]]*([a-zA-Z0-9_-]+)\ =\ (.+)$ ]]; then
       key="${BASH_REMATCH[1]}"
       value="${BASH_REMATCH[2]}"
       key_replaced="${key//-/_}"
       current_section_replaced="${current_section//-/_}"
-      if [[ $value =~ ^\".*\"$ ]]; then
+      
+      # Lista de campos que necesitan printf
+      needs_printf=("max_body_bytes" "max_header_bytes")
+      
+      if [[ " ${needs_printf[@]} " =~ " ${key} " ]]; then
         if [ -n "$current_section" ]; then
-          if [ "$node_type" == "node" ]; then
-            template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${node_subtype}.configtoml.${current_section_replaced}.$key_replaced }}\"\n"
-          else
-            template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\"\n"
-          fi
+          template_output+="${leading_spaces}$key = \"{{ printf \"%.0f\" .Values.app.config.config.${current_section_replaced}.$key_replaced }}\"\n"
         else
-          if [ "$node_type" == "node" ]; then
-            template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${node_subtype}.configtoml.$key_replaced }}\"\n"
-          else
-            template_output+="${leading_spaces}$key = \"{{ .Values.${node_type}.config.${file_base_name}.$key_replaced }}\"\n"
-          fi
+          template_output+="${leading_spaces}$key = \"{{ printf \"%.0f\" .Values.app.config.config.$key_replaced }}\"\n"
         fi
       else
-        if [[ $value =~ ^[0-9]+$ ]]; then
-          if [ -n "$current_section" ]; then
-            if [ "$node_type" == "node" ]; then
-              template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${node_subtype}.configtoml.${current_section_replaced}.$key_replaced }}\n"
-            else
-              template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\n"
-            fi
-          else
-            if [ "$node_type" == "node" ]; then
-              template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${node_subtype}.configtoml.$key_replaced }}\n"
-            else
-              template_output+="${leading_spaces}$key = {{ printf \"%.0f\" .Values.${node_type}.config.${file_base_name}.$key_replaced }}\n"
-            fi
-          fi
+        if [ -n "$current_section" ]; then
+          template_output+="${leading_spaces}$key = {{ .Values.app.config.config.${current_section_replaced}.$key_replaced }}\n"
         else
-          if [ -n "$current_section" ]; then
-            if [ "$node_type" == "node" ]; then
-              template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${node_subtype}.configtoml.${current_section_replaced}.$key_replaced }}\n"
-            else
-              template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${file_base_name}.${current_section_replaced}.$key_replaced }}\n"
-            fi
-          else
-            if [ "$node_type" == "node" ]; then
-              template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${node_subtype}.configtoml.$key_replaced }}\n"
-            else
-              template_output+="${leading_spaces}$key = {{ .Values.${node_type}.config.${file_base_name}.$key_replaced }}\n"
-            fi
-          fi
+          template_output+="${leading_spaces}$key = {{ .Values.app.config.config.$key_replaced }}\n"
         fi
       fi
     elif [[ $line =~ ^[[:space:]]*\[([a-zA-Z0-9_.-]+)\]$ ]]; then
       current_section="${BASH_REMATCH[1]}"
-      current_section_replaced="${current_section//-/_}"
-      template_output+="${leading_spaces}[${current_section_replaced}]\n"
+      template_output+="${leading_spaces}[$current_section]\n"
     else
       template_output+="$line\n"
     fi
   done <<< "$toml_output"
 
   # Save the templated TOML output to template.yaml
-  echo -e "$template_output" | sed '/^\s*]$/d' > "$yaml_file"
+  echo -e "$template_output" > "$yaml_file"
   echo "Converted YAML file saved to: $yaml_file"
 }
 
