@@ -1,40 +1,40 @@
-{{- if and .Values.metrics.enabled .Values.metrics.serviceMonitor.enabled }}
+{{- if and .Values.app.metrics.enabled .Values.app.metrics.serviceMonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "common.names.fullname" . }}
-  namespace: {{ default (include "common.names.namespace" .) .Values.metrics.serviceMonitor.namespace | quote }}
-  {{- $labels := include "common.tplvalues.merge" (dict "values" (list .Values.metrics.serviceMonitor.labels .Values.commonLabels) "context" .) }}
+  namespace: {{ default (include "common.names.namespace" .) .Values.app.metrics.serviceMonitor.namespace | quote }}
+  {{- $labels := include "common.tplvalues.merge" (dict "values" (list .Values.app.metrics.serviceMonitor.labels .Values.commonLabels) "context" .) }}
   labels: {{- include "common.labels.standard" ( dict "customLabels" $labels "context" $ ) | nindent 4 }}
     app.kubernetes.io/component: app
-  {{- if or .Values.metrics.serviceMonitor.annotations .Values.commonAnnotations }}
-  {{- $annotations := include "common.tplvalues.merge" (dict "values" (list .Values.metrics.serviceMonitor.annotations .Values.commonAnnotations) "context" .) }}
+  {{- if or .Values.app.metrics.serviceMonitor.annotations .Values.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" (dict "values" (list .Values.app.metrics.serviceMonitor.annotations .Values.commonAnnotations) "context" .) }}
   annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
-  jobLabel: {{ .Values.metrics.serviceMonitor.jobLabel | quote }}
+  jobLabel: {{ .Values.app.metrics.serviceMonitor.jobLabel | quote }}
   selector:
     matchLabels: {{- include "common.labels.matchLabels" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 6 }}
-      {{- if .Values.metrics.serviceMonitor.selector }}
-      {{- include "common.tplvalues.render" (dict "value" .Values.metrics.serviceMonitor.selector "context" $) | nindent 6 }}
+      {{- if .Values.app.metrics.serviceMonitor.selector }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.app.metrics.serviceMonitor.selector "context" $) | nindent 6 }}
       {{- end }}
   endpoints:
     - port: prometheus
       path: ""
-      {{- if .Values.metrics.serviceMonitor.interval }}
-      interval: {{ .Values.metrics.serviceMonitor.interval }}
+      {{- if .Values.app.metrics.serviceMonitor.interval }}
+      interval: {{ .Values.app.metrics.serviceMonitor.interval }}
       {{- end }}
-      {{- if .Values.metrics.serviceMonitor.scrapeTimeout }}
-      scrapeTimeout: {{ .Values.metrics.serviceMonitor.scrapeTimeout }}
+      {{- if .Values.app.metrics.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.app.metrics.serviceMonitor.scrapeTimeout }}
       {{- end }}
-      {{- if .Values.metrics.serviceMonitor.honorLabels }}
-      honorLabels: {{ .Values.metrics.serviceMonitor.honorLabels }}
+      {{- if .Values.app.metrics.serviceMonitor.honorLabels }}
+      honorLabels: {{ .Values.app.metrics.serviceMonitor.honorLabels }}
       {{- end }}
-      {{- if .Values.metrics.serviceMonitor.metricRelabelings }}
-      metricRelabelings: {{- include "common.tplvalues.render" ( dict "value" .Values.metrics.serviceMonitor.metricRelabelings "context" $) | nindent 8 }}
+      {{- if .Values.app.metrics.serviceMonitor.metricRelabelings }}
+      metricRelabelings: {{- include "common.tplvalues.render" ( dict "value" .Values.app.metrics.serviceMonitor.metricRelabelings "context" $) | nindent 8 }}
       {{- end }}
-      {{- if .Values.metrics.serviceMonitor.relabelings }}
-      relabelings: {{- include "common.tplvalues.render" ( dict "value" .Values.metrics.serviceMonitor.relabelings "context" $) | nindent 8 }}
+      {{- if .Values.app.metrics.serviceMonitor.relabelings }}
+      relabelings: {{- include "common.tplvalues.render" ( dict "value" .Values.app.metrics.serviceMonitor.relabelings "context" $) | nindent 8 }}
       {{- end }}
   namespaceSelector:
     matchNames:

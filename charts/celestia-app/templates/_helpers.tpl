@@ -9,24 +9,49 @@ Return the proper app image name
 Return the proper image name (for the init container volume-permissions image)
 */}}
 {{- define "app.volumePermissions.image" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.volumePermissions.image "global" .Values.global ) -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.app.volumePermissions.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}
 {{- define "app.imagePullSecrets" -}}
-{{- include "common.images.renderPullSecrets" (dict "images" (list .Values.app.image .Values.volumePermissions.image) "context" $) -}}
+{{- $pullSecrets := list }}
+
+{{- if .Values.global.imagePullSecrets -}}
+    {{- range .Values.global.imagePullSecrets -}}
+        {{- $pullSecrets = append $pullSecrets . -}}
+    {{- end -}}
+{{- end -}}
+
+{{- if .Values.app.image.pullSecrets -}}
+    {{- range .Values.app.image.pullSecrets -}}
+        {{- $pullSecrets = append $pullSecrets . -}}
+    {{- end -}}
+{{- end -}}
+
+{{- if .Values.app.volumePermissions.image.pullSecrets -}}
+    {{- range .Values.app.volumePermissions.image.pullSecrets -}}
+        {{- $pullSecrets = append $pullSecrets . -}}
+    {{- end -}}
+{{- end -}}
+
+{{- if (not (empty $pullSecrets)) }}
+imagePullSecrets:
+{{- range $pullSecrets }}
+- name: {{ . }}
+{{- end }}
+{{- end }}
 {{- end -}}
 
 {{/*
-Create the name of the service account to use
+Return the proper service account name
 */}}
 {{- define "app.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create -}}
-    {{ default (include "common.names.fullname" .) .Values.serviceAccount.name }}
+{{- if .Values.app.serviceAccount.create -}}
+    {{ default (include "common.names.fullname" .) .Values.app.serviceAccount.name }}
 {{- else -}}
-    {{ default "default" .Values.serviceAccount.name }}
+    {{ default "default" .Values.app.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
 
