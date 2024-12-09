@@ -64,7 +64,7 @@ extraDeploy: []
 ## @param diagnosticMode.args Args to override all containers in the chart release
 ##
 diagnosticMode:
-  enabled: true
+  enabled: false
   command:
     - sleep
   args:
