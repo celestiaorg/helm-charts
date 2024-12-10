@@ -1,3 +1,4 @@
+{{- if .Values.app.rbac.create }}
 kind: ClusterRoleBinding
 apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
 metadata:
@@ -10,8 +11,9 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ template "common.names.fullname" . }}
+  name: {{ include "common.names.fullname" . }}
 subjects:
   - kind: ServiceAccount
-    name: {{ template "app.serviceAccountName" . }}
+    name: {{ .Values.app.serviceAccount.name }}
     namespace: {{ include "common.names.namespace" . | quote }}
+{{- end }}
