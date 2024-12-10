@@ -214,7 +214,7 @@ app:
   ##
   valMaker:
     # -- enable the valMaker, false by default
-    enabled: true
+    enabled: false
     ## @param app.valMaker.image Image for the valMaker
     ##
     image:
