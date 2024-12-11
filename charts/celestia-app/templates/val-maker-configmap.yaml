@@ -1,0 +1,12 @@
+{{- if .Values.app.valMaker.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "common.names.fullname" . }}-val-maker
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: app
+data:
+  val-maker.sh: |-
+{{ .Files.Get "files/val-maker.sh" | indent 4 }}
+{{- end }}
