@@ -238,7 +238,7 @@ app:
     validatorPod: "consensus-validator-1-0"
     ## @param app.valMaker.nominatees Nominatees for the valMaker
     ##
-    nominatees: "consensus-validator-2-0,consensus-validator-3-0,consensus-validator-4-0"
+    nominatees: "consensus-validator-2-celestia-app-0,consensus-validator-4-celestia-app-0"
   ##
   ## @param app.config.apptoml Configuration for the celestia-app app.toml
   ##
@@ -499,11 +499,12 @@ app:
       # -- memory requests for the node, 8Gi by default
       memory: 4Gi
     # -- limits for the node
-    limits:
-      # -- cpu limits for the node, 2 by default
+    limits: {}
+    # limits:
+    #   # -- cpu limits for the node, 2 by default
       # cpu: 6
       # -- memory limits for the node, 8Gi by default
-      memory: 10Gi
+      #memory: 10Gi
     grafanaOtelSecret:
       # -- name of the grafana otel secret, it must be set
       name: SET_IT
@@ -673,11 +674,12 @@ app:
       # -- memory requests for the app, 8Gi by default
       memory: 8Gi
     # -- limits for the app
-    limits:
-      # -- cpu limits for the app, 2 by default
-      cpu: 2
-      # -- memory limits for the app, 8Gi by default
-      memory: 8Gi
+    limits: {}
+    # limits:
+    #   # -- cpu limits for the app, 2 by default
+    #   cpu: 2
+    #   # -- memory limits for the app, 8Gi by default
+    #   memory: 8Gi
   ## Configure Pods Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
   ## @param app.podSecurityContext.enabled Enable app pods' Security Context
@@ -1047,7 +1049,9 @@ app:
       externalTrafficPolicy: Cluster
       ## @param service.external.annotations Additional custom annotations for app external service
       ##
-      annotations: {}
+      #annotations: {}
+      annotations:
+        external-dns.alpha.kubernetes.io/hostname: validator-1.celestia-arabica-11.com
       ## @param service.external.extraPorts Extra ports to expose in app external service (normally used with the `sidecars` value)
       ##
       extraPorts: []
@@ -1280,7 +1284,7 @@ app:
     ## @param serviceAccount.name The name of the ServiceAccount to use.
     ## If not set and create is true, a name is generated using the common.names.fullname template
     ##
-    name: "consensus-sa-validator-1"
+    name: "cons-sa-validator-1"
     ## @param serviceAccount.annotations Additional Service Account annotations (evaluated as a template)
     ##
     annotations: {}
