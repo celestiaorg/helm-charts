@@ -1,6 +1,6 @@
 # celestia-app
 
-![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![AppVersion: v3.0.1](https://img.shields.io/badge/AppVersion-v3.0.1-informational?style=flat-square)
+![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![AppVersion: v3.0.2](https://img.shields.io/badge/AppVersion-v3.0.2-informational?style=flat-square)
 
 Celestia App
 
@@ -141,23 +141,18 @@ Celestia App
 | app.readinessProbe.successThreshold | int | `1` | success threshold for readinessProbe, 1 by default |
 | app.readinessProbe.timeoutSeconds | int | `1` | timeout seconds for readinessProbe, 1 by default |
 | app.replicaCount | int | `1` | number of app replicas to deploy, 1 by default |
-| app.resources | object | `{"limits":{},"requests":{"cpu":2,"memory":"8Gi"}}` | resources for the app |
 | app.resources | object | `{"config":{"exporters":{"otlphttp":{"endpoint":"https://otel.arabica.celestia.dev"},"prometheus":{"endpoint":"0.0.0.0:9191"}},"processors":{"batch":null,"memory_limiter":{"check_interval":"5s","limit_mib":400,"spike_limit_mib":100}},"receivers":{"otlp":{"protocols":{"http":{"endpoint":"localhost:4318"}}},"prometheus":{"config":{"scrape_configs":[{"job_name":"$CONTAINER_NAME-$POD_NAMESPACE","scrape_interval":"10s","static_configs":[{"targets":["localhost:26660"]}]}]}}},"service":{"pipelines":{"metrics":{"exporters":["otlphttp","prometheus"],"receivers":["otlp","prometheus"]},"traces":{"exporters":["otlphttp"],"processors":["memory_limiter","batch"],"receivers":["otlp"]}},"telemetry":{"metrics":{"address":"0.0.0.0:8888","level":"basic"}}}},"grafanaOtelSecret":{"name":"SET_IT"},"limits":{},"requests":{"cpu":2,"memory":"4Gi"}}` | resources for the app |
 | app.resources.config | object | `{"exporters":{"otlphttp":{"endpoint":"https://otel.arabica.celestia.dev"},"prometheus":{"endpoint":"0.0.0.0:9191"}},"processors":{"batch":null,"memory_limiter":{"check_interval":"5s","limit_mib":400,"spike_limit_mib":100}},"receivers":{"otlp":{"protocols":{"http":{"endpoint":"localhost:4318"}}},"prometheus":{"config":{"scrape_configs":[{"job_name":"$CONTAINER_NAME-$POD_NAMESPACE","scrape_interval":"10s","static_configs":[{"targets":["localhost:26660"]}]}]}}},"service":{"pipelines":{"metrics":{"exporters":["otlphttp","prometheus"],"receivers":["otlp","prometheus"]},"traces":{"exporters":["otlphttp"],"processors":["memory_limiter","batch"],"receivers":["otlp"]}},"telemetry":{"metrics":{"address":"0.0.0.0:8888","level":"basic"}}}}` | config for the otel agent (See: https://opentelemetry.io/docs/collector/configuration/) |
-| app.resources.grafanaOtelSecret | object | `{"name":"SET_IT"}` | memory limits for the node, 8Gi by default memory: 10Gi |
+| app.resources.grafanaOtelSecret | object | `{"name":"SET_IT"}` | grafana otel secret |
 | app.resources.grafanaOtelSecret.name | string | `"SET_IT"` | name of the grafana otel secret, it must be set |
-| app.resources.limits | object | `{}` | limits for the app |
 | app.resources.limits | object | `{}` | limits for the node |
-| app.resources.requests | object | `{"cpu":2,"memory":"8Gi"}` | requests for the app |
 | app.resources.requests | object | `{"cpu":2,"memory":"4Gi"}` | requests for the app |
-| app.resources.requests.cpu | int | `2` | cpu requests for the app, 2 by default |
 | app.resources.requests.cpu | int | `2` | cpu requests for the node, 6 by default |
-| app.resources.requests.memory | string | `"8Gi"` | memory requests for the app, 8Gi by default |
 | app.resources.requests.memory | string | `"4Gi"` | memory requests for the node, 8Gi by default |
 | app.resourcesPreset | string | `"nano"` | more information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15 |
 | app.schedulerName | string | `""` |  |
-| app.service | object | `{"external":{"annotations":{"external-dns.alpha.kubernetes.io/hostname":"validator-1.celestia-arabica-11.com"},"enabled":true,"externalDNS":{"enabled":true,"hostname":"validator-1.celestia-arabica-11.com"},"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"api":"","grpc":"","p2p":"","prometheus":"","rpc":"","tracing":""},"ports":{"api":1317,"grpc":9090,"p2p":26656,"rpc":26657},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"LoadBalancer"},"internal":{"annotations":{},"clusterIP":"","ports":{"api":1317,"grpc":9090,"p2p":26656,"prometheus":26660,"rpc":26657,"tracing":26661},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}}` | service parameters |
-| app.service.external | object | `{"annotations":{"external-dns.alpha.kubernetes.io/hostname":"validator-1.celestia-arabica-11.com"},"enabled":true,"externalDNS":{"enabled":true,"hostname":"validator-1.celestia-arabica-11.com"},"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"api":"","grpc":"","p2p":"","prometheus":"","rpc":"","tracing":""},"ports":{"api":1317,"grpc":9090,"p2p":26656,"rpc":26657},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"LoadBalancer"}` | external service parameters |
+| app.service | object | `{"external":{"annotations":{},"enabled":true,"externalDNS":{"enabled":true,"hostname":"validator-1.celestia-arabica-11.com"},"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"api":"","grpc":"","p2p":"","prometheus":"","rpc":"","tracing":""},"ports":{"api":1317,"grpc":9090,"p2p":26656,"rpc":26657},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"LoadBalancer"},"internal":{"annotations":{},"clusterIP":"","ports":{"api":1317,"grpc":9090,"p2p":26656,"prometheus":26660,"rpc":26657,"tracing":26661},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}}` | service parameters |
+| app.service.external | object | `{"annotations":{},"enabled":true,"externalDNS":{"enabled":true,"hostname":"validator-1.celestia-arabica-11.com"},"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"api":"","grpc":"","p2p":"","prometheus":"","rpc":"","tracing":""},"ports":{"api":1317,"grpc":9090,"p2p":26656,"rpc":26657},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"LoadBalancer"}` | external service parameters |
 | app.service.external.enabled | bool | `true` | enable external service, true by default |
 | app.service.external.externalDNS.enabled | bool | `true` | enable external DNS, false by default |
 | app.service.external.externalDNS.hostname | string | `"validator-1.celestia-arabica-11.com"` | hostname for the external DNS |
@@ -232,7 +227,7 @@ Celestia App
 | app.valMaker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | app.valMaker.image.repository | string | `"bitnami/kubectl"` |  |
 | app.valMaker.image.tag | string | `"latest"` |  |
-| app.valMaker.nominatees | string | `"consensus-validator-2-celestia-app-0,consensus-validator-4-celestia-app-0"` |  |
+| app.valMaker.nominatees | string | `"consensus-validator-2-celestia-app-0,consensus-validator-3-celestia-app-0,consensus-validator-4-celestia-app-0"` |  |
 | app.valMaker.stakingAmount | string | `"100000000000000utia"` |  |
 | app.valMaker.validatorPod | string | `"consensus-validator-1-0"` |  |
 | app.volumePermissions.containerSecurityContext.enabled | bool | `true` |  |
