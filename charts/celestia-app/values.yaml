@@ -238,7 +238,7 @@ app:
     validatorPod: "consensus-validator-1-0"
     ## @param app.valMaker.nominatees Nominatees for the valMaker
     ##
-    nominatees: "consensus-validator-2-celestia-app-0,consensus-validator-4-celestia-app-0"
+    nominatees: "consensus-validator-2-celestia-app-0,consensus-validator-3-celestia-app-0,consensus-validator-4-celestia-app-0"
   ##
   ## @param app.config.apptoml Configuration for the celestia-app app.toml
   ##
@@ -500,11 +500,7 @@ app:
       memory: 4Gi
     # -- limits for the node
     limits: {}
-    # limits:
-    #   # -- cpu limits for the node, 2 by default
-      # cpu: 6
-      # -- memory limits for the node, 8Gi by default
-      #memory: 10Gi
+    # -- grafana otel secret
     grafanaOtelSecret:
       # -- name of the grafana otel secret, it must be set
       name: SET_IT
@@ -665,21 +661,6 @@ app:
   ##     cpu: 3
   ##     memory: 1024Mi
   ##
-  # -- resources for the app
-  resources:
-    # -- requests for the app
-    requests:
-      # -- cpu requests for the app, 2 by default
-      cpu: 2
-      # -- memory requests for the app, 8Gi by default
-      memory: 8Gi
-    # -- limits for the app
-    limits: {}
-    # limits:
-    #   # -- cpu limits for the app, 2 by default
-    #   cpu: 2
-    #   # -- memory limits for the app, 8Gi by default
-    #   memory: 8Gi
   ## Configure Pods Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
   ## @param app.podSecurityContext.enabled Enable app pods' Security Context
@@ -1049,9 +1030,7 @@ app:
       externalTrafficPolicy: Cluster
       ## @param service.external.annotations Additional custom annotations for app external service
       ##
-      #annotations: {}
-      annotations:
-        external-dns.alpha.kubernetes.io/hostname: validator-1.celestia-arabica-11.com
+      annotations: {}
       ## @param service.external.extraPorts Extra ports to expose in app external service (normally used with the `sidecars` value)
       ##
       extraPorts: []
