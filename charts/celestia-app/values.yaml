@@ -463,8 +463,8 @@ app:
           - mutex_duration
           - block_count
           - block_duration
-    ## @param app.otelAgent OTel agent configuration for the app
-    ##
+ ## @param app.otelAgent OTel agent configuration for the app
+  ##
   otelAgent:
     # -- enable otel agent for the app, false by default
     enabled: false
@@ -490,23 +490,23 @@ app:
     ##   limits:
     ##     cpu: 200m
     ##     memory: 200Mi
-  # -- resources for the app
-  resources:
-    # -- requests for the app
-    requests:
-      # -- cpu requests for the node, 6 by default
-      cpu: 2
-      # -- memory requests for the node, 8Gi by default
-      memory: 4Gi
-    # -- limits for the node
-    limits: {}
-    # -- grafana otel secret
-    grafanaOtelSecret:
-      # -- name of the grafana otel secret, it must be set
-      name: SET_IT
-    ## @param app.otelAgent.config Configuration for the otel agent
-    ##
-    # -- config for the otel agent (See: https://opentelemetry.io/docs/collector/configuration/)
+    # -- resources for the app
+    resources:
+      # -- requests for the app
+      requests:
+        # -- cpu requests for the node, 6 by default
+        cpu: 2
+        # -- memory requests for the node, 8Gi by default
+        memory: 4Gi
+      # -- limits for the node
+      limits: {}
+      # -- grafana otel secret
+      grafanaOtelSecret:
+        # -- name of the grafana otel secret, it must be set
+        name: SET_IT
+      ## @param app.otelAgent.config Configuration for the otel agent
+      ##
+      # -- config for the otel agent (See: https://opentelemetry.io/docs/collector/configuration/)
     config:
       receivers:
         otlp:
@@ -546,7 +546,6 @@ app:
           metrics:
             address: "0.0.0.0:8888"
             level: basic # Options are basic, normal, detailed
-
   ## @param app.replicaCount Number of app replicas to deploy
   ##
   # -- number of app replicas to deploy, 1 by default
