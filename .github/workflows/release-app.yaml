@@ -1,0 +1,82 @@
+name: Release App Charts
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'charts/celestia-app/**'
+      - 'common-charts/common-celestia-app/**'
+  pull_request:
+    paths:
+      - 'charts/celestia-app/**'
+      - 'common-charts/common-celestia-app/**'
+  workflow_dispatch:
+
+jobs:
+  release-common-celestia-app:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Run chart-releaser for common-celestia-app
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: "common-charts"
+          packages_with_index: "true"
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+  release-celestia-app:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    needs: release-common-celestia-app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Add Helm Repositories
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add celestiaorg https://celestiaorg.github.io/helm-charts
+          helm repo update
+
+      - name: Update Helm Dependencies for celestia-app
+        run: |
+          helm dependency update charts/celestia-app
+
+      - name: Run chart-releaser for celestia-app
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: "charts"
+          packages_with_index: "true"
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
