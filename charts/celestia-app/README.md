@@ -1,6 +1,6 @@
 # celestia-app
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![AppVersion: v3.0.2](https://img.shields.io/badge/AppVersion-v3.0.2-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![AppVersion: v3.1.0](https://img.shields.io/badge/AppVersion-v3.1.0-informational?style=flat-square)
 
 Celestia App
 
@@ -76,11 +76,11 @@ Celestia App
 | app.extraVolumeMounts | list | `[]` |  |
 | app.extraVolumes | list | `[]` |  |
 | app.hostAliases | list | `[]` |  |
-| app.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-app","tag":"v3.0.2"}` | image parameters for the image |
+| app.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-app","tag":"v3.1.0"}` | image parameters for the image |
 | app.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | app.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | app.image.repository | string | `"celestiaorg/celestia-app"` | repository for the image, celestiaorg/celestia-app by default |
-| app.image.tag | string | `"v3.0.2"` | tag for the image, v3.0.0 by default |
+| app.image.tag | string | `"v3.1.0"` | tag for the image, v3.0.0 by default |
 | app.initContainers | list | `[]` |  |
 | app.lifecycleHooks | object | `{}` |  |
 | app.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the app |
@@ -108,8 +108,35 @@ Celestia App
 | app.nodeAffinityPreset.type | string | `""` |  |
 | app.nodeAffinityPreset.values | list | `[]` |  |
 | app.nodeSelector | object | `{}` |  |
+| app.otelAgent.config.exporters.otlphttp.endpoint | string | `"https://otel.arabica.celestia.dev"` |  |
+| app.otelAgent.config.exporters.prometheus.endpoint | string | `"0.0.0.0:9191"` |  |
+| app.otelAgent.config.processors.batch | string | `nil` |  |
+| app.otelAgent.config.processors.memory_limiter.check_interval | string | `"5s"` |  |
+| app.otelAgent.config.processors.memory_limiter.limit_mib | int | `400` |  |
+| app.otelAgent.config.processors.memory_limiter.spike_limit_mib | int | `100` |  |
+| app.otelAgent.config.receivers.otlp.protocols.http.endpoint | string | `"localhost:4318"` |  |
+| app.otelAgent.config.receivers.prometheus.config.scrape_configs[0].job_name | string | `"$CONTAINER_NAME-$POD_NAMESPACE"` |  |
+| app.otelAgent.config.receivers.prometheus.config.scrape_configs[0].scrape_interval | string | `"10s"` |  |
+| app.otelAgent.config.receivers.prometheus.config.scrape_configs[0].static_configs[0].targets[0] | string | `"localhost:26660"` |  |
+| app.otelAgent.config.service.pipelines.metrics.exporters[0] | string | `"otlphttp"` |  |
+| app.otelAgent.config.service.pipelines.metrics.exporters[1] | string | `"prometheus"` |  |
+| app.otelAgent.config.service.pipelines.metrics.receivers[0] | string | `"otlp"` |  |
+| app.otelAgent.config.service.pipelines.metrics.receivers[1] | string | `"prometheus"` |  |
+| app.otelAgent.config.service.pipelines.traces.exporters[0] | string | `"otlphttp"` |  |
+| app.otelAgent.config.service.pipelines.traces.processors[0] | string | `"memory_limiter"` |  |
+| app.otelAgent.config.service.pipelines.traces.processors[1] | string | `"batch"` |  |
+| app.otelAgent.config.service.pipelines.traces.receivers[0] | string | `"otlp"` |  |
+| app.otelAgent.config.service.telemetry.metrics.address | string | `"0.0.0.0:8888"` |  |
+| app.otelAgent.config.service.telemetry.metrics.level | string | `"basic"` |  |
 | app.otelAgent.enabled | bool | `false` | enable otel agent for the app, false by default |
 | app.otelAgent.image | object | `{"digest":"","pullPolicy":"IfNotPresent","registry":"ghcr.io","repository":"open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib","tag":"0.102.0"}` | image for the otel agent, ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:0.102.0 by default |
+| app.otelAgent.resources | object | `{"grafanaOtelSecret":{"name":"SET_IT"},"limits":{},"requests":{"cpu":2,"memory":"4Gi"}}` | resources for the app |
+| app.otelAgent.resources.grafanaOtelSecret | object | `{"name":"SET_IT"}` | grafana otel secret |
+| app.otelAgent.resources.grafanaOtelSecret.name | string | `"SET_IT"` | name of the grafana otel secret, it must be set |
+| app.otelAgent.resources.limits | object | `{}` | limits for the node |
+| app.otelAgent.resources.requests | object | `{"cpu":2,"memory":"4Gi"}` | requests for the app |
+| app.otelAgent.resources.requests.cpu | int | `2` | cpu requests for the node, 6 by default |
+| app.otelAgent.resources.requests.memory | string | `"4Gi"` | memory requests for the node, 8Gi by default |
 | app.otelAgent.resourcesPreset | string | `"micro"` |  |
 | app.pdb.create | bool | `false` |  |
 | app.pdb.maxUnavailable | string | `""` |  |
@@ -141,14 +168,6 @@ Celestia App
 | app.readinessProbe.successThreshold | int | `1` | success threshold for readinessProbe, 1 by default |
 | app.readinessProbe.timeoutSeconds | int | `1` | timeout seconds for readinessProbe, 1 by default |
 | app.replicaCount | int | `1` | number of app replicas to deploy, 1 by default |
-| app.resources | object | `{"config":{"exporters":{"otlphttp":{"endpoint":"https://otel.arabica.celestia.dev"},"prometheus":{"endpoint":"0.0.0.0:9191"}},"processors":{"batch":null,"memory_limiter":{"check_interval":"5s","limit_mib":400,"spike_limit_mib":100}},"receivers":{"otlp":{"protocols":{"http":{"endpoint":"localhost:4318"}}},"prometheus":{"config":{"scrape_configs":[{"job_name":"$CONTAINER_NAME-$POD_NAMESPACE","scrape_interval":"10s","static_configs":[{"targets":["localhost:26660"]}]}]}}},"service":{"pipelines":{"metrics":{"exporters":["otlphttp","prometheus"],"receivers":["otlp","prometheus"]},"traces":{"exporters":["otlphttp"],"processors":["memory_limiter","batch"],"receivers":["otlp"]}},"telemetry":{"metrics":{"address":"0.0.0.0:8888","level":"basic"}}}},"grafanaOtelSecret":{"name":"SET_IT"},"limits":{},"requests":{"cpu":2,"memory":"4Gi"}}` | resources for the app |
-| app.resources.config | object | `{"exporters":{"otlphttp":{"endpoint":"https://otel.arabica.celestia.dev"},"prometheus":{"endpoint":"0.0.0.0:9191"}},"processors":{"batch":null,"memory_limiter":{"check_interval":"5s","limit_mib":400,"spike_limit_mib":100}},"receivers":{"otlp":{"protocols":{"http":{"endpoint":"localhost:4318"}}},"prometheus":{"config":{"scrape_configs":[{"job_name":"$CONTAINER_NAME-$POD_NAMESPACE","scrape_interval":"10s","static_configs":[{"targets":["localhost:26660"]}]}]}}},"service":{"pipelines":{"metrics":{"exporters":["otlphttp","prometheus"],"receivers":["otlp","prometheus"]},"traces":{"exporters":["otlphttp"],"processors":["memory_limiter","batch"],"receivers":["otlp"]}},"telemetry":{"metrics":{"address":"0.0.0.0:8888","level":"basic"}}}}` | config for the otel agent (See: https://opentelemetry.io/docs/collector/configuration/) |
-| app.resources.grafanaOtelSecret | object | `{"name":"SET_IT"}` | grafana otel secret |
-| app.resources.grafanaOtelSecret.name | string | `"SET_IT"` | name of the grafana otel secret, it must be set |
-| app.resources.limits | object | `{}` | limits for the node |
-| app.resources.requests | object | `{"cpu":2,"memory":"4Gi"}` | requests for the app |
-| app.resources.requests.cpu | int | `2` | cpu requests for the node, 6 by default |
-| app.resources.requests.memory | string | `"4Gi"` | memory requests for the node, 8Gi by default |
 | app.resourcesPreset | string | `"nano"` | more information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15 |
 | app.schedulerName | string | `""` |  |
 | app.service | object | `{"external":{"annotations":{},"enabled":true,"externalDNS":{"enabled":true,"hostname":"validator-1.celestia-arabica-11.com"},"externalTrafficPolicy":"Cluster","extraPorts":[],"loadBalancerIP":"","loadBalancerSourceRanges":[],"nodePorts":{"api":"","grpc":"","p2p":"","prometheus":"","rpc":"","tracing":""},"ports":{"api":1317,"grpc":9090,"p2p":26656,"rpc":26657},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"LoadBalancer"},"internal":{"annotations":{},"clusterIP":"","ports":{"api":1317,"grpc":9090,"p2p":26656,"prometheus":26660,"rpc":26657,"tracing":26661},"sessionAffinity":"None","sessionAffinityConfig":{},"type":"ClusterIP"}}` | service parameters |
