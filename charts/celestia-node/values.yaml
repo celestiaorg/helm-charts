@@ -12,6 +12,7 @@
 ## @param global.storageClass Global StorageClass for Persistent Volume(s)
 ## @param global.skipValidationWarnings Skip validation warnings
 ##
+
 global:
   imageRegistry: ""
   ## e.g:
