@@ -1,0 +1,63 @@
+minimum_gas_prices: 0.002utia
+pruning: default
+pruning_keep_recent: "0"
+pruning_interval: "0"
+halt_height: 0
+halt_time: 0
+min_retain_blocks: 0
+inter_block_cache: true
+index_events: []
+iavl_cache_size: 781250
+iavl_disable_fastnode: false
+iavl_lazy_loading: false
+app_db_backend: ""
+telemetry:
+  service_name: ""
+  enabled: false
+  enable_hostname: false
+  enable_hostname_label: false
+  enable_service_label: false
+  prometheus_retention_time: 0
+  global_labels: []
+api:
+  enable: false
+  swagger: false
+  address: tcp://0.0.0.0:1317
+  max_open_connections: 1000
+  rpc_read_timeout: 10
+  rpc_write_timeout: 0
+  rpc_max_body_bytes: 1000000
+  enabled_unsafe_cors: false
+rosetta:
+  enable: false
+  address: :8080
+  blockchain: app
+  network: network
+  retries: 3
+  offline: false
+  enable_fee_suggestion: false
+  gas_to_suggest: 210000
+  denom_to_suggest: uatom
+grpc:
+  enable: false
+  address: 0.0.0.0:9090
+  max_recv_msg_size: "20971520"
+  max_send_msg_size: "2147483647"
+grpc_web:
+  enable: false
+  address: 0.0.0.0:9091
+  enable_unsafe_cors: false
+state_sync:
+  snapshot_interval: 1500
+  snapshot_keep_recent: 2
+store:
+  streamers: []
+streamers:
+  file:
+    keys:
+      - '*'
+    write_dir: ""
+    prefix: ""
+    output_metadata: "true"
+    stop_node_on_error: "true"
+    fsync: "false"

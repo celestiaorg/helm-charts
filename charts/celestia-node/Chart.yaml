@@ -5,7 +5,7 @@ apiVersion: v2
 appVersion: v0.21.2
 dependencies:
 - name: common-celestia-node
-  version: 0.1.1
+  version: 0.1.2
   repository: https://celestiaorg.github.io/helm-charts
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
@@ -24,4 +24,4 @@ maintainers:
 name: celestia-node
 sources:
   - https://github.com/celestiaorg/helm-charts
-version: 0.11.1
+version: 0.11.2
