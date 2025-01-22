@@ -7,10 +7,6 @@ on:
     paths:
       - 'charts/celestia-node/**'
       - 'common-charts/common-celestia-node/**'
-  pull_request:
-    paths:
-      - 'charts/celestia-node/**'
-      - 'common-charts/common-celestia-node/**'
   workflow_dispatch:
 
 jobs:
