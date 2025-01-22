@@ -4,8 +4,9 @@
   ShutdownTimeout = "{{ .Values.node.config.bridge.configtoml.Node.ShutdownTimeout }}"
 [Core]
   IP = "{{ .Values.node.config.bridge.configtoml.Core.IP }}"
-  RPCPort = "{{ .Values.node.config.bridge.configtoml.Core.RPCPort }}"
-  GRPCPort = "{{ .Values.node.config.bridge.configtoml.Core.GRPCPort }}"
+  Port = "{{ .Values.node.config.bridge.configtoml.Core.Port }}"
+  TLSEnabled = {{ .Values.node.config.bridge.configtoml.Core.TLSEnabled }}
+  XTokenPath = "{{ .Values.node.config.bridge.configtoml.Core.XTokenPath }}"
 [State]
   DefaultKeyName = "{{ .Values.node.config.bridge.configtoml.State.DefaultKeyName }}"
   DefaultBackendName = "{{ .Values.node.config.bridge.configtoml.State.DefaultBackendName }}"
