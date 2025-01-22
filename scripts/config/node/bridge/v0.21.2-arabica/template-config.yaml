@@ -1,4 +1,3 @@
-{{- define "common-celestia-node.bridge_config.toml" -}}
 [Node]
   StartupTimeout = "{{ .Values.node.config.bridge.configtoml.Node.StartupTimeout }}"
   ShutdownTimeout = "{{ .Values.node.config.bridge.configtoml.Node.ShutdownTimeout }}"
@@ -70,4 +69,4 @@
     RangeRequestTimeout = "{{ .Values.node.config.bridge.configtoml.Header.Client.RangeRequestTimeout }}"
 [Pruner]
   EnableService = {{ .Values.node.config.bridge.configtoml.Pruner.EnableService }}
-{{- end }}
+
