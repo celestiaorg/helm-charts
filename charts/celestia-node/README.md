@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.11.1](https://img.shields.io/badge/Version-0.11.1-informational?style=flat-square) ![AppVersion: v0.21.2](https://img.shields.io/badge/AppVersion-v0.21.2-informational?style=flat-square)
+![Version: 0.11.2](https://img.shields.io/badge/Version-0.11.2-informational?style=flat-square) ![AppVersion: v0.21.2](https://img.shields.io/badge/AppVersion-v0.21.2-informational?style=flat-square)
 
 Celestia Node
 
@@ -20,7 +20,7 @@ Celestia Node
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://celestiaorg.github.io/helm-charts | common-celestia-node | 0.1.1 |
+| https://celestiaorg.github.io/helm-charts | common-celestia-node | 0.1.2 |
 | oci://registry-1.docker.io/bitnamicharts | common | 2.x.x |
 
 ## Values
@@ -62,9 +62,10 @@ Celestia Node
 | node.automountServiceAccountToken | bool | `false` | mount service account token in node pods |
 | node.command | list | `["celestia"]` | command for the celestia-node |
 | node.command[0] | string | `"celestia"` | celestia |
-| node.config.bridge.configtoml.Core.GRPCPort | string | `"9090"` |  |
 | node.config.bridge.configtoml.Core.IP | string | `""` |  |
-| node.config.bridge.configtoml.Core.RPCPort | string | `"26657"` |  |
+| node.config.bridge.configtoml.Core.Port | string | `"9090"` |  |
+| node.config.bridge.configtoml.Core.TLSEnabled | bool | `false` |  |
+| node.config.bridge.configtoml.Core.XTokenPath | string | `""` |  |
 | node.config.bridge.configtoml.Gateway.Address | string | `"localhost"` |  |
 | node.config.bridge.configtoml.Gateway.Enabled | bool | `false` |  |
 | node.config.bridge.configtoml.Gateway.Port | string | `"26659"` |  |
