@@ -93,7 +93,7 @@ node:
     registry: ghcr.io
     # -- repository for the image, celestiaorg/celestia-node by default
     repository: celestiaorg/celestia-node
-    # -- tag for the image, v0.18.1 by default
+    # -- tag for the image, v0.21.3 by default
     tag: v0.21.3
     digest: ""
     ## Specify a imagePullPolicy
