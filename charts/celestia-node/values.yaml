@@ -266,8 +266,9 @@ node:
           ShutdownTimeout: 2m0s
         Core:
           IP: ""
-          RPCPort: "26657"
-          GRPCPort: "9090"
+          Port: "9090"
+          TLSEnabled: false
+          XTokenPath: ""
         State:
           DefaultKeyName: my_celes_key
           DefaultBackendName: test
