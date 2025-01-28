@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.11.2](https://img.shields.io/badge/Version-0.11.2-informational?style=flat-square) ![AppVersion: v0.21.2](https://img.shields.io/badge/AppVersion-v0.21.2-informational?style=flat-square)
+![Version: 0.11.4](https://img.shields.io/badge/Version-0.11.4-informational?style=flat-square) ![AppVersion: v0.21.3](https://img.shields.io/badge/AppVersion-v0.21.3-informational?style=flat-square)
 
 Celestia Node
 
@@ -20,7 +20,7 @@ Celestia Node
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://celestiaorg.github.io/helm-charts | common-celestia-node | 0.1.2 |
+| https://celestiaorg.github.io/helm-charts | common-celestia-node | 0.1.3 |
 | oci://registry-1.docker.io/bitnamicharts | common | 2.x.x |
 
 ## Values
@@ -132,9 +132,10 @@ Celestia Node
 | node.config.bridge.configtoml.Share.UseShareExchange | bool | `true` |  |
 | node.config.bridge.configtoml.State.DefaultBackendName | string | `"test"` |  |
 | node.config.bridge.configtoml.State.DefaultKeyName | string | `"my_celes_key"` |  |
-| node.config.full.configtoml.Core.GRPCPort | string | `"9090"` |  |
 | node.config.full.configtoml.Core.IP | string | `""` |  |
-| node.config.full.configtoml.Core.RPCPort | string | `"26657"` |  |
+| node.config.full.configtoml.Core.Port | string | `"9090"` |  |
+| node.config.full.configtoml.Core.TLSEnabled | bool | `false` |  |
+| node.config.full.configtoml.Core.XTokenPath | string | `""` |  |
 | node.config.full.configtoml.DASer.BackgroundStoreInterval | string | `"10m0s"` |  |
 | node.config.full.configtoml.DASer.ConcurrencyLimit | int | `6` |  |
 | node.config.full.configtoml.DASer.SampleFrom | int | `1` |  |
@@ -315,11 +316,11 @@ Celestia Node
 | node.extraVolumeMounts | list | `[]` |  |
 | node.extraVolumes | list | `[]` |  |
 | node.hostAliases | list | `[]` |  |
-| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.21.2"}` | image parameters for the image |
+| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.21.3"}` | image parameters for the image |
 | node.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | node.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | node.image.repository | string | `"celestiaorg/celestia-node"` | repository for the image, celestiaorg/celestia-node by default |
-| node.image.tag | string | `"v0.21.2"` | tag for the image, v0.18.1 by default |
+| node.image.tag | string | `"v0.21.3"` | tag for the image, v0.21.3 by default |
 | node.initContainers | list | `[]` |  |
 | node.lifecycleHooks | object | `{}` |  |
 | node.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the node |
