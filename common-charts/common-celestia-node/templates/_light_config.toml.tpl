@@ -4,8 +4,9 @@
   ShutdownTimeout = "{{ .Values.node.config.light.configtoml.Node.ShutdownTimeout }}"
 [Core]
   IP = "{{ .Values.node.config.light.configtoml.Core.IP }}"
-  RPCPort = "{{ .Values.node.config.light.configtoml.Core.RPCPort }}"
-  GRPCPort = "{{ .Values.node.config.light.configtoml.Core.GRPCPort }}"
+  Port = "{{ .Values.node.config.light.configtoml.Core.Port }}"
+  TLSEnabled = {{ .Values.node.config.light.configtoml.Core.TLSEnabled }}
+  XTokenPath = "{{ .Values.node.config.light.configtoml.Core.XTokenPath }}"
 [State]
   DefaultKeyName = "{{ .Values.node.config.light.configtoml.State.DefaultKeyName }}"
   DefaultBackendName = "{{ .Values.node.config.light.configtoml.State.DefaultBackendName }}"
