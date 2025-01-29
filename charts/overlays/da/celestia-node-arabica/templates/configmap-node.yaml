@@ -1,0 +1,2 @@
+# overlay `common-celestia-node` lib helper function to generate the config.toml
+{{ include "common-celestia-node.configmap" . }}

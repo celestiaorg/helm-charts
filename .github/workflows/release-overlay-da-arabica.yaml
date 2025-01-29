@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'charts/overlays/da/**'
+      - 'charts/overlays/da/celestia-node-arabica/**'
       - 'common-charts/common-celestia-node/**'
   workflow_dispatch:
 

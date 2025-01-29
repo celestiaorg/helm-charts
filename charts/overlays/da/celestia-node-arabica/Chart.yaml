@@ -1,6 +1,7 @@
 apiVersion: v2
-name: celestia-node-overlay
-description: Overlay chart for Celestia Node deployment across different networks.
+appVersion: v0.21.3
+name: celestia-node-arabica
+description: DA - Celestia Node / Arabica
 version: 0.1.0
 type: application
 # Use icon and home from the base chart
@@ -14,12 +15,16 @@ maintainers:
 keywords:
   - celestia
   - celestia-node
+  - arabica
   - overlay
-
+  - da
 # Dependencies section
 dependencies:
   - name: celestia-node
     version: 0.11.5  # Match your base chart version
+    repository: https://celestiaorg.github.io/helm-charts
+  - name: common-celestia-node
+    version: 0.1.3
     repository: https://celestiaorg.github.io/helm-charts
   - name: common
     repository: oci://registry-1.docker.io/bitnamicharts

@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: v0.21.3
-name: celestia-node-arabica
-description: Arabica Celestia Node deployment across different networks.
+name: celestia-node-mocha
+description: DA - Celestia Node / Mocha
 version: 0.1.0
 type: application
 # Use icon and home from the base chart
@@ -15,8 +15,9 @@ maintainers:
 keywords:
   - celestia
   - celestia-node
-  - arabica
+  - mocha
   - overlay
+  - da
 
 # Dependencies section
 dependencies:

@@ -127,7 +127,7 @@ node:
     ## - mocha
     ## - arabica
     ##
-    network: "celestia"
+    network: "arabica"
     ## @param node.settings.home Home directory for the celestia-node
     ##
     # -- home directory for the celestia-node, defaults to /home/celestia
