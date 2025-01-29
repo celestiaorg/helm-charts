@@ -1,0 +1,88 @@
+name: Release Node Charts
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'charts/overlays/da/**'
+      - 'common-charts/common-celestia-node/**'
+  workflow_dispatch:
+
+jobs:
+  release-common-celestia-node:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Run chart-releaser for common-celestia-node
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: "common-charts"
+          packages_with_index: "true"
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+  release-celestia-node:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    needs: release-common-celestia-node
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Add Helm Repositories
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add celestiaorg https://celestiaorg.github.io/helm-charts
+          helm repo update
+
+      - name: Update Helm Dependencies for celestia-node
+        run: |
+          helm dependency update charts/celestia-node
+
+      - name: Prepare charts directory
+        run: |
+          mkdir -p /tmp/charts-backup
+          mv charts/celestia-app /tmp/charts-backup/
+
+      - name: Run chart-releaser for celestia-node
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: "charts"
+          packages_with_index: "true"
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Restore charts directory
+        if: always()
+        run: |
+          mv /tmp/charts-backup/celestia-app charts/

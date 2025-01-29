@@ -1,0 +1,37 @@
+apiVersion: v2
+name: celestia-node-overlay
+description: Overlay chart for Celestia Node deployment across different networks.
+version: 0.1.0
+type: application
+# Use icon and home from the base chart
+icon: https://celestia.org/static/celestia-logo-29451ae35d3bb72cc4b0f17712d44c3a.svg
+home: https://celestia.org
+
+maintainers:
+  - name: Celestia Labs
+    url: https://github.com/celestiaorg
+
+keywords:
+  - celestia
+  - celestia-node
+  - overlay
+
+# Dependencies section
+dependencies:
+  - name: celestia-node
+    version: 0.11.5  # Match your base chart version
+    repository: https://celestiaorg.github.io/helm-charts
+  - name: common
+    repository: oci://registry-1.docker.io/bitnamicharts
+    tags:
+      - bitnami-common
+    version: 2.x.x
+
+# Source code reference
+sources:
+  - https://github.com/celestiaorg/helm-charts
+
+# License should match the base chart
+annotations:
+  category: celestia
+  licenses: Apache-2.0
