@@ -1,4 +1,4 @@
-name: Release Node Charts
+name: Overlay DA - Mocha Release Node Charts
 
 on:
   push:
