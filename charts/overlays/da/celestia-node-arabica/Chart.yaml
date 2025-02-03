@@ -21,7 +21,7 @@ keywords:
 # Dependencies section
 dependencies:
   - name: celestia-node
-    version: 0.11.5  # Match your base chart version
+    version: 0.11.5
     repository: https://celestiaorg.github.io/helm-charts
   - name: common-celestia-node
     version: 0.1.3
