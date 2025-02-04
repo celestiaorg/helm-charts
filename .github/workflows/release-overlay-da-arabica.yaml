@@ -1,11 +1,11 @@
-name: Overlay DA - Mainnet Release Node Charts
+name: Overlay DA - Arabica Release Node Charts
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'charts/celestia-node/**'
+      - 'charts/overlays/da/celestia-node-arabica/**'
       - 'common-charts/common-celestia-node/**'
   workflow_dispatch:
 
@@ -73,7 +73,7 @@ jobs:
         run: |
           mkdir -p /tmp/charts-backup
           mv charts/celestia-app /tmp/charts-backup/
-          
+
       - name: Run chart-releaser for celestia-node
         uses: helm/chart-releaser-action@v1.6.0
         with:
@@ -81,7 +81,7 @@ jobs:
           packages_with_index: "true"
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          
+
       - name: Restore charts directory
         if: always()
         run: |
