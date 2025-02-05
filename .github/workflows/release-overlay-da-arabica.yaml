@@ -78,7 +78,7 @@ jobs:
       - name: Run chart-releaser for celestia-node
         uses: helm/chart-releaser-action@v1.7.0
         with:
-          charts_dir: "charts"
+          charts_dir: "charts/overlays/da"
           packages_with_index: "true"
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
