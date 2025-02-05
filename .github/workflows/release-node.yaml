@@ -1,4 +1,4 @@
-name: Overlay DA - Mainnet Release Node Charts
+name: Mainnet DA
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Run chart-releaser for common-celestia-node
-        uses: helm/chart-releaser-action@v1.6.0
+        uses: helm/chart-releaser-action@v1.7.0
         with:
           charts_dir: "common-charts"
           packages_with_index: "true"
@@ -75,14 +75,10 @@ jobs:
           mv charts/celestia-app /tmp/charts-backup/
           
       - name: Run chart-releaser for celestia-node
-        uses: helm/chart-releaser-action@v1.6.0
+        uses: helm/chart-releaser-action@v1.7.0
         with:
           charts_dir: "charts"
           packages_with_index: "true"
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          
-      - name: Restore charts directory
-        if: always()
-        run: |
-          mv /tmp/charts-backup/celestia-app charts/
+
