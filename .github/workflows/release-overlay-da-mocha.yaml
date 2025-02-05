@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  release-common-celestia-node-mocha:
+  release-common-celestia-node:
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-  release-celestia-node:
+  release-celestia-node-mocha:
     permissions:
       contents: write
     runs-on: ubuntu-latest
