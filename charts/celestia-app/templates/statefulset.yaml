@@ -157,7 +157,7 @@ spec:
               # Copy keyring files
               {{- range .Values.app.settings.secret.items }}
               {{- if eq .path "consensus_validator_info" }}
-              cp "/keys/consensus_validator_info" {{ $.Values.app.settings.home }}/keyring-test/{{ $.Values.app.podName }}-{{ $.Values.app.config.clienttoml.chain_id }}.info
+              cp "/keys/consensus_validator_info" {{ $.Values.app.settings.home }}/keyring-test/{{ $.Values.app.podName }}-{{ $.Values.app.config.client.chain_id }}.info
               {{- end }}
               {{- if eq .path "address" }}
               cp "/keys/address" {{ $.Values.app.settings.home }}/keyring-test/$(cat /keys/id | tr '_' '.').address
