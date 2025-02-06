@@ -248,7 +248,7 @@ app:
   ##
   config:
     # -- configuration for the celestia-app app.toml
-    apptoml:
+    app:
       # Base Configuration
       minimum_gas_prices: "0.1utia"
       pruning: "default"
@@ -321,14 +321,14 @@ app:
           stop_node_on_error: "true"
           fsync: "false"
     # -- configuration for the celestia-app client.toml
-    clienttoml:
+    client:
       chain_id: arabica-11
       keyring_backend: test
       output: text
       node: tcp://localhost:26657
       broadcast_mode: sync
     # -- configuration for the celestia-app config.toml
-    configtoml:
+    config:
       proxy_app: "tcp://127.0.0.1:26658"
       moniker: hc-cons-test-celestia-app-0
       fast_sync: true
