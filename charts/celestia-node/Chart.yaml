@@ -2,7 +2,7 @@ annotations:
   category: celestia
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: v0.21.3
+appVersion: v0.21.5
 dependencies:
 - name: common-celestia-node
   version: 0.1.3
@@ -24,4 +24,4 @@ maintainers:
 name: celestia-node
 sources:
   - https://github.com/celestiaorg/helm-charts
-version: 0.11.5
+version: 0.12.0 #bump chart version here
