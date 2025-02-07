@@ -1,8 +1,8 @@
-# celestia-node
+# celestia-node-arabica
 
-![Version: 0.11.5](https://img.shields.io/badge/Version-0.11.5-informational?style=flat-square) ![AppVersion: v0.21.3](https://img.shields.io/badge/AppVersion-v0.21.3-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.21.4](https://img.shields.io/badge/AppVersion-v0.21.4-informational?style=flat-square)
 
-Celestia Node
+DA - Celestia Node / Arabica
 
 **Homepage:** <https://celestia.org>
 
@@ -20,6 +20,7 @@ Celestia Node
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://celestiaorg.github.io/helm-charts | celestia-node | 0.11.5 |
 | https://celestiaorg.github.io/helm-charts | common-celestia-node | 0.1.3 |
 | oci://registry-1.docker.io/bitnamicharts | common | 2.x.x |
 
@@ -316,11 +317,11 @@ Celestia Node
 | node.extraVolumeMounts | list | `[]` |  |
 | node.extraVolumes | list | `[]` |  |
 | node.hostAliases | list | `[]` |  |
-| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.21.3"}` | image parameters for the image |
+| node.image | object | `{"digest":"","pullPolicy":"IfNotPresent","pullSecrets":[],"registry":"ghcr.io","repository":"celestiaorg/celestia-node","tag":"v0.21.4"}` | image parameters for the image |
 | node.image.pullPolicy | string | `"IfNotPresent"` | pull policy for the image, IfNotPresent by default |
 | node.image.registry | string | `"ghcr.io"` | registry for the image, GitHub Container Registry by default |
 | node.image.repository | string | `"celestiaorg/celestia-node"` | repository for the image, celestiaorg/celestia-node by default |
-| node.image.tag | string | `"v0.21.3"` | tag for the image, v0.21.3 by default |
+| node.image.tag | string | `"v0.21.4"` | tag for the image, v0.21.3 by default |
 | node.initContainers | list | `[]` |  |
 | node.lifecycleHooks | object | `{}` |  |
 | node.livenessProbe | object | `{"enabled":false,"failureThreshold":3,"initialDelaySeconds":0,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | liveness probe for the node |
@@ -375,7 +376,7 @@ Celestia Node
 | node.resourcesPreset | string | `"nano"` | more information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15 |
 | node.schedulerName | string | `""` |  |
 | node.settings.home | string | `"/home/celestia"` | home directory for the celestia-node, defaults to /home/celestia |
-| node.settings.network | string | `"celestia"` |  |
+| node.settings.network | string | `"arabica"` |  |
 | node.settings.nodeType | string | `"bridge"` |  |
 | node.settings.secret.enabled | bool | `true` |  |
 | node.settings.secret.name | string | `"SET_IT"` | name of the secret, it must be set |
