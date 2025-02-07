@@ -24,4 +24,4 @@ maintainers:
 name: celestia-node
 sources:
   - https://github.com/celestiaorg/helm-charts
-version: 0.12.0 #bump chart version here
+version: 0.12.0
