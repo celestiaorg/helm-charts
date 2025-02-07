@@ -1,8 +1,8 @@
-# celestia-node
+# celestia-node-mocha
 
-![Version: 0.11.5](https://img.shields.io/badge/Version-0.11.5-informational?style=flat-square) ![AppVersion: v0.21.3](https://img.shields.io/badge/AppVersion-v0.21.3-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.21.3](https://img.shields.io/badge/AppVersion-v0.21.3-informational?style=flat-square)
 
-Celestia Node
+DA - Celestia Node / Mocha
 
 **Homepage:** <https://celestia.org>
 
@@ -20,6 +20,7 @@ Celestia Node
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://celestiaorg.github.io/helm-charts | celestia-node | 0.11.5 |
 | https://celestiaorg.github.io/helm-charts | common-celestia-node | 0.1.3 |
 | oci://registry-1.docker.io/bitnamicharts | common | 2.x.x |
 
@@ -375,7 +376,7 @@ Celestia Node
 | node.resourcesPreset | string | `"nano"` | more information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15 |
 | node.schedulerName | string | `""` |  |
 | node.settings.home | string | `"/home/celestia"` | home directory for the celestia-node, defaults to /home/celestia |
-| node.settings.network | string | `"celestia"` |  |
+| node.settings.network | string | `"mocha"` |  |
 | node.settings.nodeType | string | `"bridge"` |  |
 | node.settings.secret.enabled | bool | `true` |  |
 | node.settings.secret.name | string | `"SET_IT"` | name of the secret, it must be set |
