@@ -1560,6 +1560,44 @@ entries:
       category: celestia
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: v0.21.5
+    created: "2025-02-09T13:14:27.133750022Z"
+    dependencies:
+    - name: celestia-node
+      repository: https://celestiaorg.github.io/helm-charts
+      version: 0.11.5
+    - name: common-celestia-node
+      repository: https://celestiaorg.github.io/helm-charts
+      version: 0.1.3
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: DA - Celestia Node / Arabica
+    digest: 865dd1527a34eda9cac9d859775f9904fdc9a94746d37350a353ff3aaaf8c24f
+    home: https://celestia.org
+    icon: https://celestia.org/static/celestia-logo-29451ae35d3bb72cc4b0f17712d44c3a.svg
+    keywords:
+    - celestia
+    - celestia-node
+    - arabica
+    - overlay
+    - da
+    maintainers:
+    - name: Celestia Labs
+      url: https://github.com/celestiaorg
+    name: celestia-node-arabica
+    sources:
+    - https://github.com/celestiaorg/helm-charts
+    type: application
+    urls:
+    - celestia-node-arabica-0.1.2.tgz
+    version: 0.1.2
+  - annotations:
+      category: celestia
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: v0.21.4
     created: "2025-02-06T15:42:15.355494873Z"
     dependencies:
@@ -1733,4 +1771,4 @@ entries:
     urls:
     - common-celestia-node-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-07T12:48:59.5485228Z"
+generated: "2025-02-09T13:14:27.133873712Z"
