@@ -2,7 +2,7 @@ annotations:
   category: celestia
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: v3.6.0
+appVersion: v3.7.0
 dependencies:
 - name: common-celestia-app
   version: 0.1.3
@@ -24,4 +24,4 @@ maintainers:
 name: celestia-app
 sources:
   - https://github.com/celestiaorg/celestia-app
-version: 0.0.9
+version: 0.0.10
