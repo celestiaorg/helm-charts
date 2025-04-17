@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.12.0](https://img.shields.io/badge/Version-0.12.0-informational?style=flat-square) ![AppVersion: v0.21.5](https://img.shields.io/badge/AppVersion-v0.21.5-informational?style=flat-square)
+![Version: 0.12.1](https://img.shields.io/badge/Version-0.12.1-informational?style=flat-square) ![AppVersion: v0.21.5](https://img.shields.io/badge/AppVersion-v0.21.5-informational?style=flat-square)
 
 Celestia Node
 
@@ -207,9 +207,10 @@ Celestia Node
 | node.config.full.configtoml.Share.UseShareExchange | bool | `true` |  |
 | node.config.full.configtoml.State.DefaultBackendName | string | `"test"` |  |
 | node.config.full.configtoml.State.DefaultKeyName | string | `"my_celes_key"` |  |
-| node.config.light.configtoml.Core.GRPCPort | string | `"9090"` |  |
 | node.config.light.configtoml.Core.IP | string | `""` |  |
-| node.config.light.configtoml.Core.RPCPort | string | `"26657"` |  |
+| node.config.light.configtoml.Core.Port | string | `"9090"` |  |
+| node.config.light.configtoml.Core.TLSEnabled | bool | `false` |  |
+| node.config.light.configtoml.Core.XTokenPath | string | `""` |  |
 | node.config.light.configtoml.DASer.BackgroundStoreInterval | string | `"10m0s"` |  |
 | node.config.light.configtoml.DASer.ConcurrencyLimit | int | `16` |  |
 | node.config.light.configtoml.DASer.SampleFrom | int | `1` |  |
@@ -393,7 +394,7 @@ Celestia Node
 | node.tolerations | list | `[]` |  |
 | node.topologySpreadConstraints | list | `[]` |  |
 | node.updateStrategy.type | string | `"RollingUpdate"` |  |
-| persistence | object | `{"accessModes":["ReadWriteOnce"],"annotations":{},"dataBlocks":{"dataSource":{},"selector":{},"size":"250Gi","storageClass":""},"dataOthers":{"dataSource":{},"selector":{},"size":"250Gi","storageClass":""},"dataSource":{},"enabled":true,"enabledMultiVolume":false,"existingClaim":"","mountPath":"/bitnami/app/data","selector":{},"size":"250Gi","storageClass":"","subPath":""}` | persistence parameters |
+| persistence | object | `{"accessModes":["ReadWriteOnce"],"annotations":{},"blockPvcCount":1,"dataBlocks":{"dataSource":{},"selector":{},"size":"250Gi","storageClass":""},"dataOthers":{"dataSource":{},"selector":{},"size":"250Gi","storageClass":""},"dataSource":{},"enabled":true,"enabledMultiVolume":false,"existingClaim":"","mountPath":"/bitnami/app/data","selector":{},"size":"250Gi","storageClass":"","subPath":""}` | persistence parameters |
 | persistence.enabled | bool | `true` | enable persistence, true by default |
 | persistence.size | string | `"250Gi"` | size of data volume, 250Gi by default |
 | rbac.create | bool | `false` |  |
