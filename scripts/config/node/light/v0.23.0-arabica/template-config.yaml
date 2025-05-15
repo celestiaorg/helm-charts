@@ -1,4 +1,3 @@
-{{- define "common-celestia-node.light_config.toml" -}}
 [Node]
   StartupTimeout = "{{ .Values.node.config.light.configtoml.Node.StartupTimeout }}"
   ShutdownTimeout = "{{ .Values.node.config.light.configtoml.Node.ShutdownTimeout }}"
@@ -10,8 +9,8 @@
 [State]
   DefaultKeyName = "{{ .Values.node.config.light.configtoml.State.DefaultKeyName }}"
   DefaultBackendName = "{{ .Values.node.config.light.configtoml.State.DefaultBackendName }}"
-  EstimatorAddress = "{{ .Values.node.config.bridge.configtoml.State.EstimatorAddress }}"
-  EnableEstimatorTLS = {{ .Values.node.config.bridge.configtoml.State.EnableEstimatorTLS }}
+  EstimatorAddress = "{{ .Values.node.config.light.configtoml.State.EstimatorAddress }}"
+  EnableEstimatorTLS = {{ .Values.node.config.light.configtoml.State.EnableEstimatorTLS }}
 [P2P]
   ListenAddresses = [{{ range $index, $element := .Values.node.config.light.configtoml.P2P.ListenAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
   AnnounceAddresses = {{ .Values.node.config.light.configtoml.P2P.AnnounceAddresses }}
@@ -80,4 +79,4 @@
   SampleTimeout = "{{ .Values.node.config.light.configtoml.DASer.SampleTimeout }}"
 [Pruner]
   EnableService = {{ .Values.node.config.light.configtoml.Pruner.EnableService }}
-{{- end }}
+
