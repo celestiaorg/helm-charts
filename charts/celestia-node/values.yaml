@@ -177,6 +177,8 @@ node:
         State:
           DefaultKeyName: my_celes_key
           DefaultBackendName: test
+          EstimatorAddress: ""
+          EnableEstimatorTLS: false
         P2P:
           ListenAddresses:
             - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
@@ -272,6 +274,8 @@ node:
         State:
           DefaultKeyName: my_celes_key
           DefaultBackendName: test
+          EstimatorAddress: ""
+          EnableEstimatorTLS: false
         P2P:
           ListenAddresses:
             - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
@@ -373,6 +377,8 @@ node:
         State:
           DefaultKeyName: my_celes_key
           DefaultBackendName: test
+          EstimatorAddress: ""
+          EnableEstimatorTLS: false
         P2P:
           ListenAddresses:
             - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
