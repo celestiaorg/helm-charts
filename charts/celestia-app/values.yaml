@@ -128,7 +128,7 @@ app:
     ## @param app.settings.home Home directory for the celestia-app
     ##
     # -- home directory for the celestia-app, defaults to /home/celestia
-    home: "/home/celestia"
+    home: "/home/celestia/.celestia-app"
     ## @param app.settings.genesisURL Genesis URL for the celestia-app
     ##
     # -- genesis URL for the celestia-app, it must be set
