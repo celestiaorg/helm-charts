@@ -2093,6 +2093,16 @@ entries:
     version: 0.1.1
   common-celestia-node:
   - apiVersion: v2
+    appVersion: 0.23.0
+    created: "2025-05-15T12:44:02.316601073Z"
+    description: A Helm library implementation for celestia-node shared templates
+    digest: f0619fd25d90f6da3eebd70b46b79ae3c07e794ec7e5b53a0c3c1f1ac63e828c
+    name: common-celestia-node
+    type: library
+    urls:
+    - common-celestia-node-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     appVersion: 0.21.3-mocha
     created: "2025-01-28T16:03:48.532523529Z"
     description: A Helm library implementation for celestia-node shared templates
@@ -2132,4 +2142,4 @@ entries:
     urls:
     - common-celestia-node-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-15T11:26:13.633977621Z"
+generated: "2025-05-15T12:44:02.316773475Z"
