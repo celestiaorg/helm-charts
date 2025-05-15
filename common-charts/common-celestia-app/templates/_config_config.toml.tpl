@@ -1,7 +1,7 @@
 {{- define "common-celestia-app.config_config.toml" -}}
+version = "{{ .Values.app.config.config.version }}"
 proxy_app = "{{ .Values.app.config.config.proxy_app }}"
 moniker = "{{ .Values.app.config.config.moniker }}"
-fast_sync = {{ .Values.app.config.config.fast_sync }}
 db_backend = "{{ .Values.app.config.config.db_backend }}"
 db_dir = "{{ .Values.app.config.config.db_dir }}"
 log_level = "{{ .Values.app.config.config.log_level }}"
@@ -28,6 +28,7 @@ experimental_subscription_buffer_size = {{ printf "%.0f" .Values.app.config.conf
 experimental_websocket_write_buffer_size = {{ printf "%.0f" .Values.app.config.config.rpc.experimental_websocket_write_buffer_size }}
 experimental_close_on_slow_client = {{ .Values.app.config.config.rpc.experimental_close_on_slow_client }}
 timeout_broadcast_tx_commit = "{{ .Values.app.config.config.rpc.timeout_broadcast_tx_commit }}"
+max_request_batch_size = {{ printf "%.0f" .Values.app.config.config.rpc.max_request_batch_size }}
 max_body_bytes = {{ printf "%.0f" .Values.app.config.config.rpc.max_body_bytes }}
 max_header_bytes = {{ printf "%.0f" .Values.app.config.config.rpc.max_header_bytes }}
 tls_cert_file = "{{ .Values.app.config.config.rpc.tls_cert_file }}"
@@ -38,7 +39,6 @@ laddr = "{{ .Values.app.config.config.p2p.laddr }}"
 external_address = "{{ .Values.app.config.config.p2p.external_address }}"
 seeds = "{{ .Values.app.config.config.p2p.seeds }}"
 persistent_peers = "{{ .Values.app.config.config.p2p.persistent_peers }}"
-upnp = {{ .Values.app.config.config.p2p.upnp }}
 addr_book_file = "{{ .Values.app.config.config.p2p.addr_book_file }}"
 addr_book_strict = {{ .Values.app.config.config.p2p.addr_book_strict }}
 max_num_inbound_peers = {{ printf "%.0f" .Values.app.config.config.p2p.max_num_inbound_peers }}
@@ -56,8 +56,9 @@ allow_duplicate_ip = {{ .Values.app.config.config.p2p.allow_duplicate_ip }}
 handshake_timeout = "{{ .Values.app.config.config.p2p.handshake_timeout }}"
 dial_timeout = "{{ .Values.app.config.config.p2p.dial_timeout }}"
 [mempool]
-version = "{{ .Values.app.config.config.mempool.version }}"
+type = "{{ .Values.app.config.config.mempool.type }}"
 recheck = {{ .Values.app.config.config.mempool.recheck }}
+recheck_timeout = "{{ .Values.app.config.config.mempool.recheck_timeout }}"
 broadcast = {{ .Values.app.config.config.mempool.broadcast }}
 wal_dir = "{{ .Values.app.config.config.mempool.wal_dir }}"
 size = {{ printf "%.0f" .Values.app.config.config.mempool.size }}
@@ -68,9 +69,9 @@ max_tx_bytes = {{ printf "%.0f" .Values.app.config.config.mempool.max_tx_bytes }
 max_batch_bytes = {{ printf "%.0f" .Values.app.config.config.mempool.max_batch_bytes }}
 ttl-duration = "{{ .Values.app.config.config.mempool.ttl_duration }}"
 ttl-num-blocks = {{ printf "%.0f" .Values.app.config.config.mempool.ttl_num_blocks }}
-max-gossip-delay = "{{ .Values.app.config.config.mempool.max_gossip_delay }}"
 experimental_max_gossip_connections_to_persistent_peers = {{ printf "%.0f" .Values.app.config.config.mempool.experimental_max_gossip_connections_to_persistent_peers }}
 experimental_max_gossip_connections_to_non_persistent_peers = {{ printf "%.0f" .Values.app.config.config.mempool.experimental_max_gossip_connections_to_non_persistent_peers }}
+max-gossip-delay = "{{ .Values.app.config.config.mempool.max_gossip_delay }}"
 [statesync]
 enable = {{ .Values.app.config.config.statesync.enable }}
 rpc_servers = "{{ .Values.app.config.config.statesync.rpc_servers }}"
@@ -81,8 +82,8 @@ discovery_time = "{{ .Values.app.config.config.statesync.discovery_time }}"
 temp_dir = "{{ .Values.app.config.config.statesync.temp_dir }}"
 chunk_request_timeout = "{{ .Values.app.config.config.statesync.chunk_request_timeout }}"
 chunk_fetchers = "{{ .Values.app.config.config.statesync.chunk_fetchers }}"
-[fastsync]
-version = "{{ .Values.app.config.config.fastsync.version }}"
+[blocksync]
+version = "{{ .Values.app.config.config.blocksync.version }}"
 [consensus]
 only_internal_wal = "{{ .Values.app.config.config.consensus.only_internal_wal }}"
 wal_file = "{{ .Values.app.config.config.consensus.wal_file }}"
