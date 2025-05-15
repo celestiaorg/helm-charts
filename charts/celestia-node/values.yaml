@@ -1124,18 +1124,52 @@ persistence:
   # -- enable persistence, true by default
   enabled: true
 
-  # -- EXPERIMENTAL -- enable bmulti-volume persistence, false by default
+  ## @param persistence.blockPvcCount EXPERIMENTAL: Number of PVCs to use for blocks storage (0-256)
+  ## When set to 0 and enableMultiVolume is false: single PVC for all data
+  ## When set to 0 and enableMultiVolume is true: 2 PVCs (blocks and data)
+  ## When set to 1: 2 PVCs (blocks and data)
+  ## When set to >1: 1 PVC for data and N PVCs for blocks
+  ##
+  blockPvcCount: 0
+
+  ## @param persistence.enabledMultiVolume EXPERIMENTAL: Enable multi-volume persistence, false by default
+  ## When blockPvcCount is >0, this value is ignored
+  ##
   enabledMultiVolume: false
+
+  ## @param persistence.dataBlocks.storageClass Storage class for blocks PVC
+  ## If blockPvcCount is >0, each data PVC created will have this storage settings
+  ##
   dataBlocks:
     storageClass: ""
     size: 250Gi
     dataSource: {}
     selector: {}
+    accessModes:
+      - ReadWriteOnce
+  
+  ## @param persistence.dataHeights.storageClass Storage class for heights PVC
+  ## This is only used if blockPvcCount is >1
+  ##
+  dataHeights:
+    storageClass: ""
+    size: 250Gi
+    dataSource: {}
+    selector: {}
+    accessModes:
+      - ReadWriteOnce
+
+  ## @param persistence.dataOthers.storageClass Storage class for data PVC
+  ## Only used if enableMultiVolume is true or blockPvcCount is >0
+  ##
   dataOthers:
     storageClass: ""
     size: 250Gi
     dataSource: {}
     selector: {}
+    accessModes:
+      - ReadWriteOnce
+
   ## @param persistence.mountPath Path to mount the volume at.
   ## Note: This value is overridden by 'Values.node.settings.home' in the stateful set.
   ##

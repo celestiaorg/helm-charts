@@ -90,7 +90,7 @@ spec:
           resources: {{- include "common.resources.preset" (dict "type" .Values.volumePermissions.resourcesPreset) | nindent 12 }}
           {{- end }}
           volumeMounts:
-            {{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) }}
+            {{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) (eq (int .Values.persistence.blockPvcCount) 0) }}
             - name: data
               mountPath: {{ .Values.node.settings.home }}/data
               subPath: data
@@ -99,15 +99,39 @@ spec:
               mountPath: {{ .Values.node.settings.home }}/blocks
               subPath: blocks
               readOnly: false
-            {{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+            {{- else if and .Values.persistence.enabled (or .Values.persistence.enabledMultiVolume (gt (int .Values.persistence.blockPvcCount) 0)) }}
             - name: data-others
               mountPath: {{ .Values.node.settings.home }}/data
               subPath: data
               readOnly: false
+            {{- if or (eq (int .Values.persistence.blockPvcCount) 0) (eq (int .Values.persistence.blockPvcCount) 1) }}
             - name: data-blocks
               mountPath: {{ .Values.node.settings.home }}/blocks
               subPath: blocks
               readOnly: false
+            {{- else }}
+            {{- $blockPvcCount := int .Values.persistence.blockPvcCount }}
+            {{- $foldersPerPvc := div 256 $blockPvcCount }}
+            {{- $remainingFolders := mod 256 $blockPvcCount }}
+            {{- range $i := until $blockPvcCount }}
+            {{- $startFolder := int (mul $i $foldersPerPvc) }}
+            {{- $endFolder := int (add $startFolder $foldersPerPvc) }}
+            {{- if eq $i (sub $blockPvcCount 1) }}
+            {{- $endFolder = int (add $endFolder $remainingFolders) }}
+            {{- end }}
+            {{- range $j := untilStep $startFolder $endFolder 1 }}
+            {{- $folder := printf "%02x" $j }}
+            - name: data-blocks-{{ $i }}
+              mountPath: {{ $.Values.node.settings.home }}/blocks/{{ $folder }}
+              subPath: blocks/{{ $folder }}
+              readOnly: false
+            {{- end }}
+            {{- end }}
+            - name: data-heights
+              mountPath: {{ .Values.node.settings.home }}/blocks/heights
+              subPath: heights
+              readOnly: false
+            {{- end }}
             {{- end }}
           {{- end }}
         - name: home-permission
@@ -267,7 +291,7 @@ spec:
           lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.node.lifecycleHooks "context" $) | nindent 12 }}
           {{- end }}
           volumeMounts:
-            {{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) }}
+            {{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) (eq (int .Values.persistence.blockPvcCount) 0) }}
             - name: data
               mountPath: {{ .Values.node.settings.home }}/data
               subPath: data
@@ -276,15 +300,39 @@ spec:
               mountPath: {{ .Values.node.settings.home }}/blocks
               subPath: blocks
               readOnly: false
-            {{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+            {{- else if and .Values.persistence.enabled (or .Values.persistence.enabledMultiVolume (gt (int .Values.persistence.blockPvcCount) 0)) }}
             - name: data-others
               mountPath: {{ .Values.node.settings.home }}/data
               subPath: data
               readOnly: false
+            {{- if or (eq (int .Values.persistence.blockPvcCount) 0) (eq (int .Values.persistence.blockPvcCount) 1) }}
             - name: data-blocks
               mountPath: {{ .Values.node.settings.home }}/blocks
               subPath: blocks
               readOnly: false
+            {{- else }}
+            {{- $blockPvcCount := int .Values.persistence.blockPvcCount }}
+            {{- $foldersPerPvc := div 256 $blockPvcCount }}
+            {{- $remainingFolders := mod 256 $blockPvcCount }}
+            {{- range $i := until $blockPvcCount }}
+            {{- $startFolder := int (mul $i $foldersPerPvc) }}
+            {{- $endFolder := int (add $startFolder $foldersPerPvc) }}
+            {{- if eq $i (sub $blockPvcCount 1) }}
+            {{- $endFolder = int (add $endFolder $remainingFolders) }}
+            {{- end }}
+            {{- range $j := untilStep $startFolder $endFolder 1 }}
+            {{- $folder := printf "%02X" $j }}
+            - name: data-blocks-{{ $i }}
+              mountPath: {{ $.Values.node.settings.home }}/blocks/{{ $folder }}
+              subPath: blocks/{{ $folder }}
+              readOnly: false
+            {{- end }}
+            {{- end }}
+            - name: data-heights
+              mountPath: {{ .Values.node.settings.home }}/blocks/heights
+              subPath: heights
+              readOnly: false
+            {{- end }}
             {{- end }}
             - name: keys-volume
               mountPath: {{ .Values.node.settings.home }}/keys
@@ -390,17 +438,30 @@ spec:
             items:
               - key: config.yaml
                 path: config.yaml
-        {{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) }}
+        {{- if .Values.persistence.enabled }}
+          {{- if and (not .Values.persistence.enabledMultiVolume) (eq (int .Values.persistence.blockPvcCount) 0) }}
         - name: data
           persistentVolumeClaim:
             claimName: {{ template "common.names.fullname" . }}-data
-        {{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+          {{- else if or .Values.persistence.enabledMultiVolume (gt (int .Values.persistence.blockPvcCount) 0) }}
+            {{- if or (eq (int .Values.persistence.blockPvcCount) 0) (eq (int .Values.persistence.blockPvcCount) 1) }}
         - name: data-blocks
           persistentVolumeClaim:
             claimName: {{ template "common.names.fullname" . }}-data-blocks
+            {{- else }}
+              {{- range $i := until (int .Values.persistence.blockPvcCount) }}
+        - name: data-blocks-{{ $i }}
+          persistentVolumeClaim:
+            claimName: {{ template "common.names.fullname" $ }}-data-blocks-{{ $i }}
+              {{- end }}
+        - name: data-heights
+          persistentVolumeClaim:
+            claimName: {{ template "common.names.fullname" . }}-data-heights
+            {{- end }}
         - name: data-others
           persistentVolumeClaim:
             claimName: {{ template "common.names.fullname" . }}-data-others
+          {{- end }}
         {{- else }}
         - name: data
           emptyDir: {}

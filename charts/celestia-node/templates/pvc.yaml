@@ -1,4 +1,4 @@
-{{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) }}
+{{- if and .Values.persistence.enabled (not .Values.persistence.enabledMultiVolume) (eq (int .Values.persistence.blockPvcCount) 0) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -17,6 +17,9 @@ spec:
   {{- range .Values.persistence.accessModes }}
     - {{ . | quote }}
   {{- end }}
+  {{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass | quote }}
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.persistence.size | quote }}
@@ -27,24 +30,23 @@ spec:
   dataSource: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataSource "context" $) | nindent 4 }}
   {{- end }}
   {{- include "common.storage.class" (dict "persistence" .Values.persistence "global" .Values.global) | nindent 2 }}
-{{- else if and .Values.persistence.enabled .Values.persistence.enabledMultiVolume }}
+{{- else if and .Values.persistence.enabled (or .Values.persistence.enabledMultiVolume (gt (int .Values.persistence.blockPvcCount) 0)) }}
+  {{- if or (eq (int .Values.persistence.blockPvcCount) 0) (eq (int .Values.persistence.blockPvcCount) 1) }}
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ template "common.names.fullname" . }}-data-blocks
-  {{- if or .Values.persistence.annotations .Values.commonAnnotations }}
-  {{- $claimAnnotations := include "common.tplvalues.merge" (dict "values" (list .Values.persistence.annotations .Values.commonAnnotations) "context" .) | fromYaml }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" $claimAnnotations "context" $ ) | nindent 4 }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: node
+  {{- if .Values.persistence.dataBlocks.annotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataBlocks.annotations "context" $) | nindent 4 }}
   {{- end }}
-  labels:
-    {{- include "common.labels.standard" . | nindent 4 }}
-    {{- if .Values.commonLabels }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
-    {{- end }}
 spec:
-  accessModes:
-  {{- range .Values.persistence.accessModes }}
-    - {{ . | quote }}
+  accessModes: {{- toYaml .Values.persistence.dataBlocks.accessModes | nindent 4 }}
+  {{- if .Values.persistence.dataBlocks.storageClass }}
+  storageClassName: {{ .Values.persistence.dataBlocks.storageClass | quote }}
   {{- end }}
   resources:
     requests:
@@ -52,28 +54,75 @@ spec:
   {{- if .Values.persistence.dataBlocks.selector }}
   selector: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataBlocks.selector "context" $) | nindent 4 }}
   {{- end }}
-  storageClassName: {{ .Values.persistence.dataBlocks.storageClass }}
   {{- if .Values.persistence.dataBlocks.dataSource }}
   dataSource: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataBlocks.dataSource "context" $) | nindent 4 }}
+  {{- end }}
+  {{- else }}
+    {{- $blockPvcCount := int .Values.persistence.blockPvcCount }}
+    {{- $foldersPerPvc := div 256 $blockPvcCount }}
+    {{- $remainingFolders := mod 256 $blockPvcCount }}
+    {{- range $i := until $blockPvcCount }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ template "common.names.fullname" $ }}-data-blocks-{{ $i }}
+  namespace: {{ include "common.names.namespace" $ | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" $.Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: node
+  {{- if $.Values.persistence.dataBlocks.annotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" $.Values.persistence.dataBlocks.annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes: {{- toYaml $.Values.persistence.dataBlocks.accessModes | nindent 4 }}
+  {{- if $.Values.persistence.dataBlocks.storageClass }}
+  storageClassName: {{ $.Values.persistence.dataBlocks.storageClass | quote }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ $.Values.persistence.dataBlocks.size | quote }}
+  {{- if $.Values.persistence.dataBlocks.selector }}
+  selector: {{- include "common.tplvalues.render" (dict "value" $.Values.persistence.dataBlocks.selector "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if $.Values.persistence.dataBlocks.dataSource }}
+  dataSource: {{- include "common.tplvalues.render" (dict "value" $.Values.persistence.dataBlocks.dataSource "context" $) | nindent 4 }}
+  {{- end }}
+    {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ template "common.names.fullname" . }}-data-heights
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: node
+  {{- if .Values.persistence.dataHeights.annotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataHeights.annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes: {{- toYaml .Values.persistence.dataHeights.accessModes | nindent 4 }}
+  {{- if .Values.persistence.dataHeights.storageClass }}
+  storageClassName: {{ .Values.persistence.dataHeights.storageClass | quote }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.dataHeights.size | quote }}
   {{- end }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ template "common.names.fullname" . }}-data-others
-  {{- if or .Values.persistence.annotations .Values.commonAnnotations }}
-  {{- $claimAnnotations := include "common.tplvalues.merge" (dict "values" (list .Values.persistence.annotations .Values.commonAnnotations) "context" .) | fromYaml }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" $claimAnnotations "context" $ ) | nindent 4 }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+    app.kubernetes.io/component: node
+  {{- if .Values.persistence.dataOthers.annotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataOthers.annotations "context" $) | nindent 4 }}
   {{- end }}
-  labels:
-    {{- include "common.labels.standard" . | nindent 4 }}
-    {{- if .Values.commonLabels }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
-    {{- end }}
 spec:
-  accessModes:
-  {{- range .Values.persistence.accessModes }}
-    - {{ . | quote }}
+  accessModes: {{- toYaml .Values.persistence.dataOthers.accessModes | nindent 4 }}
+  {{- if .Values.persistence.dataOthers.storageClass }}
+  storageClassName: {{ .Values.persistence.dataOthers.storageClass | quote }}
   {{- end }}
   resources:
     requests:
@@ -81,7 +130,6 @@ spec:
   {{- if .Values.persistence.dataOthers.selector }}
   selector: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataOthers.selector "context" $) | nindent 4 }}
   {{- end }}
-  storageClassName: {{ .Values.persistence.dataOthers.storageClass }}
   {{- if .Values.persistence.dataOthers.dataSource }}
   dataSource: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataOthers.dataSource "context" $) | nindent 4 }}
   {{- end }}
