@@ -82,6 +82,7 @@ spec:
             - -c
             - |
               chown -R {{ .Values.app.containerSecurityContext.runAsUser }}:{{ .Values.app.containerSecurityContext.runAsGroup }} {{ .Values.app.settings.home }}
+              chmod -R 777 {{ .Values.app.settings.home }}/data
               ls -ltra {{ .Values.app.settings.home }}
           {{- if .Values.app.volumePermissions.containerSecurityContext.enabled }}
           securityContext: {{- include "common.compatibility.renderSecurityContext" (dict "secContext" .Values.app.volumePermissions.containerSecurityContext "context" $) | nindent 12 }}
