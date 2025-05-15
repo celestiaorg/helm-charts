@@ -1,6 +1,6 @@
 # celestia-app
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: v4.0.0](https://img.shields.io/badge/AppVersion-v4.0.0-informational?style=flat-square)
+![Version: 0.4.3](https://img.shields.io/badge/Version-0.4.3-informational?style=flat-square) ![AppVersion: v4.0.0](https://img.shields.io/badge/AppVersion-v4.0.0-informational?style=flat-square)
 
 Celestia App
 
@@ -31,10 +31,6 @@ Celestia App
 | app.args[0] | string | `"start"` |  |
 | app.args[1] | string | `"--home"` |  |
 | app.args[2] | string | `"$(CELESTIA_APP_HOME)"` |  |
-| app.args[3] | string | `"--rpc.laddr"` |  |
-| app.args[4] | string | `"tcp://0.0.0.0:26657"` |  |
-| app.args[5] | string | `"--api.enable"` |  |
-| app.args[6] | string | `"--grpc.enable"` |  |
 | app.automountServiceAccountToken | bool | `false` | mount service account token in app pods |
 | app.command | list | `["celestia-appd"]` | command for the celestia-app |
 | app.config.app | object | `{"api":{"address":"tcp://localhost:1317","enable":false,"enabled_unsafe_cors":false,"max_open_connections":1000,"rpc_max_body_bytes":1000000,"rpc_read_timeout":10,"rpc_write_timeout":0,"swagger":false},"app_db_backend":"","grpc":{"address":"localhost:9090","enable":false,"max_recv_msg_size":"20971520","max_send_msg_size":"2147483647"},"grpc_web":{"enable":false},"halt_height":0,"halt_time":0,"iavl_cache_size":781250,"iavl_disable_fastnode":false,"index_events":[],"inter_block_cache":true,"mempool":{"max_txs":-1},"min_retain_blocks":0,"minimum_gas_prices":"0.002utia","pruning":"default","pruning_interval":"0","pruning_keep_recent":"0","query_gas_limit":"0","state_sync":{"snapshot_interval":1500,"snapshot_keep_recent":2},"streaming":{"abci":{"keys":[],"plugin":"","stop_node_on_err":true}},"telemetry":{"datadog_hostname":"","enable_hostname":false,"enable_hostname_label":false,"enable_service_label":false,"enabled":false,"global_labels":[],"metrics_sink":"","prometheus_retention_time":0,"service_name":"","statsd_addr":""}}` | configuration for the celestia-app app.toml |
@@ -239,7 +235,7 @@ Celestia App
 | app.tolerations | list | `[]` |  |
 | app.topologySpreadConstraints | list | `[]` |  |
 | app.updateStrategy.type | string | `"RollingUpdate"` |  |
-| app.valMaker.celestiaHome | string | `"/home/celestia"` |  |
+| app.valMaker.celestiaAppHome | string | `"/home/celestia/.celestia-app"` |  |
 | app.valMaker.chainId | string | `"arabica-11"` |  |
 | app.valMaker.enabled | bool | `false` | enable the valMaker, false by default |
 | app.valMaker.fundAmount | string | `"110000000000000utia"` |  |

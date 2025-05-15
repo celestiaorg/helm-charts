@@ -221,9 +221,9 @@ app:
       repository: bitnami/kubectl
       tag: latest
       pullPolicy: IfNotPresent
-    ## @param app.valMaker.celestiaHome Celestia home directory for the valMaker
+    ## @param app.valMaker.celestiaAppHome Celestia app home directory for the valMaker
     ##
-    celestiaHome: "/home/celestia"
+    celestiaAppHome: "/home/celestia/.celestia-app"
     ## @param app.valMaker.chainId Chain ID for the valMaker
     ##
     chainId: "arabica-11"
