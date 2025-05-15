@@ -344,8 +344,8 @@ spec:
           lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.app.lifecycleHooks "context" $) | nindent 12 }}
           {{- end }}
           volumeMounts:
-            - name: home-dir
-              mountPath: {{ .Values.app.settings.home }}
+            - name: tmp-dir
+              mountPath: /tmp
             - name: data
               mountPath: {{ .Values.app.settings.home }}/data
               {{- if .Values.app.persistence.subPath }}
@@ -474,7 +474,7 @@ spec:
         {{- end }}
         - name: genesis
           emptyDir: {}
-        - name: home-dir
+        - name: tmp-dir
           emptyDir: {}
         - name: config-dir
           emptyDir: {}
