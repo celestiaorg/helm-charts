@@ -193,17 +193,17 @@ spec:
           image: busybox
           imagePullPolicy: IfNotPresent
           env:
-            - name: CELESTIA_HOME
+            - name: CELESTIA_APP_HOME
               value: {{ .Values.app.settings.home }}
           command:
             - sh
             - -c
             - |
               set -ex
-              if [[ ! -f ${CELESTIA_HOME}/data/priv_validator_state.json ]]
+              if [[ ! -f ${CELESTIA_APP_HOME}/data/priv_validator_state.json ]]
               then
-                  mkdir -p ${CELESTIA_HOME}/data
-                  cat <<EOF > ${CELESTIA_HOME}/data/priv_validator_state.json
+                  mkdir -p ${CELESTIA_APP_HOME}/data
+                  cat <<EOF > ${CELESTIA_APP_HOME}/data/priv_validator_state.json
               {
                 "height": "0",
                 "round": 0,
@@ -272,7 +272,7 @@ spec:
           args: {{- include "common.tplvalues.render" (dict "value" .Values.app.args "context" $) | nindent 12 }}
           {{- end }}
           env:
-            - name: CELESTIA_HOME
+            - name: CELESTIA_APP_HOME
               value: {{ .Values.app.settings.home }}
             {{- if .Values.app.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.app.extraEnvVars "context" $) | nindent 12 }}
@@ -418,8 +418,8 @@ spec:
           command: ["/bin/sh", "-c"]
           args: ["/scripts/val-maker.sh"]
           env:
-            - name: CELESTIA_HOME
-              value: {{ .Values.app.valMaker.celestiaHome }}
+            - name: CELESTIA_APP_HOME
+              value: {{ .Values.app.valMaker.celestiaAppHome }}
             - name: CHAIN_ID
               valueFrom:
                 fieldRef:
