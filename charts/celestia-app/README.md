@@ -30,7 +30,7 @@ Celestia App
 | app.affinity | object | `{}` |  |
 | app.args[0] | string | `"start"` |  |
 | app.args[1] | string | `"--home"` |  |
-| app.args[2] | string | `"$(CELESTIA_HOME)"` |  |
+| app.args[2] | string | `"$(CELESTIA_APP_HOME)"` |  |
 | app.args[3] | string | `"--rpc.laddr"` |  |
 | app.args[4] | string | `"tcp://0.0.0.0:26657"` |  |
 | app.args[5] | string | `"--api.enable"` |  |

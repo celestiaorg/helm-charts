@@ -2,7 +2,7 @@
 
 set -e
 
-# CELESTIA_HOME should be set in the environment
+# CELESTIA_APP_HOME should be set in the environment
 # CHAIN_ID should be set in the environment
 # FUND_TIA_AMOUNT should be set in the environment
 # STAKING_TIA_AMOUNT should be set in the environment
@@ -39,7 +39,7 @@ do
     echo "---------------------------------------------------"
     # Extract the desired part of the string, the key name is different than the pod name
     validator_name=$(echo "${CONENSUS_VALIDATOR_POD_NOMINATEE}" | cut -d'-' -f1-3)
-    fetch_address_command="celestia-appd keys show ${validator_name}-0-${CHAIN_ID} -a --home ${CELESTIA_HOME}"
+    fetch_address_command="celestia-appd keys show ${validator_name}-0-${CHAIN_ID} -a --home ${CELESTIA_APP_HOME}"
 
     echo $fetch_address_command
     nominatee_address=$(kubectl -n ${CONSENSUS_VALIDATOR_NAMESPACE} exec -t ${CONENSUS_VALIDATOR_POD_NOMINATEE} --container=${CONTAINER_NAME} -- /bin/sh -c "${fetch_address_command}")
@@ -49,7 +49,7 @@ do
     echo "---------------------------------------------------"
     echo "Fetching validator address from ${CONENSUS_VALIDATOR_POD_NOMINATEE}"
     echo "---------------------------------------------------"
-    fetch_validator_address_command="celestia-appd keys show ${validator_name}-0-${CHAIN_ID} -a --bech val --home ${CELESTIA_HOME}"
+    fetch_validator_address_command="celestia-appd keys show ${validator_name}-0-${CHAIN_ID} -a --bech val --home ${CELESTIA_APP_HOME}"
 
     echo $fetch_validator_address_command
     validator_address=$(kubectl -n ${CONSENSUS_VALIDATOR_NAMESPACE} exec -t ${CONENSUS_VALIDATOR_POD_NOMINATEE} --container=${CONTAINER_NAME} -- /bin/sh -c "${fetch_validator_address_command}")
@@ -59,7 +59,7 @@ do
     echo "---------------------------------------------------"
     echo "Fetching validator pubkey from ${CONENSUS_VALIDATOR_POD_NOMINATEE}"
     echo "---------------------------------------------------"
-    fetch_pubkey_command="celestia-appd tendermint show-validator --home ${CELESTIA_HOME}"
+    fetch_pubkey_command="celestia-appd tendermint show-validator --home ${CELESTIA_APP_HOME}"
 
     echo $fetch_pubkey_command
     nominatee_pubkey=$(kubectl -n ${CONSENSUS_VALIDATOR_NAMESPACE} exec -t ${CONENSUS_VALIDATOR_POD_NOMINATEE} --container=${CONTAINER_NAME} -- /bin/sh -c "${fetch_pubkey_command}")
@@ -69,7 +69,7 @@ do
     echo "---------------------------------------------------"
     echo "Checking if ${CONENSUS_VALIDATOR_POD_NOMINATEE} is already a validator"
     echo "---------------------------------------------------"
-    status_command="celestia-appd query staking validator ${validator_address} --chain-id ${CHAIN_ID} --home ${CELESTIA_HOME}"
+    status_command="celestia-appd query staking validator ${validator_address} --chain-id ${CHAIN_ID} --home ${CELESTIA_APP_HOME}"
 
     echo $status_command
     if kubectl -n ${CONSENSUS_VALIDATOR_NAMESPACE} exec -t ${CONENSUS_VALIDATOR_POD_NOMINATEE} --container=${CONTAINER_NAME} -- /bin/sh -c "${status_command}" > /dev/null 2>&1; then
@@ -87,7 +87,7 @@ do
         ${FUND_TIA_AMOUNT} \
         --chain-id ${CHAIN_ID} \
         --fees 22000utia \
-        --home ${CELESTIA_HOME} \
+        --home ${CELESTIA_APP_HOME} \
         --yes"
 
     echo $send_command
@@ -111,7 +111,7 @@ do
         --from ${CONENSUS_VALIDATOR_POD_NOMINATEE}-${CHAIN_ID} \
         --keyring-backend test \
         --fees 21000utia \
-        --home ${CELESTIA_HOME} \
+        --home ${CELESTIA_APP_HOME} \
         --yes"
 
     echo $stake_command
