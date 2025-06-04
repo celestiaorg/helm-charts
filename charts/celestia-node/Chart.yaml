@@ -2,10 +2,10 @@ annotations:
   category: celestia
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: v0.23.0
+appVersion: v0.23.1
 dependencies:
 - name: common-celestia-node
-  version: 0.1.4
+  version: 0.1.5
   repository: https://celestiaorg.github.io/helm-charts
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
@@ -24,4 +24,4 @@ maintainers:
 name: celestia-node
 sources:
   - https://github.com/celestiaorg/helm-charts
-version: 0.12.2
+version: 0.12.3
