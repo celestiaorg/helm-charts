@@ -174,6 +174,7 @@ node:
           Port: "9090"
           TLSEnabled: false
           XTokenPath: ""
+          AdditionalCoreEndpoints: []
         State:
           DefaultKeyName: my_celes_key
           DefaultBackendName: test
@@ -213,13 +214,15 @@ node:
           Address: localhost
           Port: "26658"
           SkipAuth: false
-        Gateway:
-          Address: localhost
-          Port: "26659"
-          Enabled: false
+          CORS:
+            Enabled: false
+            AllowedOrigins: []
+            AllowedHeaders: []
+            AllowedMethods: []
         Share:
           BlockStoreCacheSize: 128
           UseShareExchange: true
+          UseBitswap: true
           EDSStoreParams:
             RecentBlocksCacheSize: 10
           ShrExEDSParams:
@@ -245,20 +248,18 @@ node:
           TrustedHash: ""
           TrustedPeers: []
           Store:
-            StoreCacheSize: 4096
-            IndexCacheSize: 16384
-            WriteBatchSize: 2048
+            StoreCacheSize: 512
+            IndexCacheSize: 2048
+            WriteBatchSize: 64
           Syncer:
             TrustingPeriod: 336h0m0s
           Server:
             WriteDeadline: 8s
             ReadDeadline: 1m0s
-            RangeRequestTimeout: 10s
+            RequestTimeout: 10s
           Client:
             MaxHeadersPerRangeRequest: 64
-            RangeRequestTimeout: 8s
-        Pruner:
-          EnableService: false
+            RequestTimeout: 8s
     ## @param node.config.full Configuration for the celestia-node full
     ##
     full:
@@ -271,6 +272,7 @@ node:
           Port: "9090"
           TLSEnabled: false
           XTokenPath: ""
+          AdditionalCoreEndpoints: []
         State:
           DefaultKeyName: my_celes_key
           DefaultBackendName: test
@@ -310,13 +312,15 @@ node:
           Address: localhost
           Port: "26658"
           SkipAuth: false
-        Gateway:
-          Address: localhost
-          Port: "26659"
-          Enabled: false
+          CORS:
+            Enabled: false
+            AllowedOrigins: []
+            AllowedHeaders: []
+            AllowedMethods: []
         Share:
           BlockStoreCacheSize: 128
           UseShareExchange: true
+          UseBitswap: true
           EDSStoreParams:
             RecentBlocksCacheSize: 10
           ShrExEDSParams:
@@ -342,26 +346,25 @@ node:
           TrustedHash: ""
           TrustedPeers: []
           Store:
-            StoreCacheSize: 4096
-            IndexCacheSize: 16384
-            WriteBatchSize: 2048
+            StoreCacheSize: 512
+            IndexCacheSize: 2048
+            WriteBatchSize: 64
           Syncer:
             TrustingPeriod: 336h0m0s
           Server:
             WriteDeadline: 8s
             ReadDeadline: 1m0s
-            RangeRequestTimeout: 10s
+            RequestTimeout: 10s
           Client:
             MaxHeadersPerRangeRequest: 64
-            RangeRequestTimeout: 8s
+            RequestTimeout: 8s
         DASer:
           SamplingRange: 100
           ConcurrencyLimit: 6
           BackgroundStoreInterval: 10m0s
           SampleFrom: 1
           SampleTimeout: 2m0s
-        Pruner:
-          EnableService: false
+          Enabled: true
     ## @param node.config.light Configuration for the celestia-node light
     ##
     light:
@@ -374,6 +377,7 @@ node:
           Port: "9090"
           TLSEnabled: false
           XTokenPath: ""
+          AdditionalCoreEndpoints: []
         State:
           DefaultKeyName: my_celes_key
           DefaultBackendName: test
@@ -413,13 +417,15 @@ node:
           Address: localhost
           Port: "26658"
           SkipAuth: false
-        Gateway:
-          Address: localhost
-          Port: "26659"
-          Enabled: false
+          CORS:
+            Enabled: false
+            AllowedOrigins: []
+            AllowedHeaders: []
+            AllowedMethods: []
         Share:
           BlockStoreCacheSize: 128
           UseShareExchange: true
+          UseBitswap: true
           EDSStoreParams:
             RecentBlocksCacheSize: 10
           ShrExEDSParams:
@@ -455,18 +461,17 @@ node:
           Server:
             WriteDeadline: 8s
             ReadDeadline: 1m0s
-            RangeRequestTimeout: 10s
+            RequestTimeout: 10s
           Client:
             MaxHeadersPerRangeRequest: 64
-            RangeRequestTimeout: 8s
+            RequestTimeout: 8s
         DASer:
           SamplingRange: 100
           ConcurrencyLimit: 16
           BackgroundStoreInterval: 10m0s
           SampleFrom: 1
           SampleTimeout: 2m40s
-        Pruner:
-          EnableService: false
+          Enabled: true
   ## @param node.otelAgent OTel agent configuration for the node
   ##
   otelAgent:
