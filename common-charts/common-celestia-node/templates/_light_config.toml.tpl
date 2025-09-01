@@ -7,11 +7,12 @@
   Port = "{{ .Values.node.config.light.configtoml.Core.Port }}"
   TLSEnabled = {{ .Values.node.config.light.configtoml.Core.TLSEnabled }}
   XTokenPath = "{{ .Values.node.config.light.configtoml.Core.XTokenPath }}"
+  AdditionalCoreEndpoints = {{ .Values.node.config.light.configtoml.Core.AdditionalCoreEndpoints }}
 [State]
   DefaultKeyName = "{{ .Values.node.config.light.configtoml.State.DefaultKeyName }}"
   DefaultBackendName = "{{ .Values.node.config.light.configtoml.State.DefaultBackendName }}"
-  EstimatorAddress = "{{ .Values.node.config.bridge.configtoml.State.EstimatorAddress }}"
-  EnableEstimatorTLS = {{ .Values.node.config.bridge.configtoml.State.EnableEstimatorTLS }}
+  EstimatorAddress = "{{ .Values.node.config.light.configtoml.State.EstimatorAddress }}"
+  EnableEstimatorTLS = {{ .Values.node.config.light.configtoml.State.EnableEstimatorTLS }}
 [P2P]
   ListenAddresses = [{{ range $index, $element := .Values.node.config.light.configtoml.P2P.ListenAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
   AnnounceAddresses = {{ .Values.node.config.light.configtoml.P2P.AnnounceAddresses }}
@@ -26,13 +27,15 @@
   Address = "{{ .Values.node.config.light.configtoml.RPC.Address }}"
   Port = "{{ .Values.node.config.light.configtoml.RPC.Port }}"
   SkipAuth = {{ .Values.node.config.light.configtoml.RPC.SkipAuth }}
-[Gateway]
-  Address = "{{ .Values.node.config.light.configtoml.Gateway.Address }}"
-  Port = "{{ .Values.node.config.light.configtoml.Gateway.Port }}"
-  Enabled = {{ .Values.node.config.light.configtoml.Gateway.Enabled }}
+  [RPC.CORS]
+    Enabled = {{ .Values.node.config.light.configtoml.RPC.CORS.Enabled }}
+    AllowedOrigins = {{ .Values.node.config.light.configtoml.RPC.CORS.AllowedOrigins }}
+    AllowedHeaders = {{ .Values.node.config.light.configtoml.RPC.CORS.AllowedHeaders }}
+    AllowedMethods = {{ .Values.node.config.light.configtoml.RPC.CORS.AllowedMethods }}
 [Share]
   BlockStoreCacheSize = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.BlockStoreCacheSize }}
   UseShareExchange = {{ .Values.node.config.light.configtoml.Share.UseShareExchange }}
+  UseBitswap = {{ .Values.node.config.light.configtoml.Share.UseBitswap }}
   [Share.EDSStoreParams]
     RecentBlocksCacheSize = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize }}
   [Share.ShrExEDSParams]
@@ -68,16 +71,15 @@
   [Header.Server]
     WriteDeadline = "{{ .Values.node.config.light.configtoml.Header.Server.WriteDeadline }}"
     ReadDeadline = "{{ .Values.node.config.light.configtoml.Header.Server.ReadDeadline }}"
-    RangeRequestTimeout = "{{ .Values.node.config.light.configtoml.Header.Server.RangeRequestTimeout }}"
+    RequestTimeout = "{{ .Values.node.config.light.configtoml.Header.Server.RequestTimeout }}"
   [Header.Client]
     MaxHeadersPerRangeRequest = {{ printf "%.0f" .Values.node.config.light.configtoml.Header.Client.MaxHeadersPerRangeRequest }}
-    RangeRequestTimeout = "{{ .Values.node.config.light.configtoml.Header.Client.RangeRequestTimeout }}"
+    RequestTimeout = "{{ .Values.node.config.light.configtoml.Header.Client.RequestTimeout }}"
 [DASer]
   SamplingRange = {{ printf "%.0f" .Values.node.config.light.configtoml.DASer.SamplingRange }}
   ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.light.configtoml.DASer.ConcurrencyLimit }}
   BackgroundStoreInterval = "{{ .Values.node.config.light.configtoml.DASer.BackgroundStoreInterval }}"
   SampleFrom = {{ printf "%.0f" .Values.node.config.light.configtoml.DASer.SampleFrom }}
   SampleTimeout = "{{ .Values.node.config.light.configtoml.DASer.SampleTimeout }}"
-[Pruner]
-  EnableService = {{ .Values.node.config.light.configtoml.Pruner.EnableService }}
+  Enabled = {{ .Values.node.config.light.configtoml.DASer.Enabled }}
 {{- end }}

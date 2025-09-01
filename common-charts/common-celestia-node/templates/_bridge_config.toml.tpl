@@ -7,6 +7,7 @@
   Port = "{{ .Values.node.config.bridge.configtoml.Core.Port }}"
   TLSEnabled = {{ .Values.node.config.bridge.configtoml.Core.TLSEnabled }}
   XTokenPath = "{{ .Values.node.config.bridge.configtoml.Core.XTokenPath }}"
+  AdditionalCoreEndpoints = {{ .Values.node.config.bridge.configtoml.Core.AdditionalCoreEndpoints }}
 [State]
   DefaultKeyName = "{{ .Values.node.config.bridge.configtoml.State.DefaultKeyName }}"
   DefaultBackendName = "{{ .Values.node.config.bridge.configtoml.State.DefaultBackendName }}"
@@ -26,13 +27,15 @@
   Address = "{{ .Values.node.config.bridge.configtoml.RPC.Address }}"
   Port = "{{ .Values.node.config.bridge.configtoml.RPC.Port }}"
   SkipAuth = {{ .Values.node.config.bridge.configtoml.RPC.SkipAuth }}
-[Gateway]
-  Address = "{{ .Values.node.config.bridge.configtoml.Gateway.Address }}"
-  Port = "{{ .Values.node.config.bridge.configtoml.Gateway.Port }}"
-  Enabled = {{ .Values.node.config.bridge.configtoml.Gateway.Enabled }}
+  [RPC.CORS]
+    Enabled = {{ .Values.node.config.bridge.configtoml.RPC.CORS.Enabled }}
+    AllowedOrigins = {{ .Values.node.config.bridge.configtoml.RPC.CORS.AllowedOrigins }}
+    AllowedHeaders = {{ .Values.node.config.bridge.configtoml.RPC.CORS.AllowedHeaders }}
+    AllowedMethods = {{ .Values.node.config.bridge.configtoml.RPC.CORS.AllowedMethods }}
 [Share]
   BlockStoreCacheSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.BlockStoreCacheSize }}
   UseShareExchange = {{ .Values.node.config.bridge.configtoml.Share.UseShareExchange }}
+  UseBitswap = {{ .Values.node.config.bridge.configtoml.Share.UseBitswap }}
   [Share.EDSStoreParams]
     RecentBlocksCacheSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize }}
   [Share.ShrExEDSParams]
@@ -66,10 +69,8 @@
   [Header.Server]
     WriteDeadline = "{{ .Values.node.config.bridge.configtoml.Header.Server.WriteDeadline }}"
     ReadDeadline = "{{ .Values.node.config.bridge.configtoml.Header.Server.ReadDeadline }}"
-    RangeRequestTimeout = "{{ .Values.node.config.bridge.configtoml.Header.Server.RangeRequestTimeout }}"
+    RequestTimeout = "{{ .Values.node.config.bridge.configtoml.Header.Server.RequestTimeout }}"
   [Header.Client]
     MaxHeadersPerRangeRequest = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Header.Client.MaxHeadersPerRangeRequest }}
-    RangeRequestTimeout = "{{ .Values.node.config.bridge.configtoml.Header.Client.RangeRequestTimeout }}"
-[Pruner]
-  EnableService = {{ .Values.node.config.bridge.configtoml.Pruner.EnableService }}
+    RequestTimeout = "{{ .Values.node.config.bridge.configtoml.Header.Client.RequestTimeout }}"
 {{- end }}

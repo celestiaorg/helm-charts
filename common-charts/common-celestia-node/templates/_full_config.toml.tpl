@@ -7,11 +7,12 @@
   Port = "{{ .Values.node.config.full.configtoml.Core.Port }}"
   TLSEnabled = {{ .Values.node.config.full.configtoml.Core.TLSEnabled }}
   XTokenPath = "{{ .Values.node.config.full.configtoml.Core.XTokenPath }}"
+  AdditionalCoreEndpoints = {{ .Values.node.config.full.configtoml.Core.AdditionalCoreEndpoints }}
 [State]
   DefaultKeyName = "{{ .Values.node.config.full.configtoml.State.DefaultKeyName }}"
   DefaultBackendName = "{{ .Values.node.config.full.configtoml.State.DefaultBackendName }}"
-  EstimatorAddress = "{{ .Values.node.config.bridge.configtoml.State.EstimatorAddress }}"
-  EnableEstimatorTLS = {{ .Values.node.config.bridge.configtoml.State.EnableEstimatorTLS }}
+  EstimatorAddress = "{{ .Values.node.config.full.configtoml.State.EstimatorAddress }}"
+  EnableEstimatorTLS = {{ .Values.node.config.full.configtoml.State.EnableEstimatorTLS }}
 [P2P]
   ListenAddresses = [{{ range $index, $element := .Values.node.config.full.configtoml.P2P.ListenAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
   AnnounceAddresses = {{ .Values.node.config.full.configtoml.P2P.AnnounceAddresses }}
@@ -26,13 +27,15 @@
   Address = "{{ .Values.node.config.full.configtoml.RPC.Address }}"
   Port = "{{ .Values.node.config.full.configtoml.RPC.Port }}"
   SkipAuth = {{ .Values.node.config.full.configtoml.RPC.SkipAuth }}
-[Gateway]
-  Address = "{{ .Values.node.config.full.configtoml.Gateway.Address }}"
-  Port = "{{ .Values.node.config.full.configtoml.Gateway.Port }}"
-  Enabled = {{ .Values.node.config.full.configtoml.Gateway.Enabled }}
+  [RPC.CORS]
+    Enabled = {{ .Values.node.config.full.configtoml.RPC.CORS.Enabled }}
+    AllowedOrigins = {{ .Values.node.config.full.configtoml.RPC.CORS.AllowedOrigins }}
+    AllowedHeaders = {{ .Values.node.config.full.configtoml.RPC.CORS.AllowedHeaders }}
+    AllowedMethods = {{ .Values.node.config.full.configtoml.RPC.CORS.AllowedMethods }}
 [Share]
   BlockStoreCacheSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.BlockStoreCacheSize }}
   UseShareExchange = {{ .Values.node.config.full.configtoml.Share.UseShareExchange }}
+  UseBitswap = {{ .Values.node.config.full.configtoml.Share.UseBitswap }}
   [Share.EDSStoreParams]
     RecentBlocksCacheSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize }}
   [Share.ShrExEDSParams]
@@ -66,16 +69,15 @@
   [Header.Server]
     WriteDeadline = "{{ .Values.node.config.full.configtoml.Header.Server.WriteDeadline }}"
     ReadDeadline = "{{ .Values.node.config.full.configtoml.Header.Server.ReadDeadline }}"
-    RangeRequestTimeout = "{{ .Values.node.config.full.configtoml.Header.Server.RangeRequestTimeout }}"
+    RequestTimeout = "{{ .Values.node.config.full.configtoml.Header.Server.RequestTimeout }}"
   [Header.Client]
     MaxHeadersPerRangeRequest = {{ printf "%.0f" .Values.node.config.full.configtoml.Header.Client.MaxHeadersPerRangeRequest }}
-    RangeRequestTimeout = "{{ .Values.node.config.full.configtoml.Header.Client.RangeRequestTimeout }}"
+    RequestTimeout = "{{ .Values.node.config.full.configtoml.Header.Client.RequestTimeout }}"
 [DASer]
   SamplingRange = {{ printf "%.0f" .Values.node.config.full.configtoml.DASer.SamplingRange }}
   ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.DASer.ConcurrencyLimit }}
   BackgroundStoreInterval = "{{ .Values.node.config.full.configtoml.DASer.BackgroundStoreInterval }}"
   SampleFrom = {{ printf "%.0f" .Values.node.config.full.configtoml.DASer.SampleFrom }}
   SampleTimeout = "{{ .Values.node.config.full.configtoml.DASer.SampleTimeout }}"
-[Pruner]
-  EnableService = {{ .Values.node.config.full.configtoml.Pruner.EnableService }}
+  Enabled = {{ .Values.node.config.full.configtoml.DASer.Enabled }}
 {{- end }}
