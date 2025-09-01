@@ -365,13 +365,6 @@ node:
           Client:
             MaxHeadersPerRangeRequest: 64
             RequestTimeout: 8s
-        DASer:
-          SamplingRange: 100
-          ConcurrencyLimit: 6
-          BackgroundStoreInterval: 10m0s
-          SampleFrom: 1
-          SampleTimeout: 2m0s
-          Enabled: true
     ## @param node.config.light Configuration for the celestia-node light
     ##
     light:
