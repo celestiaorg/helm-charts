@@ -1,6 +1,6 @@
 # celestia-node
 
-![Version: 0.12.1](https://img.shields.io/badge/Version-0.12.1-informational?style=flat-square) ![AppVersion: v0.21.5](https://img.shields.io/badge/AppVersion-v0.21.5-informational?style=flat-square)
+![Version: 0.12.4](https://img.shields.io/badge/Version-0.12.1-informational?style=flat-square) ![AppVersion: v0.25.3](https://img.shields.io/badge/AppVersion-v0.21.5-informational?style=flat-square)
 
 Celestia Node
 
