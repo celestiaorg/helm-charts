@@ -260,13 +260,6 @@ node:
           Client:
             MaxHeadersPerRangeRequest: 64
             RequestTimeout: 8s
-        DASer:
-          SamplingRange: 100
-          ConcurrencyLimit: 6
-          BackgroundStoreInterval: 10m0s
-          SampleFrom: 1
-          SampleTimeout: 2m0s
-          Enabled: true
     ## @param node.config.full Configuration for the celestia-node full
     ##
     full:
@@ -365,13 +358,20 @@ node:
           Client:
             MaxHeadersPerRangeRequest: 64
             RequestTimeout: 8s
+        DASer:
+          SamplingRange: 100
+          ConcurrencyLimit: 6
+          BackgroundStoreInterval: 10m0s
+          SampleFrom: 1
+          SampleTimeout: 2m0s
+          Enabled: true
     ## @param node.config.light Configuration for the celestia-node light
     ##
     light:
       configtoml:
         Node:
-          StartupTimeout: 2m0s
-          ShutdownTimeout: 2m0s
+          StartupTimeout: 20s
+          ShutdownTimeout: 20s
         Core:
           IP: ""
           Port: "9090"
@@ -408,10 +408,10 @@ node:
             - /ip4/127.0.0.1/tcp/2121
             - /ip6/::/tcp/2121
           MutualPeers: []
-          PeerExchange: true
+          PeerExchange: false
           ConnManager:
-            Low: 800
-            High: 1000
+            Low: 50
+            High: 100
             GracePeriod: 1m0s
         RPC:
           Address: localhost
@@ -444,6 +444,8 @@ node:
             PeerCooldown: 3s
             GcInterval: 30s
             EnableBlackListing: false
+          LightAvailability:
+            SampleAmount: 16
           Discovery:
             PeersLimit: 5
             AdvertiseInterval: 1h0m0s
@@ -453,7 +455,7 @@ node:
           Store:
             StoreCacheSize: 512
             IndexCacheSize: 2048
-            WriteBatchSize: 64
+            WriteBatchSize: 512
           Syncer:
             TrustingPeriod: 336h0m0s
           Server:
@@ -465,10 +467,10 @@ node:
             RequestTimeout: 8s
         DASer:
           SamplingRange: 100
-          ConcurrencyLimit: 6
+          ConcurrencyLimit: 16
           BackgroundStoreInterval: 10m0s
           SampleFrom: 1
-          SampleTimeout: 2m0s
+          SampleTimeout: 2m40s
           Enabled: true
   ## @param node.otelAgent OTel agent configuration for the node
   ##
