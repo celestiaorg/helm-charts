@@ -1,3 +1,4 @@
+{{ define "common-celestia-node.bridge_config.toml" }}
 [Node]
   StartupTimeout = "{{ .Values.node.config.bridge.configtoml.Node.StartupTimeout }}"
   ShutdownTimeout = "{{ .Values.node.config.bridge.configtoml.Node.ShutdownTimeout }}"
@@ -71,3 +72,4 @@
     MaxHeadersPerRangeRequest = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Header.Client.MaxHeadersPerRangeRequest }}
     RequestTimeout = "{{ .Values.node.config.bridge.configtoml.Header.Client.RequestTimeout }}"
 
+{{ end }}
