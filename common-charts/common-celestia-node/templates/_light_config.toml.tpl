@@ -1,4 +1,3 @@
-{{- define "common-celestia-node.light_config.toml" -}}
 [Node]
   StartupTimeout = "{{ .Values.node.config.light.configtoml.Node.StartupTimeout }}"
   ShutdownTimeout = "{{ .Values.node.config.light.configtoml.Node.ShutdownTimeout }}"
@@ -38,17 +37,14 @@
   UseBitswap = {{ .Values.node.config.light.configtoml.Share.UseBitswap }}
   [Share.EDSStoreParams]
     RecentBlocksCacheSize = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize }}
-  [Share.ShrExEDSParams]
-    ServerReadTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrExEDSParams.ServerReadTimeout }}"
-    ServerWriteTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrExEDSParams.ServerWriteTimeout }}"
-    HandleRequestTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrExEDSParams.HandleRequestTimeout }}"
-    ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.ShrExEDSParams.ConcurrencyLimit }}
-    BufferSize = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.ShrExEDSParams.BufferSize }}
-  [Share.ShrExNDParams]
-    ServerReadTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrExNDParams.ServerReadTimeout }}"
-    ServerWriteTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrExNDParams.ServerWriteTimeout }}"
-    HandleRequestTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrExNDParams.HandleRequestTimeout }}"
-    ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.ShrExNDParams.ConcurrencyLimit }}
+  [Share.ShrexClient]
+    ReadTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrexClient.ReadTimeout }}"
+    WriteTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrexClient.WriteTimeout }}"
+  [Share.ShrexServer]
+    ReadTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrexServer.ReadTimeout }}"
+    WriteTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrexServer.WriteTimeout }}"
+    HandleRequestTimeout = "{{ .Values.node.config.light.configtoml.Share.ShrexServer.HandleRequestTimeout }}"
+    ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.ShrexServer.ConcurrencyLimit }}
   [Share.PeerManagerParams]
     PoolValidationTimeout = "{{ .Values.node.config.light.configtoml.Share.PeerManagerParams.PoolValidationTimeout }}"
     PeerCooldown = "{{ .Values.node.config.light.configtoml.Share.PeerManagerParams.PeerCooldown }}"
@@ -60,14 +56,15 @@
     PeersLimit = {{ printf "%.0f" .Values.node.config.light.configtoml.Share.Discovery.PeersLimit }}
     AdvertiseInterval = "{{ .Values.node.config.light.configtoml.Share.Discovery.AdvertiseInterval }}"
 [Header]
-  TrustedHash = "{{ .Values.node.config.light.configtoml.Header.TrustedHash }}"
   TrustedPeers = {{ .Values.node.config.light.configtoml.Header.TrustedPeers }}
   [Header.Store]
     StoreCacheSize = {{ printf "%.0f" .Values.node.config.light.configtoml.Header.Store.StoreCacheSize }}
     IndexCacheSize = {{ printf "%.0f" .Values.node.config.light.configtoml.Header.Store.IndexCacheSize }}
     WriteBatchSize = {{ printf "%.0f" .Values.node.config.light.configtoml.Header.Store.WriteBatchSize }}
   [Header.Syncer]
-    TrustingPeriod = "{{ .Values.node.config.light.configtoml.Header.Syncer.TrustingPeriod }}"
+    PruningWindow = "{{ .Values.node.config.light.configtoml.Header.Syncer.PruningWindow }}"
+    SyncFromHash = "{{ .Values.node.config.light.configtoml.Header.Syncer.SyncFromHash }}"
+    SyncFromHeight = {{ printf "%.0f" .Values.node.config.light.configtoml.Header.Syncer.SyncFromHeight }}
   [Header.Server]
     WriteDeadline = "{{ .Values.node.config.light.configtoml.Header.Server.WriteDeadline }}"
     ReadDeadline = "{{ .Values.node.config.light.configtoml.Header.Server.ReadDeadline }}"
@@ -79,7 +76,6 @@
   SamplingRange = {{ printf "%.0f" .Values.node.config.light.configtoml.DASer.SamplingRange }}
   ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.light.configtoml.DASer.ConcurrencyLimit }}
   BackgroundStoreInterval = "{{ .Values.node.config.light.configtoml.DASer.BackgroundStoreInterval }}"
-  SampleFrom = {{ printf "%.0f" .Values.node.config.light.configtoml.DASer.SampleFrom }}
   SampleTimeout = "{{ .Values.node.config.light.configtoml.DASer.SampleTimeout }}"
   Enabled = {{ .Values.node.config.light.configtoml.DASer.Enabled }}
-{{- end }}
+

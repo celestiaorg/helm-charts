@@ -1,4 +1,3 @@
-{{- define "common-celestia-node.full_config.toml" -}}
 [Node]
   StartupTimeout = "{{ .Values.node.config.full.configtoml.Node.StartupTimeout }}"
   ShutdownTimeout = "{{ .Values.node.config.full.configtoml.Node.ShutdownTimeout }}"
@@ -38,17 +37,14 @@
   UseBitswap = {{ .Values.node.config.full.configtoml.Share.UseBitswap }}
   [Share.EDSStoreParams]
     RecentBlocksCacheSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize }}
-  [Share.ShrExEDSParams]
-    ServerReadTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExEDSParams.ServerReadTimeout }}"
-    ServerWriteTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExEDSParams.ServerWriteTimeout }}"
-    HandleRequestTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExEDSParams.HandleRequestTimeout }}"
-    ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.ShrExEDSParams.ConcurrencyLimit }}
-    BufferSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.ShrExEDSParams.BufferSize }}
-  [Share.ShrExNDParams]
-    ServerReadTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExNDParams.ServerReadTimeout }}"
-    ServerWriteTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExNDParams.ServerWriteTimeout }}"
-    HandleRequestTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrExNDParams.HandleRequestTimeout }}"
-    ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.ShrExNDParams.ConcurrencyLimit }}
+  [Share.ShrexClient]
+    ReadTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrexClient.ReadTimeout }}"
+    WriteTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrexClient.WriteTimeout }}"
+  [Share.ShrexServer]
+    ReadTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrexServer.ReadTimeout }}"
+    WriteTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrexServer.WriteTimeout }}"
+    HandleRequestTimeout = "{{ .Values.node.config.full.configtoml.Share.ShrexServer.HandleRequestTimeout }}"
+    ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.ShrexServer.ConcurrencyLimit }}
   [Share.PeerManagerParams]
     PoolValidationTimeout = "{{ .Values.node.config.full.configtoml.Share.PeerManagerParams.PoolValidationTimeout }}"
     PeerCooldown = "{{ .Values.node.config.full.configtoml.Share.PeerManagerParams.PeerCooldown }}"
@@ -58,14 +54,15 @@
     PeersLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.Share.Discovery.PeersLimit }}
     AdvertiseInterval = "{{ .Values.node.config.full.configtoml.Share.Discovery.AdvertiseInterval }}"
 [Header]
-  TrustedHash = "{{ .Values.node.config.full.configtoml.Header.TrustedHash }}"
   TrustedPeers = {{ .Values.node.config.full.configtoml.Header.TrustedPeers }}
   [Header.Store]
     StoreCacheSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Header.Store.StoreCacheSize }}
     IndexCacheSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Header.Store.IndexCacheSize }}
     WriteBatchSize = {{ printf "%.0f" .Values.node.config.full.configtoml.Header.Store.WriteBatchSize }}
   [Header.Syncer]
-    TrustingPeriod = "{{ .Values.node.config.full.configtoml.Header.Syncer.TrustingPeriod }}"
+    PruningWindow = "{{ .Values.node.config.full.configtoml.Header.Syncer.PruningWindow }}"
+    SyncFromHash = "{{ .Values.node.config.full.configtoml.Header.Syncer.SyncFromHash }}"
+    SyncFromHeight = {{ printf "%.0f" .Values.node.config.full.configtoml.Header.Syncer.SyncFromHeight }}
   [Header.Server]
     WriteDeadline = "{{ .Values.node.config.full.configtoml.Header.Server.WriteDeadline }}"
     ReadDeadline = "{{ .Values.node.config.full.configtoml.Header.Server.ReadDeadline }}"
@@ -77,7 +74,6 @@
   SamplingRange = {{ printf "%.0f" .Values.node.config.full.configtoml.DASer.SamplingRange }}
   ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.full.configtoml.DASer.ConcurrencyLimit }}
   BackgroundStoreInterval = "{{ .Values.node.config.full.configtoml.DASer.BackgroundStoreInterval }}"
-  SampleFrom = {{ printf "%.0f" .Values.node.config.full.configtoml.DASer.SampleFrom }}
   SampleTimeout = "{{ .Values.node.config.full.configtoml.DASer.SampleTimeout }}"
   Enabled = {{ .Values.node.config.full.configtoml.DASer.Enabled }}
-{{- end }}
+
