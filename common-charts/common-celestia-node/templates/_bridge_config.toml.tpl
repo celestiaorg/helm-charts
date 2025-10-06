@@ -1,4 +1,4 @@
-{{ define "common-celestia-node.bridge_config.toml" }}
+{{- define "common-celestia-node.bridge_config.toml" -}}
 [Node]
   StartupTimeout = "{{ .Values.node.config.bridge.configtoml.Node.StartupTimeout }}"
   ShutdownTimeout = "{{ .Values.node.config.bridge.configtoml.Node.ShutdownTimeout }}"

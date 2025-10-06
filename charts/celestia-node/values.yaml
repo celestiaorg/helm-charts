@@ -211,7 +211,7 @@ node:
             High: 1000
             GracePeriod: 1m0s
         RPC:
-          Address: localhost
+          Address: "0.0.0.0"
           Port: "26658"
           SkipAuth: false
           CORS:
@@ -225,15 +225,12 @@ node:
           UseBitswap: true
           EDSStoreParams:
             RecentBlocksCacheSize: 10
-          ShrExEDSParams:
-            ServerReadTimeout: 5s
-            ServerWriteTimeout: 1m0s
-            HandleRequestTimeout: 1m0s
-            ConcurrencyLimit: 10
-            BufferSize: 32768
-          ShrExNDParams:
-            ServerReadTimeout: 5s
-            ServerWriteTimeout: 1m0s
+          ShrexClient:
+            ReadTimeout: 2m0s
+            WriteTimeout: 5s
+          ShrexServer:
+            ReadTimeout: 5s
+            WriteTimeout: 1m0s
             HandleRequestTimeout: 1m0s
             ConcurrencyLimit: 10
           PeerManagerParams:
@@ -245,14 +242,15 @@ node:
             PeersLimit: 5
             AdvertiseInterval: 1h0m0s
         Header:
-          TrustedHash: ""
           TrustedPeers: []
           Store:
             StoreCacheSize: 512
             IndexCacheSize: 2048
             WriteBatchSize: 64
           Syncer:
-            TrustingPeriod: 336h0m0s
+            PruningWindow: 0s
+            SyncFromHash: ""
+            SyncFromHeight: 0
           Server:
             WriteDeadline: 8s
             ReadDeadline: 1m0s
@@ -309,7 +307,7 @@ node:
             High: 1000
             GracePeriod: 1m0s
         RPC:
-          Address: localhost
+          Address: "0.0.0.0"
           Port: "26658"
           SkipAuth: false
           CORS:
@@ -323,15 +321,12 @@ node:
           UseBitswap: true
           EDSStoreParams:
             RecentBlocksCacheSize: 10
-          ShrExEDSParams:
-            ServerReadTimeout: 5s
-            ServerWriteTimeout: 1m0s
-            HandleRequestTimeout: 1m0s
-            ConcurrencyLimit: 10
-            BufferSize: 32768
-          ShrExNDParams:
-            ServerReadTimeout: 5s
-            ServerWriteTimeout: 1m0s
+          ShrexClient:
+            ReadTimeout: 2m0s
+            WriteTimeout: 5s
+          ShrexServer:
+            ReadTimeout: 5s
+            WriteTimeout: 1m0s
             HandleRequestTimeout: 1m0s
             ConcurrencyLimit: 10
           PeerManagerParams:
@@ -343,14 +338,15 @@ node:
             PeersLimit: 5
             AdvertiseInterval: 1h0m0s
         Header:
-          TrustedHash: ""
           TrustedPeers: []
           Store:
             StoreCacheSize: 512
             IndexCacheSize: 2048
             WriteBatchSize: 64
           Syncer:
-            TrustingPeriod: 336h0m0s
+            PruningWindow: 0s
+            SyncFromHash: ""
+            SyncFromHeight: 0
           Server:
             WriteDeadline: 8s
             ReadDeadline: 1m0s
@@ -414,7 +410,7 @@ node:
             High: 100
             GracePeriod: 1m0s
         RPC:
-          Address: localhost
+          Address: "0.0.0.0"
           Port: "26658"
           SkipAuth: false
           CORS:
@@ -428,15 +424,12 @@ node:
           UseBitswap: true
           EDSStoreParams:
             RecentBlocksCacheSize: 10
-          ShrExEDSParams:
-            ServerReadTimeout: 5s
-            ServerWriteTimeout: 1m0s
-            HandleRequestTimeout: 1m0s
-            ConcurrencyLimit: 10
-            BufferSize: 32768
-          ShrExNDParams:
-            ServerReadTimeout: 5s
-            ServerWriteTimeout: 1m0s
+          ShrexClient:
+            ReadTimeout: 2m0s
+            WriteTimeout: 5s
+          ShrexServer:
+            ReadTimeout: 5s
+            WriteTimeout: 1m0s
             HandleRequestTimeout: 1m0s
             ConcurrencyLimit: 10
           PeerManagerParams:
@@ -450,14 +443,15 @@ node:
             PeersLimit: 5
             AdvertiseInterval: 1h0m0s
         Header:
-          TrustedHash: ""
           TrustedPeers: []
           Store:
             StoreCacheSize: 512
             IndexCacheSize: 2048
             WriteBatchSize: 512
           Syncer:
-            TrustingPeriod: 336h0m0s
+            PruningWindow: 0s
+            SyncFromHash: ""
+            SyncFromHeight: 0
           Server:
             WriteDeadline: 8s
             ReadDeadline: 1m0s
