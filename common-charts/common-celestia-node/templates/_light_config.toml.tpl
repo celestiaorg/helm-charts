@@ -1,3 +1,4 @@
+{{- define "common-celestia-node.light_config.toml" -}}
 [Node]
   StartupTimeout = "{{ .Values.node.config.light.configtoml.Node.StartupTimeout }}"
   ShutdownTimeout = "{{ .Values.node.config.light.configtoml.Node.ShutdownTimeout }}"
@@ -78,4 +79,4 @@
   BackgroundStoreInterval = "{{ .Values.node.config.light.configtoml.DASer.BackgroundStoreInterval }}"
   SampleTimeout = "{{ .Values.node.config.light.configtoml.DASer.SampleTimeout }}"
   Enabled = {{ .Values.node.config.light.configtoml.DASer.Enabled }}
-
+{{- end }}
