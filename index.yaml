@@ -674,6 +674,37 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: v0.26.4
+    created: "2025-10-06T19:41:10.042726647Z"
+    dependencies:
+    - name: common-celestia-node
+      repository: https://celestiaorg.github.io/helm-charts
+      version: 0.1.9
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: Celestia Node
+    digest: c5ddfd14e8f0e95f2766554ee7c88be4bac3450acbe2b3b59d41442243f63ce7
+    home: https://celestia.org
+    icon: https://celestia.org/static/celestia-logo-29451ae35d3bb72cc4b0f17712d44c3a.svg
+    keywords:
+    - celestia
+    - celestia-node
+    maintainers:
+    - name: Celestia Labs
+      url: https://github.com/celestiaorg
+    name: celestia-node
+    sources:
+    - https://github.com/celestiaorg/helm-charts
+    urls:
+    - celestia-node-0.12.9.tgz
+    version: 0.12.9
+  - annotations:
+      category: celestia
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: v0.26.4
     created: "2025-10-06T19:03:37.042556196Z"
     dependencies:
     - name: common-celestia-node
@@ -2409,4 +2440,4 @@ entries:
     urls:
     - common-celestia-node-0.1.0.tgz
     version: 0.1.0
-generated: "2025-10-06T19:33:27.194608358Z"
+generated: "2025-10-06T19:41:10.042939206Z"
