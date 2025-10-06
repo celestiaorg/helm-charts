@@ -1,4 +1,3 @@
-{{- define "common-celestia-node.bridge_config.toml" -}}
 [Node]
   StartupTimeout = "{{ .Values.node.config.bridge.configtoml.Node.StartupTimeout }}"
   ShutdownTimeout = "{{ .Values.node.config.bridge.configtoml.Node.ShutdownTimeout }}"
@@ -38,17 +37,14 @@
   UseBitswap = {{ .Values.node.config.bridge.configtoml.Share.UseBitswap }}
   [Share.EDSStoreParams]
     RecentBlocksCacheSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.EDSStoreParams.RecentBlocksCacheSize }}
-  [Share.ShrExEDSParams]
-    ServerReadTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrExEDSParams.ServerReadTimeout }}"
-    ServerWriteTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrExEDSParams.ServerWriteTimeout }}"
-    HandleRequestTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrExEDSParams.HandleRequestTimeout }}"
-    ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.ShrExEDSParams.ConcurrencyLimit }}
-    BufferSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.ShrExEDSParams.BufferSize }}
-  [Share.ShrExNDParams]
-    ServerReadTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrExNDParams.ServerReadTimeout }}"
-    ServerWriteTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrExNDParams.ServerWriteTimeout }}"
-    HandleRequestTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrExNDParams.HandleRequestTimeout }}"
-    ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.ShrExNDParams.ConcurrencyLimit }}
+  [Share.ShrexClient]
+    ReadTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrexClient.ReadTimeout }}"
+    WriteTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrexClient.WriteTimeout }}"
+  [Share.ShrexServer]
+    ReadTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrexServer.ReadTimeout }}"
+    WriteTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrexServer.WriteTimeout }}"
+    HandleRequestTimeout = "{{ .Values.node.config.bridge.configtoml.Share.ShrexServer.HandleRequestTimeout }}"
+    ConcurrencyLimit = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.ShrexServer.ConcurrencyLimit }}
   [Share.PeerManagerParams]
     PoolValidationTimeout = "{{ .Values.node.config.bridge.configtoml.Share.PeerManagerParams.PoolValidationTimeout }}"
     PeerCooldown = "{{ .Values.node.config.bridge.configtoml.Share.PeerManagerParams.PeerCooldown }}"
@@ -58,14 +54,15 @@
     PeersLimit = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Share.Discovery.PeersLimit }}
     AdvertiseInterval = "{{ .Values.node.config.bridge.configtoml.Share.Discovery.AdvertiseInterval }}"
 [Header]
-  TrustedHash = "{{ .Values.node.config.bridge.configtoml.Header.TrustedHash }}"
   TrustedPeers = {{ .Values.node.config.bridge.configtoml.Header.TrustedPeers }}
   [Header.Store]
     StoreCacheSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Header.Store.StoreCacheSize }}
     IndexCacheSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Header.Store.IndexCacheSize }}
     WriteBatchSize = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Header.Store.WriteBatchSize }}
   [Header.Syncer]
-    TrustingPeriod = "{{ .Values.node.config.bridge.configtoml.Header.Syncer.TrustingPeriod }}"
+    PruningWindow = "{{ .Values.node.config.bridge.configtoml.Header.Syncer.PruningWindow }}"
+    SyncFromHash = "{{ .Values.node.config.bridge.configtoml.Header.Syncer.SyncFromHash }}"
+    SyncFromHeight = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Header.Syncer.SyncFromHeight }}
   [Header.Server]
     WriteDeadline = "{{ .Values.node.config.bridge.configtoml.Header.Server.WriteDeadline }}"
     ReadDeadline = "{{ .Values.node.config.bridge.configtoml.Header.Server.ReadDeadline }}"
@@ -73,4 +70,4 @@
   [Header.Client]
     MaxHeadersPerRangeRequest = {{ printf "%.0f" .Values.node.config.bridge.configtoml.Header.Client.MaxHeadersPerRangeRequest }}
     RequestTimeout = "{{ .Values.node.config.bridge.configtoml.Header.Client.RequestTimeout }}"
-{{- end }}
+
