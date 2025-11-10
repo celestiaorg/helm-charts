@@ -2300,6 +2300,16 @@ entries:
     version: 0.1.0
   common-celestia-app:
   - apiVersion: v2
+    appVersion: v6.2.4
+    created: "2025-11-10T15:18:06.226864976Z"
+    description: A Helm library implementation for celestia-app shared templates
+    digest: 4fe770910665820d9fde6307492ee1933bf51588218043dd702e8915e99f530a
+    name: common-celestia-app
+    type: library
+    urls:
+    - common-celestia-app-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     appVersion: 4.0.0
     created: "2025-05-15T07:46:05.916208081Z"
     description: A Helm library implementation for celestia-app shared templates
@@ -2440,4 +2450,4 @@ entries:
     urls:
     - common-celestia-node-0.1.0.tgz
     version: 0.1.0
-generated: "2025-10-06T19:41:10.042939206Z"
+generated: "2025-11-10T15:18:06.227085256Z"
