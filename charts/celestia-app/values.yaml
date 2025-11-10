@@ -249,7 +249,7 @@ app:
   config:
     # -- configuration for the celestia-app app.toml
     app:
-      minimum_gas_prices: 0.002utia
+      minimum_gas_prices: ""
       query_gas_limit: "0"
       pruning: default
       pruning_keep_recent: "0"
@@ -285,8 +285,8 @@ app:
       grpc:
         enable: false
         address: localhost:9090
-        max_recv_msg_size: "20971520"
-        max_send_msg_size: "2147483647"
+        max_recv_msg_size: "268435456"
+        max_send_msg_size: "268435456"
       grpc_web:
         enable: false
       state_sync:
@@ -302,17 +302,18 @@ app:
     # -- configuration for the celestia-app client.toml
     client:
       chain_id: celestia
-      keyring_backend: os
+      keyring_backend: test
       output: text
       node: tcp://localhost:26657
       broadcast_mode: sync
     # -- configuration for the celestia-app config.toml
     config:
       version: 0.38.17
-      proxy_app: tcp://127.0.0.1:26658
+      proxy_app: tcp://127.0.0.1:36658
       moniker: app
       db_backend: goleveldb
       db_dir: data
+      blockstore_dir: data
       log_level: info
       log_format: plain
       genesis_file: config/genesis.json
@@ -346,7 +347,7 @@ app:
         experimental_close_on_slow_client: false
         timeout_broadcast_tx_commit: 50s
         max_request_batch_size: 10
-        max_body_bytes: 8388608
+        max_body_bytes: 452984832
         max_header_bytes: 1048576
         tls_cert_file: ""
         tls_key_file: ""
@@ -364,8 +365,8 @@ app:
         persistent_peers_max_dial_period: 0s
         flush_throttle_timeout: 100ms
         max_packet_msg_payload_size: 1024
-        send_rate: 10485760
-        recv_rate: 10485760
+        send_rate: 25165824
+        recv_rate: 25165824
         pex: true
         seed_mode: false
         private_peer_ids: ""
@@ -373,22 +374,22 @@ app:
         handshake_timeout: 20s
         dial_timeout: 3s
       mempool:
-        type: priority
+        type: cat
         recheck: true
         recheck_timeout: 1s
         broadcast: true
         wal_dir: ""
         size: 5000
-        max_txs_bytes: 83886080
+        max_txs_bytes: 419430400
         cache_size: 10000
         keep_invalid_txs_in_cache: false
-        max_tx_bytes: 2097152
+        max_tx_bytes: 8388608
         max_batch_bytes: 0
-        ttl_duration: 1m15s
-        ttl_num_blocks: 12
+        ttl_duration: 0s
+        ttl_num_blocks: 36
         experimental_max_gossip_connections_to_persistent_peers: 0
         experimental_max_gossip_connections_to_non_persistent_peers: 0
-        max_gossip_delay: 0s
+        max_gossip_delay: 20s
       statesync:
         enable: false
         rpc_servers: ""
@@ -404,19 +405,21 @@ app:
       consensus:
         only_internal_wal: "true"
         wal_file: data/cs.wal/wal
-        timeout_propose: 3.5s
+        timeout_propose: 8.5s
         timeout_propose_delta: 500ms
         timeout_prevote: 1s
         timeout_prevote_delta: 500ms
         timeout_precommit: 1s
         timeout_precommit_delta: 500ms
-        timeout_commit: 4.2s
+        timeout_commit: 1ms
         double_sign_check_height: 0
         skip_timeout_commit: false
         create_empty_blocks: true
         create_empty_blocks_interval: 0s
         peer_gossip_sleep_duration: 100ms
         peer_query_maj23_sleep_duration: 2s
+        disable_propagation_reactor: false
+        enable_legacy_block_prop: false
       storage:
         discard_abci_responses: true
       tx_index:
@@ -431,7 +434,7 @@ app:
         trace_pull_address: ""
         trace_type: noop
         trace_push_batch_size: 1000
-        tracing_tables: mempool_tx,mempool_peer_state,consensus_round_state,consensus_block_parts,consensus_block,consensus_vote,consensus_state,consensus_proposal,peers,pending_bytes,received_bytes,abci
+        tracing_tables: mempool_tx,mempool_peer_state,recovered,mempool_add_result,mempool_tx_status,mempool_recheck,consensus_round_state,consensus_block_parts,consensus_block,consensus_vote,consensus_state,consensus_proposal,gap,retries,catch_reqs,peers,pending_bytes,received_bytes,abci,recovery_received_part,message_stats
         pyroscope_url: ""
         pyroscope_trace: false
         pyroscope_profile_types:

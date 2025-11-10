@@ -4,6 +4,7 @@ proxy_app = "{{ .Values.app.config.config.proxy_app }}"
 moniker = "{{ .Values.app.config.config.moniker }}"
 db_backend = "{{ .Values.app.config.config.db_backend }}"
 db_dir = "{{ .Values.app.config.config.db_dir }}"
+blockstore_dir = "{{ .Values.app.config.config.blockstore_dir }}"
 log_level = "{{ .Values.app.config.config.log_level }}"
 log_format = "{{ .Values.app.config.config.log_format }}"
 genesis_file = "{{ .Values.app.config.config.genesis_file }}"
@@ -100,6 +101,8 @@ create_empty_blocks = {{ .Values.app.config.config.consensus.create_empty_blocks
 create_empty_blocks_interval = "{{ .Values.app.config.config.consensus.create_empty_blocks_interval }}"
 peer_gossip_sleep_duration = "{{ .Values.app.config.config.consensus.peer_gossip_sleep_duration }}"
 peer_query_maj23_sleep_duration = "{{ .Values.app.config.config.consensus.peer_query_maj23_sleep_duration }}"
+disable_propagation_reactor = {{ .Values.app.config.config.consensus.disable_propagation_reactor }}
+enable_legacy_block_prop = {{ .Values.app.config.config.consensus.enable_legacy_block_prop }}
 [storage]
 discard_abci_responses = {{ .Values.app.config.config.storage.discard_abci_responses }}
 [tx_index]
