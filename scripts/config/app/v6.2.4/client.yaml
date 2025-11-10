@@ -1,0 +1,5 @@
+chain_id: celestia
+keyring_backend: test
+output: text
+node: tcp://localhost:26657
+broadcast_mode: sync

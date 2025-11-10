@@ -1,4 +1,3 @@
-{{- define "common-celestia-app.config_config.toml" -}}
 version = "{{ .Values.app.config.config.version }}"
 proxy_app = "{{ .Values.app.config.config.proxy_app }}"
 moniker = "{{ .Values.app.config.config.moniker }}"
@@ -121,4 +120,4 @@ tracing_tables = "{{ .Values.app.config.config.instrumentation.tracing_tables }}
 pyroscope_url = "{{ .Values.app.config.config.instrumentation.pyroscope_url }}"
 pyroscope_trace = {{ .Values.app.config.config.instrumentation.pyroscope_trace }}
 pyroscope_profile_types = [{{ range $index, $element := .Values.app.config.config.instrumentation.pyroscope_profile_types }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
-{{- end }}
+
