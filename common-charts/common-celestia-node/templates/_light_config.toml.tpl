@@ -13,6 +13,7 @@
   DefaultBackendName = "{{ .Values.node.config.light.configtoml.State.DefaultBackendName }}"
   EstimatorAddress = "{{ .Values.node.config.light.configtoml.State.EstimatorAddress }}"
   EnableEstimatorTLS = {{ .Values.node.config.light.configtoml.State.EnableEstimatorTLS }}
+  TxWorkerAccounts = {{ .Values.node.config.bridge.configtoml.State.TxWorkerAccounts }}
 [P2P]
   ListenAddresses = [{{ range $index, $element := .Values.node.config.light.configtoml.P2P.ListenAddresses }}{{ if $index }}, {{ end }}"{{ $element }}"{{ end }}]
   AnnounceAddresses = {{ .Values.node.config.light.configtoml.P2P.AnnounceAddresses }}

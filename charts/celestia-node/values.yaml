@@ -93,8 +93,8 @@ node:
     registry: ghcr.io
     # -- repository for the image, celestiaorg/celestia-node by default
     repository: celestiaorg/celestia-node
-    # -- tag for the image, v0.21.3 by default
-    tag: v0.21.3
+    # -- tag for the image, v0.28.2 by default
+    tag: v0.28.2
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -180,6 +180,7 @@ node:
           DefaultBackendName: test
           EstimatorAddress: ""
           EnableEstimatorTLS: false
+          TxWorkerAccounts: 0
         P2P:
           ListenAddresses:
             - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
@@ -276,6 +277,7 @@ node:
           DefaultBackendName: test
           EstimatorAddress: ""
           EnableEstimatorTLS: false
+          TxWorkerAccounts: 0
         P2P:
           ListenAddresses:
             - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
@@ -379,6 +381,7 @@ node:
           DefaultBackendName: test
           EstimatorAddress: ""
           EnableEstimatorTLS: false
+          TxWorkerAccounts: 0
         P2P:
           ListenAddresses:
             - /ip4/0.0.0.0/udp/2121/quic-v1/webtransport
@@ -449,7 +452,7 @@ node:
             IndexCacheSize: 2048
             WriteBatchSize: 512
           Syncer:
-            PruningWindow: 0s
+            PruningWindow: 169h0m0s
             SyncFromHash: ""
             SyncFromHeight: 0
           Server:
